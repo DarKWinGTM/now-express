@@ -20,7 +20,7 @@ app.get("/", (req, res) => {
 });
 
 // Echo route
-app.get("/", (req, res) => {
+app.get("/echo", (req, res) => {
     res.setHeader('Content-Type', 'text/html');
     res.end(`ECHO : ${req.url }`);
 });
