@@ -3,14 +3,14 @@
   "builds": [{ "src": "index.js", "use": "@now/node-server" }],
   "routes": [
     {
-      "src": "/users",
+      "src": "/echo",
       "dest": "/index.js",
       "methods": ["GET"]
     },
     {
-      "src": "/user",
+      "src": "/mine",
       "dest": "/index.js",
-      "methods": ["POST"]
+      "methods": ["GET"]
     }
   ]
 }
