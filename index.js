@@ -11,13 +11,13 @@ app.get("/", (req, res) => {
     console.log( req.url ); 
     
     //	sets the header of the response to the user and the type of response that you would be sending back
-    //	res.setHeader('Content-Type', 'text/html');
-    //	res.write("<html>");
-    //	res.write("<head><title>HELLO</title> </head>");
-    //	res.write("<body><h1>HELLO</h1></body>")
-    //	res.write("<html>");
-    //	res.end();
-    res.send("Welcome to a basic express App");
+    res.setHeader('Content-Type', 'text/html');
+    res.write("<html>");
+    res.write("<head><title>HELLO</title> </head>");
+    res.write("<body><h1>HELLO</h1></body>")
+    res.write("<html>");
+    res.end();
+    //	res.send("Welcome to a basic express App");
     
 });
 
