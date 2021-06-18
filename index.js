@@ -1,3 +1,7 @@
+const crypto                        = require('crypto');
+const { Api, JsonRpc, Serialize }   = require('eosjs');
+const url                           = require('url');
+const fs                            = require('fs'); 
 const express = require("express");
 const app = express();
 
