@@ -68,33 +68,6 @@ app.get("/mine", (req, res) => {
 	}; 
 });
 
-// GET packedtrx API
-app.get("/packedtrx", (req, res) => {
-    res.setHeader('Content-Type', 'text/html'); 
-    res.write("<html>"); 
-    res.write("<head>"); 
-    res.write("<title>TEST</title>"); 
-    res.write("</head>"); 
-    res.write("<body>"); 
-    res.write("<h1>TEST</h1>"); 
-    res.write("</body>"); 
-    res.write("<html>"); 
-    res.end(); 
-}; 
-// POST packedtrx API
-app.post("/packedtrx", (req, res) => {
-    res.setHeader('Content-Type', 'text/html'); 
-    res.write("<html>"); 
-    res.write("<head>"); 
-    res.write("<title>TEST</title>"); 
-    res.write("</head>"); 
-    res.write("<body>"); 
-    res.write("<h1>TEST</h1>"); 
-    res.write("</body>"); 
-    res.write("<html>"); 
-    res.end(); 
-}; 
-
 // Listen on port 5000
 app.listen(port, () => {
     console.log(`Server is booming on port 5000 Visit http://localhost:5000`);
