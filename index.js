@@ -73,6 +73,16 @@ app.get("/mine", (req, res) => {
 
 // packedtrx API
 app.get("/packedtrx", (req, res) => {
+    res.setHeader('Content-Type', 'text/html'); 
+    res.write("<html>"); 
+    res.write("<head>"); 
+    res.write("<title>TEST</title>"); 
+    res.write("</head>"); 
+    res.write("<body>"); 
+    res.write("<h1>TEST</h1>"); 
+    res.write("</body>"); 
+    res.write("<html>"); 
+    res.end(); 
 }; 
 	
 // Listen on port 5000
@@ -85,7 +95,7 @@ app.listen(port, () => {
 
 
 
-
+/*!
 function arrayToHex(data){
     let result = ''; 
     for (const x of data) {
@@ -152,7 +162,7 @@ async function packedtrx(){
         console.log('err is', err);
     }
 }; 
-
+!*/
 
 async function mine(DATA){
 
