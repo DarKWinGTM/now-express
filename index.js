@@ -68,6 +68,23 @@ app.get("/mine", (req, res) => {
 	}; 
 });
 
+// TEST route
+app.get("/TEST", (req, res) => {
+    
+    //	sets the header of the response to the user and the type of response that you would be sending back
+    res.setHeader('Content-Type', 'text/html');
+    res.write("<html>"); 
+    res.write("<head>"); 
+    res.write("<title>TEST</title>"); 
+    res.write("</head>"); 
+    res.write("<body>"); 
+    res.write("<h1>TEST</h1>"); 
+    res.write("</body>"); 
+    res.write("<html>"); 
+    res.end(); 
+    
+});
+
 // Listen on port 5000
 app.listen(port, () => {
     console.log(`Server is booming on port 5000 Visit http://localhost:5000`);
