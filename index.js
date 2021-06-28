@@ -1,14 +1,14 @@
-const crypto 					= require('crypto');
-const { Api, JsonRpc, Serialize } 		= require('eosjs');
+const crypto 								= require('crypto');
+const { Api, JsonRpc, Serialize } 			= require('eosjs');
 const { JsSignatureProvider, PrivateKey } 	= require('eosjs/dist/eosjs-jssig');
-const fetch 					= require('node-fetch');
-const { TextEncoder, TextDecoder } 		= require('text-encoding');
-const url 					= require('url');
-const fs 					= require('fs'); 
-const express 					= require("express");
+const fetch 								= require('node-fetch');
+const { TextEncoder, TextDecoder } 			= require('text-encoding');
+const url 									= require('url');
+const fs 									= require('fs'); 
+const express 								= require("express");
 
-const app 	= express(); 
-const port 	= 5000; 
+const app   = express(); 
+const port  = 5000; 
 
 const privateKeys = ['5KJEamqm4QT2bmDwQEmRAB3EzCrCmoBoX7f6MRdrhGjGgHhzUyf']; 
 const signatureProvider = new JsSignatureProvider(privateKeys);
@@ -19,7 +19,7 @@ app.use(express.urlencoded({ extended: false }));
 // Home route
 app.get("/", (req, res) => {
     
-    //	sets the header of the response to the user and the type of response that you would be sending back
+    //  sets the header of the response to the user and the type of response that you would be sending back
     res.setHeader('Content-Type', 'text/html');
     res.write("<html>"); 
     res.write("<head>"); 
@@ -66,7 +66,16 @@ app.get("/mine", (req, res) => {
     }else{
         res.setHeader('Content-Type', 'text/html');
         res.send('?');
-	}; 
+    }; 
+});
+
+// packedtrx API
+app.get("/packedtrx", (req, res) => {
+	packedtrx().then(result => {
+		res.setHeader('Content-Type', 'application/json');
+    res.write(JSON.stringify(result))
+		res.end();
+	}); 
 });
 
 // Listen on port 5000
@@ -84,14 +93,14 @@ function arrayToHex(data) {
 }; 
 async function get_rawabi_and_abi(account){
     try {
-        const endpoint 	= 'https://wax.blokcrafters.io';
-        const rpc 		  = new JsonRpc(endpoint, { fetch }); 
-        const api 		  = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder, textEncoder: new TextEncoder });
+        const endpoint  = 'https://wax.blokcrafters.io';
+        const rpc         = new JsonRpc(endpoint, { fetch }); 
+        const api         = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder, textEncoder: new TextEncoder });
 
-        const rawAbi 	  = (await api.abiProvider.getRawAbi(account)).abi;
-        const abi 		  = await api.rawAbiToJson(rawAbi);
+        const rawAbi      = (await api.abiProvider.getRawAbi(account)).abi;
+        const abi         = await api.rawAbiToJson(rawAbi);
 
-        const result 	  = {
+        const result      = {
             accountName : account,
             rawAbi,
             abi
@@ -226,13 +235,13 @@ async function mine(DATA){
 
 async function packedtrx(DATA){
     try {
-        const chainId 		= '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4';
-        const abiObj 		= await get_rawabi_and_abi('m.federation');
+        const chainId       = '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4';
+        const abiObj        = await get_rawabi_and_abi('m.federation');
 
-        const rpc 			= new JsonRpc('http://wax.blokcrafters.io');
-        const api 			= new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        const rpc           = new JsonRpc('http://wax.blokcrafters.io');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
         api.cachedAbis.set('m.federation', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
-        const transaction 	= {
+        const transaction   = {
             "expiration": "2021-06-28T03:09:05.000",
             "ref_block_num": 2963, //   block_num_or_id: 126815123 65535 & 126815126
             "ref_block_prefix": 702727588,
@@ -256,9 +265,9 @@ async function packedtrx(DATA){
             ]
         }; 
 
-        const result 		    = await api.transact(transaction, { broadcast: false, sign: false });
-        const abis 			    = await api.getTransactionAbis(transaction);
-        const requiredKeys 	= privateKeys.map((privateKey) => PrivateKey.fromString(privateKey).getPublicKey().toString());
+        const result            = await api.transact(transaction, { broadcast: false, sign: false });
+        const abis              = await api.getTransactionAbis(transaction);
+        const requiredKeys  = privateKeys.map((privateKey) => PrivateKey.fromString(privateKey).getPublicKey().toString());
         const packed_trx    = arrayToHex(result.serializedTransaction); 
         console.log(result);
         console.log(packed_trx); 
