@@ -224,5 +224,54 @@ async function mine(DATA){
     //  });
 }; 
 
+async function packedtrx(DATA){
+    try {
+        const chainId 		= '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4';
+        const abiObj 		= await get_rawabi_and_abi('m.federation');
+
+        const rpc 			= new JsonRpc('http://wax.blokcrafters.io');
+        const api 			= new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        api.cachedAbis.set('m.federation', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction 	= {
+            "expiration": "2021-06-28T03:09:05.000",
+            "ref_block_num": 2963, //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix": 702727588,
+            "actions": [
+                {
+                    "account": "m.federation",
+                    "name": "mine",
+                    "authorization": [
+                    {
+                        "actor": "w5fes.wam",
+                        "permission": "active"
+                    }
+                    ],
+                    data: {
+                        //  miner : wax.userAccount, 
+                        //  nonce : '0000908603AC56E1080D4A83E7E2623981'
+                        miner : 'w5fes.wam', // wax.userAccount
+                        nonce : '0D4A83E7E2623981' 
+                    }
+                }
+            ]
+        }; 
+
+        const result 		    = await api.transact(transaction, { broadcast: false, sign: false });
+        const abis 			    = await api.getTransactionAbis(transaction);
+        const requiredKeys 	= privateKeys.map((privateKey) => PrivateKey.fromString(privateKey).getPublicKey().toString());
+        const packed_trx    = arrayToHex(result.serializedTransaction); 
+        console.log(result);
+        console.log(packed_trx); 
+        //  console.log(result.serializedTransaction.toString()); 
+
+        return new Promise(function(resolve, reject) {
+          resolve({packed_trx, serializedTransaction : result.serializedTransaction}); 
+        });
+
+    } catch (err) {
+        console.log('err is', err);
+    }
+}; 
+
 //  https://replit.com/talk/share/NodeJS-html-Host/31118
 //  https://replit.com/talk/learn/Web-Server-Using-Nodejs/39555
