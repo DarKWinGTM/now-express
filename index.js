@@ -7,8 +7,10 @@ const express 					= require("express");
 const fetch 					= require('node-fetch');
 const { TextEncoder, TextDecoder } 		= require('text-encoding');
 
+/*!
 const privateKeys 				= ['5KJEamqm4QT2bmDwQEmRAB3EzCrCmoBoX7f6MRdrhGjGgHhzUyf']; 
 const signatureProvider 			= new JsSignatureProvider(privateKeys); 
+!*/
 
 const app 					= express(); 
 const port 					= 5000; 
@@ -73,6 +75,19 @@ app.get("/mine", (req, res) => {
 
 // packedtrx API
 app.get("/packedtrx", (req, res) => {
+    res.setHeader('Content-Type', 'text/html'); 
+    res.write("<html>"); 
+    res.write("<head>"); 
+    res.write("<title>TEST</title>"); 
+    res.write("</head>"); 
+    res.write("<body>"); 
+    res.write("<h1>TEST</h1>"); 
+    res.write("</body>"); 
+    res.write("<html>"); 
+    res.end(); 
+}; 
+// packedtrx API
+app.post("/packedtrx", (req, res) => {
     res.setHeader('Content-Type', 'text/html'); 
     res.write("<html>"); 
     res.write("<head>"); 
@@ -281,6 +296,9 @@ async function mine(DATA){
     return new Promise(function(resolve, reject) {
         resolve({account:account_str, nonce:rand_str, answer:hex_digest}); 
     });
+}; 
+
+
         //  var url = "https://wax.greymass.com/v1/history/get_transaction";
         //  var xhr = new XMLHttpRequest();
         //  xhr.open("POST", url);
@@ -301,7 +319,6 @@ async function mine(DATA){
     //      setTimeout(function(){
     //      }, 21500); 
     //  });
-}; 
 
 //  https://replit.com/talk/share/NodeJS-html-Host/31118
 //  https://replit.com/talk/learn/Web-Server-Using-Nodejs/39555
