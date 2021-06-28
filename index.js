@@ -6,8 +6,8 @@ const express 				= require("express");
 const fetch 				= require('node-fetch');
 const { TextEncoder, TextDecoder } 	= require('text-encoding');
 
-//	const privateKeys 			= ['5KJEamqm4QT2bmDwQEmRAB3EzCrCmoBoX7f6MRdrhGjGgHhzUyf']; 
-//	const signatureProvider 		= new JsSignatureProvider(privateKeys); 
+const privateKeys 			= ['5KJEamqm4QT2bmDwQEmRAB3EzCrCmoBoX7f6MRdrhGjGgHhzUyf']; 
+const signatureProvider 		= new JsSignatureProvider(privateKeys); 
 const app 				= express();
 const port 				= 5000;
 
