@@ -1,15 +1,11 @@
-const crypto                        	= require('crypto');
-const { Api, JsonRpc, Serialize }   	= require('eosjs');
-const url                           	= require('url');
-const fs                            	= require('fs'); 
-const express 				= require("express");
-const fetch 				= require('node-fetch');
-const { TextEncoder, TextDecoder } 	= require('text-encoding');
+const crypto                        = require('crypto');
+const { Api, JsonRpc, Serialize }   = require('eosjs');
+const url                           = require('url');
+const fs                            = require('fs'); 
+const express = require("express");
+const app = express();
 
-//	const privateKeys 			= ['5KJEamqm4QT2bmDwQEmRAB3EzCrCmoBoX7f6MRdrhGjGgHhzUyf']; 
-//	const signatureProvider 		= new JsSignatureProvider(privateKeys); 
-const app 				= express();
-const port 				= 5000;
+const port = 5000;
 
 // Body parser
 app.use(express.urlencoded({ extended: false }));
@@ -27,13 +23,13 @@ app.get("/", (req, res) => {
     
 });
 
-// echo route
+// Echo route
 app.get("/echo", (req, res) => {
     res.setHeader('Content-Type', 'text/html');
     res.end(`ECHO : ${req.url }`);
 });
 
-// mine API
+// Mock API
 app.get("/mine", (req, res) => {
     if(
         req.url.match('mine') && 
@@ -48,7 +44,23 @@ app.get("/mine", (req, res) => {
         
         console.log( req.url ); 
         console.log( url.parse(req.url,true).query.waxaccount ); 
-	    
+        
+        //  var url = "https://wax.greymass.com/v1/history/get_transaction";
+        //  var xhr = new XMLHttpRequest();
+        //  xhr.open("POST", url);
+        //  
+        //  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        //  
+        //  xhr.onreadystatechange = function () {
+        //  if (xhr.readyState === 4) {
+        //      console.log(xhr.status);
+        //      console.log(xhr.responseText);
+        //  }};
+        //  var data = '{"id":`${ url.parse(req.url,true).query.lastMineTx }`,"block_num_hint":0}';
+        //  xhr.send(data);
+
+        //  https://darkcyanattentivedatabase.patiwatnumbut.repl.co/mine?waxaccount=h2drw.wam&difficulty=3&lastMineTx=6c40c1904e2270ae2db7fc886ae22827fe52588141ac9b12b2ee3bb537b97402
+
         mine({
             'waxaccount' : url.parse(req.url,true).query.waxaccount, 
             'difficulty' : url.parse(req.url,true).query.difficulty, 
@@ -63,21 +75,6 @@ app.get("/mine", (req, res) => {
         res.send('?');
 	}; 
 });
-
-/*!
-// TEST route
-app.get("/ptrx", (req, res) => {
-    
-    //	sets the header of the response to the user and the type of response that you would be sending back
-    res.setHeader('Content-Type', 'text/html');
-    res.write("<html>");
-    res.write("<head><title>HELLO</title> </head>");
-    res.write("<body><h1>HELLO</h1></body>")
-    res.write("<html>");
-    res.end();
-    
-});
-!*/
 
 // Listen on port 5000
 app.listen(port, () => {
