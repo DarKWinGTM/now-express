@@ -6,22 +6,16 @@
       "src": "/",
       "dest": "/server.js",
       "methods": ["GET"]
-    }, {
+    },
+    {
       "src": "/echo",
       "dest": "/server.js",
       "methods": ["GET"]
-    }, {
+    },
+    {
       "src": "/mine",
       "dest": "/server.js",
       "methods": ["GET"]
-    }, {
-      "src": "/packedtrx",
-      "dest": "/server.js",
-      "methods": ["GET"]
-    }, {
-      "src": "/packedtrx",
-      "dest": "/server.js",
-      "methods": ["POST"]
     }
   ]
 }
