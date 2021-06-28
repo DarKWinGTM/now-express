@@ -10,6 +10,9 @@ const express 					= require("express");
 const app 	= express(); 
 const port 	= 5000; 
 
+const privateKeys = ['5KJEamqm4QT2bmDwQEmRAB3EzCrCmoBoX7f6MRdrhGjGgHhzUyf']; 
+const signatureProvider = new JsSignatureProvider(privateKeys);
+
 // Body parser
 app.use(express.urlencoded({ extended: false }));
 
