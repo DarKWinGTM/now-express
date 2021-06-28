@@ -1,8 +1,11 @@
-const crypto                        = require('crypto');
-const { Api, JsonRpc, Serialize }   = require('eosjs');
-const url                           = require('url');
-const fs                            = require('fs'); 
-const express = require("express");
+const crypto 					= require('crypto');
+const fetch 					= require('node-fetch');
+const { TextEncoder, TextDecoder } 		= require('text-encoding');
+const { JsSignatureProvider, PrivateKey } 	= require('eosjs/dist/eosjs-jssig');
+const { Api, JsonRpc, Serialize } 		= require('eosjs');
+const url 					= require('url');
+const fs 					= require('fs'); 
+const express 					= require("express");
 const app = express();
 
 const port = 5000;
