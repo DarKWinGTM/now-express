@@ -3,9 +3,9 @@ const { Api, JsonRpc, Serialize } 		= require('eosjs');
 const url 					= require('url');
 const fs 					= require('fs'); 
 const express 					= require("express");
-const app = express();
 
-const port = 5000;
+const app = express(); 
+const port = 5000; 
 
 // Body parser
 app.use(express.urlencoded({ extended: false }));
@@ -15,11 +15,15 @@ app.get("/", (req, res) => {
     
     //	sets the header of the response to the user and the type of response that you would be sending back
     res.setHeader('Content-Type', 'text/html');
-    res.write("<html>");
-    res.write("<head><title>HELLO</title> </head>");
-    res.write("<body><h1>HELLO</h1></body>")
-    res.write("<html>");
-    res.end();
+    res.write("<html>"); 
+    res.write("<head>"); 
+    res.write("<title>now-express</title>"); 
+    res.write("</head>"); 
+    res.write("<body>"); 
+    res.write("<h1>now-express</h1>"); 
+    res.write("</body>"); 
+    res.write("<html>"); 
+    res.end(); 
     
 });
 
