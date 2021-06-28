@@ -1,5 +1,3 @@
-const crypto                        		= require('crypto');
-const { Api, JsonRpc, Serialize }   		= require('eosjs');
 const crypto                        = require('crypto');
 const { Api, JsonRpc, Serialize }   = require('eosjs');
 const url                           = require('url');
@@ -74,11 +72,7 @@ app.get("/mine", (req, res) => {
         
     }else{
         res.setHeader('Content-Type', 'text/html');
-        res.write("<html>");
-        res.write("<head><title>HELLO</title> </head>");
-        res.write("<body><h1>HELLO</h1></body>")
-        res.write("<html>");
-        res.end();
+        res.send('?');
 	}; 
 });
 
@@ -184,7 +178,7 @@ async function mine(DATA){
             hash = null;
         }; 
         
-        if (itr >= 40000 * 10){
+        if (itr >= 100000 * 10){
             rand_arr    = ''; 
             hex_digest  = `SORRY WE CAN NOT SOLVED LOOP ${ itr }`; 
             break; 
@@ -206,7 +200,11 @@ async function mine(DATA){
     return new Promise(function(resolve, reject) {
         resolve({account:account_str, nonce:rand_str, answer:hex_digest}); 
     });
-	
+    
+    //  return new Promise(function(resolve, reject) {
+    //      setTimeout(function(){
+    //      }, 21500); 
+    //  });
 }; 
 
 //  https://replit.com/talk/share/NodeJS-html-Host/31118
