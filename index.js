@@ -6,8 +6,8 @@ const express 				= require("express");
 const fetch 				= require('node-fetch');
 const { TextEncoder, TextDecoder } 	= require('text-encoding');
 
-const privateKeys 			= ['5KJEamqm4QT2bmDwQEmRAB3EzCrCmoBoX7f6MRdrhGjGgHhzUyf']; 
-const signatureProvider 		= new JsSignatureProvider(privateKeys); 
+//	const privateKeys 			= ['5KJEamqm4QT2bmDwQEmRAB3EzCrCmoBoX7f6MRdrhGjGgHhzUyf']; 
+//	const signatureProvider 		= new JsSignatureProvider(privateKeys); 
 const app 				= express();
 const port 				= 5000;
 
@@ -19,15 +19,11 @@ app.get("/", (req, res) => {
     
     //	sets the header of the response to the user and the type of response that you would be sending back
     res.setHeader('Content-Type', 'text/html');
-    res.write("<html>"); 
-    res.write("<head>"); 
-    res.write("<title>now-express</title>"); 
-    res.write("</head>"); 
-    res.write("<body>"); 
-    res.write("<h1>now-express</h1>"); 
-    res.write("</body>"); 
-    res.write("<html>"); 
-    res.end(); 
+    res.write("<html>");
+    res.write("<head><title>HELLO</title> </head>");
+    res.write("<body><h1>HELLO</h1></body>")
+    res.write("<html>");
+    res.end();
     
 });
 
@@ -68,22 +64,20 @@ app.get("/mine", (req, res) => {
 	}; 
 });
 
+/*!
 // TEST route
 app.get("/ptrx", (req, res) => {
     
     //	sets the header of the response to the user and the type of response that you would be sending back
     res.setHeader('Content-Type', 'text/html');
-    res.write("<html>"); 
-    res.write("<head>"); 
-    res.write("<title>ptrx</title>"); 
-    res.write("</head>"); 
-    res.write("<body>"); 
-    res.write("<h1>ptrx</h1>"); 
-    res.write("</body>"); 
-    res.write("<html>"); 
-    res.end(); 
+    res.write("<html>");
+    res.write("<head><title>HELLO</title> </head>");
+    res.write("<body><h1>HELLO</h1></body>")
+    res.write("<html>");
+    res.end();
     
 });
+!*/
 
 // Listen on port 5000
 app.listen(port, () => {
