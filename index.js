@@ -1,19 +1,13 @@
 const crypto                        		= require('crypto');
 const { Api, JsonRpc, Serialize }   		= require('eosjs');
-const { JsSignatureProvider, PrivateKey } 	= require('eosjs/dist/eosjs-jssig');
-const url                           		= require('url');
-const fs                            		= require('fs'); 
-const express 					= require("express");
-const fetch 					= require('node-fetch');
-const { TextEncoder, TextDecoder } 		= require('text-encoding');
+const crypto                        = require('crypto');
+const { Api, JsonRpc, Serialize }   = require('eosjs');
+const url                           = require('url');
+const fs                            = require('fs'); 
+const express = require("express");
+const app = express();
 
-/*!
-const privateKeys 				= ['5KJEamqm4QT2bmDwQEmRAB3EzCrCmoBoX7f6MRdrhGjGgHhzUyf']; 
-const signatureProvider 			= new JsSignatureProvider(privateKeys); 
-!*/
-
-const app 					= express(); 
-const port 					= 5000; 
+const port = 5000;
 
 // Body parser
 app.use(express.urlencoded({ extended: false }));
@@ -22,16 +16,12 @@ app.use(express.urlencoded({ extended: false }));
 app.get("/", (req, res) => {
     
     //	sets the header of the response to the user and the type of response that you would be sending back
-    res.setHeader('Content-Type', 'text/html'); 
-    res.write("<html>"); 
-    res.write("<head>"); 
-    res.write("<title>now-express</title>"); 
-    res.write("</head>"); 
-    res.write("<body>"); 
-    res.write("<h1>now-express</h1>"); 
-    res.write("</body>"); 
-    res.write("<html>"); 
-    res.end(); 
+    res.setHeader('Content-Type', 'text/html');
+    res.write("<html>");
+    res.write("<head><title>HELLO</title> </head>");
+    res.write("<body><h1>HELLO</h1></body>")
+    res.write("<html>");
+    res.end();
     
 });
 
@@ -41,9 +31,8 @@ app.get("/echo", (req, res) => {
     res.end(`ECHO : ${req.url }`);
 });
 
-// MINE API
+// Mock API
 app.get("/mine", (req, res) => {
-}; 
     if(
         req.url.match('mine') && 
         req.url.match('waxaccount') && 
@@ -58,6 +47,22 @@ app.get("/mine", (req, res) => {
         console.log( req.url ); 
         console.log( url.parse(req.url,true).query.waxaccount ); 
         
+        //  var url = "https://wax.greymass.com/v1/history/get_transaction";
+        //  var xhr = new XMLHttpRequest();
+        //  xhr.open("POST", url);
+        //  
+        //  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        //  
+        //  xhr.onreadystatechange = function () {
+        //  if (xhr.readyState === 4) {
+        //      console.log(xhr.status);
+        //      console.log(xhr.responseText);
+        //  }};
+        //  var data = '{"id":`${ url.parse(req.url,true).query.lastMineTx }`,"block_num_hint":0}';
+        //  xhr.send(data);
+
+        //  https://darkcyanattentivedatabase.patiwatnumbut.repl.co/mine?waxaccount=h2drw.wam&difficulty=3&lastMineTx=6c40c1904e2270ae2db7fc886ae22827fe52588141ac9b12b2ee3bb537b97402
+
         mine({
             'waxaccount' : url.parse(req.url,true).query.waxaccount, 
             'difficulty' : url.parse(req.url,true).query.difficulty, 
@@ -69,115 +74,20 @@ app.get("/mine", (req, res) => {
         
     }else{
         res.setHeader('Content-Type', 'text/html');
-        res.send('?');
+        res.write("<html>");
+        res.write("<head><title>HELLO</title> </head>");
+        res.write("<body><h1>HELLO</h1></body>")
+        res.write("<html>");
+        res.end();
 	}; 
 });
 
-// packedtrx API
-app.get("/packedtrx", (req, res) => {
-    res.setHeader('Content-Type', 'text/html'); 
-    res.write("<html>"); 
-    res.write("<head>"); 
-    res.write("<title>TEST</title>"); 
-    res.write("</head>"); 
-    res.write("<body>"); 
-    res.write("<h1>TEST</h1>"); 
-    res.write("</body>"); 
-    res.write("<html>"); 
-    res.end(); 
-}; 
-// packedtrx API
-app.post("/packedtrx", (req, res) => {
-    res.setHeader('Content-Type', 'text/html'); 
-    res.write("<html>"); 
-    res.write("<head>"); 
-    res.write("<title>TEST</title>"); 
-    res.write("</head>"); 
-    res.write("<body>"); 
-    res.write("<h1>TEST</h1>"); 
-    res.write("</body>"); 
-    res.write("<html>"); 
-    res.end(); 
-}; 
-	
 // Listen on port 5000
 app.listen(port, () => {
     console.log(`Server is booming on port 5000 Visit http://localhost:5000`);
 });
 
 
-
-
-
-
-/*!
-function arrayToHex(data){
-    let result = ''; 
-    for (const x of data) {
-        result += ('00' + x.toString(16)).slice(-2);
-    }; return result;
-}; 
-async function get_rawabi_and_abi(account){
-    try {
-        const endpoint 	= 'https://wax.blokcrafters.io';
-        const rpc 		= new JsonRpc(endpoint, { fetch }); 
-        const api 		= new Api({ rpc, signatureProvider, textDecoder: new TextDecoder, textEncoder: new TextEncoder });
-
-        const rawAbi 	= (await api.abiProvider.getRawAbi(account)).abi;
-        const abi 		= await api.rawAbiToJson(rawAbi);
-
-        const result 	= {
-            accountName : account,
-            rawAbi,
-            abi
-        }; return result;
-    } catch (err) {
-        console.log(err);
-    }
-}; 
-async function packedtrx(){
-    try {
-        const chainId = '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4';
-        const abiObj = await get_rawabi_and_abi('m.federation');
-
-        const rpc = new JsonRpc('http://wax.blokcrafters.io');
-        const api = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
-        api.cachedAbis.set('m.federation', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
-        const transaction = {
-            "expiration": "2021-06-28T03:09:05.000",
-            "ref_block_num": 2963, //   block_num_or_id: 126815123 65535 & 126815126
-            "ref_block_prefix": 702727588,
-            "actions": [
-                {
-                    "account": "m.federation",
-                    "name": "mine",
-                    "authorization": [
-                    {
-                        "actor": "w5fes.wam",
-                        "permission": "active"
-                    }
-                    ],
-                    data: {
-                        //  miner : wax.userAccount, 
-                        //  nonce : '0000908603AC56E1080D4A83E7E2623981'
-                        miner : 'w5fes.wam', // wax.userAccount
-                        nonce : '0D4A83E7E2623981' 
-                    }
-                }
-            ]
-        }; 
-
-        const result = await api.transact(transaction, { broadcast: false, sign: false });
-        const abis = await api.getTransactionAbis(transaction);
-        const requiredKeys = privateKeys.map((privateKey) => PrivateKey.fromString(privateKey).getPublicKey().toString());
-        console.log(result);
-        const packed_trx = arrayToHex(result.serializedTransaction); 
-        console.log(packed_trx); 
-    } catch (err) {
-        console.log('err is', err);
-    }
-}; 
-!*/
 
 async function mine(DATA){
 
@@ -274,7 +184,7 @@ async function mine(DATA){
             hash = null;
         }; 
         
-        if (itr >= 100000 * 10){
+        if (itr >= 40000 * 10){
             rand_arr    = ''; 
             hex_digest  = `SORRY WE CAN NOT SOLVED LOOP ${ itr }`; 
             break; 
@@ -282,8 +192,8 @@ async function mine(DATA){
 
     }; 
     
-    const end 		= (new Date()).getTime();
-    const rand_str 	= toHex(rand_arr);
+    const end = (new Date()).getTime();
+    const rand_str = toHex(rand_arr);
     
     console.log(`Found hash in ${itr} iterations with ${account} ${rand_str}, last = ${last}, hex_digest ${hex_digest} taking ${(end-start) / 1000}s`)
     const mine_work = {account:account_str, nonce:rand_str, answer:hex_digest}; 
@@ -296,29 +206,8 @@ async function mine(DATA){
     return new Promise(function(resolve, reject) {
         resolve({account:account_str, nonce:rand_str, answer:hex_digest}); 
     });
+	
 }; 
-
-
-        //  var url = "https://wax.greymass.com/v1/history/get_transaction";
-        //  var xhr = new XMLHttpRequest();
-        //  xhr.open("POST", url);
-        //  
-        //  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-        //  
-        //  xhr.onreadystatechange = function () {
-        //  if (xhr.readyState === 4) {
-        //      console.log(xhr.status);
-        //      console.log(xhr.responseText);
-        //  }};
-        //  var data = '{"id":`${ url.parse(req.url,true).query.lastMineTx }`,"block_num_hint":0}';
-        //  xhr.send(data);
-
-        //  https://darkcyanattentivedatabase.patiwatnumbut.repl.co/mine?waxaccount=h2drw.wam&difficulty=3&lastMineTx=6c40c1904e2270ae2db7fc886ae22827fe52588141ac9b12b2ee3bb537b97402
-
-    //  return new Promise(function(resolve, reject) {
-    //      setTimeout(function(){
-    //      }, 21500); 
-    //  });
 
 //  https://replit.com/talk/share/NodeJS-html-Host/31118
 //  https://replit.com/talk/learn/Web-Server-Using-Nodejs/39555
