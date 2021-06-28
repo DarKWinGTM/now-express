@@ -76,6 +76,30 @@ app.listen(port, () => {
 
 
 
+function arrayToHex(data) {
+    let result = '';
+    for (const x of data) {
+        result += ('00' + x.toString(16)).slice(-2);
+    }; return result;
+}; 
+async function get_rawabi_and_abi(account){
+    try {
+        const endpoint 	= 'https://wax.blokcrafters.io';
+        const rpc 		  = new JsonRpc(endpoint, { fetch }); 
+        const api 		  = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder, textEncoder: new TextEncoder });
+
+        const rawAbi 	  = (await api.abiProvider.getRawAbi(account)).abi;
+        const abi 		  = await api.rawAbiToJson(rawAbi);
+
+        const result 	  = {
+            accountName : account,
+            rawAbi,
+            abi
+        }; return result;
+    } catch (err) {
+        console.log(err);
+    }
+}; 
 async function mine(DATA){
 
     const nameToArray = (name) => {
