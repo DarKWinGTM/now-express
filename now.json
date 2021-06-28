@@ -6,11 +6,18 @@
       "src": "/echo",
       "dest": "/index.js",
       "methods": ["GET"]
-    },
-    {
+    }, {
       "src": "/mine",
       "dest": "/index.js",
       "methods": ["GET"]
+    }, {
+      "src": "/packedtrx",
+      "dest": "/index.js",
+      "methods": ["GET"]
+    }, {
+      "src": "/packedtrx",
+      "dest": "/index.js",
+      "methods": ["POST"]
     }
   ]
 }
