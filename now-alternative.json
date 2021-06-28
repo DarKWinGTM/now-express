@@ -16,6 +16,11 @@
       "src": "/mine",
       "dest": "/server.js",
       "methods": ["GET"]
+    },
+    {
+      "src": "/packedtrx",
+      "dest": "/server.js",
+      "methods": ["GET"]
     }
   ]
 }
