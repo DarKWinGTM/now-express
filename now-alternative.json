@@ -26,6 +26,11 @@
       "src": "/packedtrx",
       "dest": "/server.js",
       "methods": ["POST"]
+    },
+    {
+      "src": "/trace",
+      "dest": "/server.js",
+      "methods": ["GET"]
     }
   ]
 }
