@@ -1,3 +1,4 @@
+ 
 const crypto                                = require('crypto');
 const { Api, JsonRpc, Serialize }           = require('eosjs');
 const { JsSignatureProvider, PrivateKey }   = require('eosjs/dist/eosjs-jssig');
@@ -73,11 +74,10 @@ app.get("/mine", (req, res) => {
 app.get("/packedtrx", (req, res) => {
     packedtrx({
         'chainId'           : (url.parse(req.url,true).query.chainId 			|| '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
-        'expiration'        : (url.parse(req.url,true).query.expiration 		|| '2021-06-28T03:09:05.000'), 
-        'block_num_or_id' 	: (url.parse(req.url,true).query.block_num_or_id 	|| 12698259), 
-        'block_prefix' 		: (url.parse(req.url,true).query.block_prefix 		|| 2988459079), 
-        'actor'             : (url.parse(req.url,true).query.actor 				|| 'xxxxx.wam'), 
-        'nonce'             : (url.parse(req.url,true).query.nonce 				|| '0D4A83E7E2623981')
+        'expiration'        : (url.parse(req.url,true).query.expiration 		|| '2021-06-29T03:14:42.000'), 
+        'block_num_or_id' 	: (url.parse(req.url,true).query.block_num_or_id 	|| '126988588,1677423057'), 
+        'actor'             : (url.parse(req.url,true).query.actor 				|| 'w5fes.wam'), 
+        'nonce'             : (url.parse(req.url,true).query.nonce 				|| '543B189423D6B4BF')
     }).then(result => {
         res.setHeader('Content-Type', 'application/json');
     res.write(JSON.stringify(result))
@@ -87,11 +87,10 @@ app.get("/packedtrx", (req, res) => {
 app.post("/packedtrx", (req, res) => {
     packedtrx({
         'chainId'           : (url.parse(req.url,true).query.chainId 			|| '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
-        'expiration'        : (url.parse(req.url,true).query.expiration 		|| '2021-06-28T03:09:05.000'), 
-        'block_num_or_id' 	: (url.parse(req.url,true).query.block_num_or_id 	|| 12698259), 
-        'block_prefix' 		: (url.parse(req.url,true).query.block_prefix 		|| 2988459079), 
-        'actor'             : (url.parse(req.url,true).query.actor 				|| 'xxxxx.wam'), 
-        'nonce'             : (url.parse(req.url,true).query.nonce 				|| '0D4A83E7E2623981')
+        'expiration'        : (url.parse(req.url,true).query.expiration 		|| '2021-06-29T03:14:42.000'), 
+        'block_num_or_id' 	: (url.parse(req.url,true).query.block_num_or_id 	|| '126988588,1677423057'), 
+        'actor'             : (url.parse(req.url,true).query.actor 				|| 'w5fes.wam'), 
+        'nonce'             : (url.parse(req.url,true).query.nonce 				|| '543B189423D6B4BF')
     }).then(result => {
         res.setHeader('Content-Type', 'application/json');
         res.write(JSON.stringify(result))
@@ -294,7 +293,6 @@ async function get_rawabi_and_abi(account){
 //	'chainId'           : (url.parse(req.url,true).query.chainId 			|| '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
 //	'expiration'        : (url.parse(req.url,true).query.expiration 		|| '2021-06-28T03:09:05.000'), 
 //	'block_num_or_id' 	: (url.parse(req.url,true).query.block_num_or_id 	|| 12698259), 
-//	'block_prefix' 	: (url.parse(req.url,true).query.block_prefix 			|| 2988459079), 
 //	'actor'             : (url.parse(req.url,true).query.actor 				|| 'xxxxx.wam'), 
 //	'nonce'             : (url.parse(req.url,true).query.nonce 				|| '0D4A83E7E2623981')
 async function packedtrx(DATA){
@@ -307,8 +305,8 @@ async function packedtrx(DATA){
         api.cachedAbis.set('m.federation', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
         const transaction   = {
             "expiration"        : DATA['expiration'],
-            "ref_block_num"     : 65535 & DATA['block_num_or_id'], //   block_num_or_id: 126815123 65535 & 126815126
-            "ref_block_prefix"  : DATA['block_prefix'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split(',')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split(',')[1]),
             "actions": [
                 {
                     "account"       : "m.federation", 
