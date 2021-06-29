@@ -98,7 +98,7 @@ app.post("/packedtrx", (req, res) => {
     }); 
 });
 
-app.post("/trace", (req, res) => {
+app.get("/trace", (req, res) => {
 	fetch(
 		'https://www.cloudflare.com/cdn-cgi/trace'
 	).then(
