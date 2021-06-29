@@ -1,4 +1,3 @@
- 
 const crypto                                = require('crypto');
 const { Api, JsonRpc, Serialize }           = require('eosjs');
 const { JsSignatureProvider, PrivateKey }   = require('eosjs/dist/eosjs-jssig');
@@ -75,7 +74,7 @@ app.get("/packedtrx", (req, res) => {
     packedtrx({
         'chainId'           : (url.parse(req.url,true).query.chainId 			|| '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
         'expiration'        : (url.parse(req.url,true).query.expiration 		|| '2021-06-29T03:14:42.000'), 
-        'block_num_or_id' 	: (url.parse(req.url,true).query.block_num_or_id 	|| '126988588,1677423057'), 
+        'block_num_or_id' 	: (url.parse(req.url,true).query.block_num_or_id 	|| '126988588-1677423057'), 
         'actor'             : (url.parse(req.url,true).query.actor 				|| 'w5fes.wam'), 
         'nonce'             : (url.parse(req.url,true).query.nonce 				|| '543B189423D6B4BF')
     }).then(result => {
@@ -88,7 +87,7 @@ app.post("/packedtrx", (req, res) => {
     packedtrx({
         'chainId'           : (url.parse(req.url,true).query.chainId 			|| '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
         'expiration'        : (url.parse(req.url,true).query.expiration 		|| '2021-06-29T03:14:42.000'), 
-        'block_num_or_id' 	: (url.parse(req.url,true).query.block_num_or_id 	|| '126988588,1677423057'), 
+        'block_num_or_id' 	: (url.parse(req.url,true).query.block_num_or_id 	|| '126988588-1677423057'), 
         'actor'             : (url.parse(req.url,true).query.actor 				|| 'w5fes.wam'), 
         'nonce'             : (url.parse(req.url,true).query.nonce 				|| '543B189423D6B4BF')
     }).then(result => {
@@ -105,6 +104,7 @@ app.listen(port, () => {
 
 
 //	https://awmine-express.vercel.app/packedtrx?actor=w5fes.wam&block_num_or_id=126987084&block_prefix=1571208434
+//	https://awmine-express.vercel.app/packedtrx?actor=w5fes.wam&block_num_or_id=126988588-1677423057&nonce=543B189423D6B4BF&expiration=2021-06-29T03:14:42.000&chainId=1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4
 
 
 
@@ -305,8 +305,8 @@ async function packedtrx(DATA){
         api.cachedAbis.set('m.federation', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
         const transaction   = {
             "expiration"        : DATA['expiration'],
-            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split(',')[0]), //   block_num_or_id: 126815123 65535 & 126815126
-            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split(',')[1]),
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
             "actions": [
                 {
                     "account"       : "m.federation", 
