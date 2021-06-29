@@ -98,6 +98,25 @@ app.post("/packedtrx", (req, res) => {
     }); 
 });
 
+app.post("/trace", (req, res) => {
+	fetch(
+		'https://www.cloudflare.com/cdn-cgi/trace'
+	).then(
+		result => result.text()
+	).then(result => {
+		console.log(result)
+		res.setHeader('Content-Type', 'text/html');
+		res.write("<html>"); 
+		res.write("<head>"); 
+		res.write("<title>trace</title>"); 
+		res.write("</head>"); 
+		res.write("<body>"); 
+		res.write(`<pre>${ result }</pre>`); 
+		res.write("</body>"); 
+		res.write("<html>"); 
+        res.end();
+	});
+});
 // Listen on port 5000
 app.listen(port, () => {
     console.log(`Server is booming on port 5000 Visit http://localhost:5000`);
