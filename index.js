@@ -74,7 +74,8 @@ app.get("/packedtrx", (req, res) => {
     packedtrx({
         'chainId'           : (url.parse(req.url,true).query.chainId 			|| '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
         'expiration'        : (url.parse(req.url,true).query.expiration 		|| '2021-06-28T03:09:05.000'), 
-        'ref_block_prefix'  : (url.parse(req.url,true).query.ref_block_prefix 	|| 12698259), 
+        'block_num_or_id' 	: (url.parse(req.url,true).query.block_num_or_id 	|| 12698259), 
+        'block_num_or_id' 	: (url.parse(req.url,true).query.block_num_or_id 	|| 2988459079), 
         'actor'             : (url.parse(req.url,true).query.actor 				|| 'xxxxx.wam'), 
         'nonce'             : (url.parse(req.url,true).query.nonce 				|| '0D4A83E7E2623981')
     }).then(result => {
@@ -87,7 +88,8 @@ app.post("/packedtrx", (req, res) => {
     packedtrx({
         'chainId'           : (url.parse(req.url,true).query.chainId 			|| '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
         'expiration'        : (url.parse(req.url,true).query.expiration 		|| '2021-06-28T03:09:05.000'), 
-        'ref_block_prefix'  : (url.parse(req.url,true).query.ref_block_prefix 	|| 12698259), 
+        'block_num_or_id' 	: (url.parse(req.url,true).query.block_num_or_id 	|| 12698259), 
+        'ref_block_prefix' 	: (url.parse(req.url,true).query.ref_block_prefix 	|| 2988459079), 
         'actor'             : (url.parse(req.url,true).query.actor 				|| 'xxxxx.wam'), 
         'nonce'             : (url.parse(req.url,true).query.nonce 				|| '0D4A83E7E2623981')
     }).then(result => {
@@ -104,7 +106,7 @@ app.listen(port, () => {
 
 
 //	https://awmine-express.vercel.app/packedtrx?actor=&xxxxx.waxchainId=1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4&ref_block_prefix=126982598&expiration=2021-06-29T02:24:47.000&nonce=
-
+//	https://awmine-express.vercel.app/packedtrx?actor=w5fes.wam&chainId=1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4&nonce=26A9FAA921F1F0BB&expiration=2021-06-29T02:37:16.000&ref_block_prefix=126984096
 
 
 
@@ -289,6 +291,14 @@ async function get_rawabi_and_abi(account){
         console.log(err);
     }
 }; 
+
+
+//	'chainId'           : (url.parse(req.url,true).query.chainId 			|| '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+//	'expiration'        : (url.parse(req.url,true).query.expiration 		|| '2021-06-28T03:09:05.000'), 
+//	'block_num_or_id' 	: (url.parse(req.url,true).query.block_num_or_id 	|| 12698259), 
+//	'ref_block_prefix' 	: (url.parse(req.url,true).query.ref_block_prefix 	|| 2988459079), 
+//	'actor'             : (url.parse(req.url,true).query.actor 				|| 'xxxxx.wam'), 
+//	'nonce'             : (url.parse(req.url,true).query.nonce 				|| '0D4A83E7E2623981')
 async function packedtrx(DATA){
     try {
         const chainId       = DATA['chainId'];
@@ -299,7 +309,7 @@ async function packedtrx(DATA){
         api.cachedAbis.set('m.federation', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
         const transaction   = {
             "expiration"        : DATA['expiration'],
-            "ref_block_num"     : 65535 & DATA['ref_block_prefix'], //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_num"     : 65535 & DATA['block_num_or_id'], //   block_num_or_id: 126815123 65535 & 126815126
             "ref_block_prefix"  : DATA['ref_block_prefix'],
             "actions": [
                 {
