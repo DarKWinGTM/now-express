@@ -1,3 +1,4 @@
+   
 const crypto                                = require('crypto');
 const { Api, JsonRpc, Serialize }           = require('eosjs');
 const { JsSignatureProvider, PrivateKey }   = require('eosjs/dist/eosjs-jssig');
@@ -75,7 +76,7 @@ app.get("/packedtrx", (req, res) => {
         'chainId'           : (url.parse(req.url,true).query.chainId 			|| '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
         'expiration'        : (url.parse(req.url,true).query.expiration 		|| '2021-06-28T03:09:05.000'), 
         'block_num_or_id' 	: (url.parse(req.url,true).query.block_num_or_id 	|| 12698259), 
-        'block_num_or_id' 	: (url.parse(req.url,true).query.block_num_or_id 	|| 2988459079), 
+        'ref_block_prefix' 	: (url.parse(req.url,true).query.ref_block_prefix 	|| 2988459079), 
         'actor'             : (url.parse(req.url,true).query.actor 				|| 'xxxxx.wam'), 
         'nonce'             : (url.parse(req.url,true).query.nonce 				|| '0D4A83E7E2623981')
     }).then(result => {
