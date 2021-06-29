@@ -72,11 +72,11 @@ app.get("/mine", (req, res) => {
 // packedtrx API
 app.get("/packedtrx", (req, res) => {
     packedtrx({
-        'chainId'           : (url.parse(req.url,true).query.chainId || ''), 
-        'expiration'        : (url.parse(req.url,true).query.expiration || ''), 
-        'ref_block_num'     : (url.parse(req.url,true).query.ref_block_num || 0), 
-        'ref_block_prefix'  : (url.parse(req.url,true).query.ref_block_prefix || 0), 
-        'actor'             : (url.parse(req.url,true).query.actor || '')
+        'chainId'           : (url.parse(req.url,true).query.chainId 			|| '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+        'expiration'        : (url.parse(req.url,true).query.expiration 		|| '2021-06-28T03:09:05.000'), 
+        'ref_block_prefix'  : (url.parse(req.url,true).query.ref_block_prefix 	|| 12698259), 
+        'actor'             : (url.parse(req.url,true).query.actor 				|| 'xxxxx.wam'), 
+        'nonce'             : (url.parse(req.url,true).query.nonce 				|| '0D4A83E7E2623981')
     }).then(result => {
         res.setHeader('Content-Type', 'application/json');
     res.write(JSON.stringify(result))
@@ -85,11 +85,11 @@ app.get("/packedtrx", (req, res) => {
 });
 app.post("/packedtrx", (req, res) => {
     packedtrx({
-        'chainId'           : (url.parse(req.url,true).query.chainId || ''), 
-        'expiration'        : (url.parse(req.url,true).query.expiration || ''), 
-        'ref_block_num'     : (url.parse(req.url,true).query.ref_block_num || 0), 
-        'ref_block_prefix'  : (url.parse(req.url,true).query.ref_block_prefix || 0), 
-        'actor'             : (url.parse(req.url,true).query.actor || '')
+        'chainId'           : (url.parse(req.url,true).query.chainId 			|| '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+        'expiration'        : (url.parse(req.url,true).query.expiration 		|| '2021-06-28T03:09:05.000'), 
+        'ref_block_prefix'  : (url.parse(req.url,true).query.ref_block_prefix 	|| 12698259), 
+        'actor'             : (url.parse(req.url,true).query.actor 				|| 'xxxxx.wam'), 
+        'nonce'             : (url.parse(req.url,true).query.nonce 				|| '0D4A83E7E2623981')
     }).then(result => {
         res.setHeader('Content-Type', 'application/json');
         res.write(JSON.stringify(result))
@@ -103,7 +103,7 @@ app.listen(port, () => {
 });
 
 
-//	https://awmine-express.vercel.app/packedtrx?actor=&xxxxx.waxchainId=1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4&ref_block_num=39366&ref_block_prefix=126982598&expiration=2021-06-29T02:24:47.000
+//	https://awmine-express.vercel.app/packedtrx?actor=&xxxxx.waxchainId=1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4&ref_block_prefix=126982598&expiration=2021-06-29T02:24:47.000&nonce=
 
 
 
@@ -291,29 +291,29 @@ async function get_rawabi_and_abi(account){
 }; 
 async function packedtrx(DATA){
     try {
-        const chainId       = (DATA['chainId'] || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4');
+        const chainId       = DATA['chainId'];
         const abiObj        = await get_rawabi_and_abi('m.federation');
 
         const rpc           = new JsonRpc('http://wax.blokcrafters.io');
         const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
         api.cachedAbis.set('m.federation', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
         const transaction   = {
-            "expiration"        : (DATA['expiration']       || '2021-06-28T03:09:05.000'),
-            "ref_block_num"     : (DATA['ref_block_num']    || 65535 & 126815123), //   block_num_or_id: 126815123 65535 & 126815126
-            "ref_block_prefix"  : (DATA['ref_block_prefix'] || 126815123),
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & DATA['ref_block_prefix'], //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : DATA['ref_block_prefix'],
             "actions": [
                 {
                     "account"       : "m.federation", 
                     "name"          : "mine", 
                     "authorization"     : [{
-                        "actor"         : (DATA['actor'] || 'xxxxx.wam'),
-                        "permission"        : "active"
+                        "actor"         : DATA['actor'],
+                        "permission" 	: "active"
                     }],
                     data        : {
                         //  miner : wax.userAccount, 
                         //  nonce : '0000908603AC56E1080D4A83E7E2623981'
-                        miner           : (DATA['actor'] || 'xxxxx.wam'), // wax.userAccount
-                        nonce           : '0D4A83E7E2623981' 
+                        miner           : DATA['actor'], // wax.userAccount
+                        nonce           : DATA['nonce']
                     }
                 }
             ]
@@ -328,7 +328,7 @@ async function packedtrx(DATA){
         //  console.log(result.serializedTransaction.toString()); 
 
         return new Promise(function(resolve, reject) {
-			resolve({packed_trx, serializedTransaction : result.serializedTransaction}); 
+			resolve({packed_trx, serializedTransaction : result.serializedTransaction, transaction}); 
         });
 
     } catch (err) {
