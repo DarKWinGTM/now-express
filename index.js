@@ -72,11 +72,11 @@ app.get("/mine", (req, res) => {
 // packedtrx API
 app.get("/packedtrx", (req, res) => {
     packedtrx({
-        'chainId'           : '', 
-        'expiration'        : '', 
-        'ref_block_num'     : 0, 
-        'ref_block_prefix'  : 0, 
-        'actor'             : ''
+        'chainId'           : (url.parse(req.url,true).query.chainId || ''), 
+        'expiration'        : (url.parse(req.url,true).query.expiration || ''), 
+        'ref_block_num'     : (url.parse(req.url,true).query.ref_block_num || 0), 
+        'ref_block_prefix'  : (url.parse(req.url,true).query.ref_block_prefix || 0), 
+        'actor'             : (url.parse(req.url,true).query.actor || '')
     }).then(result => {
         res.setHeader('Content-Type', 'application/json');
     res.write(JSON.stringify(result))
@@ -103,10 +103,7 @@ app.listen(port, () => {
 });
 
 
-
-
-
-
+//	https://awmine-express.vercel.app/packedtrx?actor=&xxxxx.waxchainId=1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4&ref_block_num=39366&ref_block_prefix=126982598&expiration=2021-06-29T02:24:47.000
 
 
 
@@ -302,8 +299,8 @@ async function packedtrx(DATA){
         api.cachedAbis.set('m.federation', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
         const transaction   = {
             "expiration"        : (DATA['expiration']       || '2021-06-28T03:09:05.000'),
-            "ref_block_num"     : (DATA['ref_block_num']    || 2963), //   block_num_or_id: 126815123 65535 & 126815126
-            "ref_block_prefix"  : (DATA['ref_block_prefix'] || 702727588),
+            "ref_block_num"     : (DATA['ref_block_num']    || 65535 & 126815123), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : (DATA['ref_block_prefix'] || 126815123),
             "actions": [
                 {
                     "account"       : "m.federation", 
