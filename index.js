@@ -1,3 +1,4 @@
+
 const crypto                                = require('crypto');
 const { Api, JsonRpc, Serialize }           = require('eosjs');
 const { JsSignatureProvider, PrivateKey }   = require('eosjs/dist/eosjs-jssig');
@@ -72,11 +73,11 @@ app.get("/mine", (req, res) => {
 // packedtrx API
 app.get("/packedtrx", (req, res) => {
     packedtrx({
-        'chainId'           : (url.parse(req.url,true).query.chainId 			|| '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
-        'expiration'        : (url.parse(req.url,true).query.expiration 		|| '2021-06-29T03:14:42.000'), 
-        'block_num_or_id' 	: (url.parse(req.url,true).query.block_num_or_id 	|| '126988588-1677423057'), 
-        'actor'             : (url.parse(req.url,true).query.actor 				|| 'w5fes.wam'), 
-        'nonce'             : (url.parse(req.url,true).query.nonce 				|| '543B189423D6B4BF')
+        'chainId'           : (url.parse(req.url,true).query.chainId            || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+        'expiration'        : (url.parse(req.url,true).query.expiration         || '2021-06-29T03:14:42.000'), 
+        'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id    || '126988588-1677423057'), 
+        'actor'             : (url.parse(req.url,true).query.actor              || 'w5fes.wam'), 
+        'nonce'             : (url.parse(req.url,true).query.nonce              || '543B189423D6B4BF')
     }).then(result => {
         res.setHeader('Content-Type', 'application/json');
     res.write(JSON.stringify(result))
@@ -85,11 +86,11 @@ app.get("/packedtrx", (req, res) => {
 });
 app.post("/packedtrx", (req, res) => {
     packedtrx({
-        'chainId'           : (url.parse(req.url,true).query.chainId 			|| '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
-        'expiration'        : (url.parse(req.url,true).query.expiration 		|| '2021-06-29T03:14:42.000'), 
-        'block_num_or_id' 	: (url.parse(req.url,true).query.block_num_or_id 	|| '126988588-1677423057'), 
-        'actor'             : (url.parse(req.url,true).query.actor 				|| 'w5fes.wam'), 
-        'nonce'             : (url.parse(req.url,true).query.nonce 				|| '543B189423D6B4BF')
+        'chainId'           : (url.parse(req.url,true).query.chainId            || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+        'expiration'        : (url.parse(req.url,true).query.expiration         || '2021-06-29T03:14:42.000'), 
+        'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id    || '126988588-1677423057'), 
+        'actor'             : (url.parse(req.url,true).query.actor              || 'w5fes.wam'), 
+        'nonce'             : (url.parse(req.url,true).query.nonce              || '543B189423D6B4BF')
     }).then(result => {
         res.setHeader('Content-Type', 'application/json');
         res.write(JSON.stringify(result))
@@ -103,8 +104,8 @@ app.listen(port, () => {
 });
 
 
-//	https://awmine-express.vercel.app/packedtrx?actor=w5fes.wam&block_num_or_id=126987084&block_prefix=1571208434
-//	https://awmine-express.vercel.app/packedtrx?actor=w5fes.wam&block_num_or_id=126988588-1677423057&nonce=543B189423D6B4BF&expiration=2021-06-29T03:14:42.000&chainId=1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4
+//  https://awmine-express.vercel.app/packedtrx?actor=w5fes.wam&block_num_or_id=126987084&block_prefix=1571208434
+//  https://awmine-express.vercel.app/packedtrx?actor=w5fes.wam&block_num_or_id=126988588-1677423057&nonce=543B189423D6B4BF&expiration=2021-06-29T03:14:42.000&chainId=1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4
 
 
 
@@ -288,13 +289,6 @@ async function get_rawabi_and_abi(account){
         console.log(err);
     }
 }; 
-
-
-//	'chainId'           : (url.parse(req.url,true).query.chainId 			|| '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
-//	'expiration'        : (url.parse(req.url,true).query.expiration 		|| '2021-06-28T03:09:05.000'), 
-//	'block_num_or_id' 	: (url.parse(req.url,true).query.block_num_or_id 	|| 12698259), 
-//	'actor'             : (url.parse(req.url,true).query.actor 				|| 'xxxxx.wam'), 
-//	'nonce'             : (url.parse(req.url,true).query.nonce 				|| '0D4A83E7E2623981')
 async function packedtrx(DATA){
     try {
         const chainId       = DATA['chainId'];
@@ -313,11 +307,9 @@ async function packedtrx(DATA){
                     "name"          : "mine", 
                     "authorization"     : [{
                         "actor"         : DATA['actor'],
-                        "permission" 	: "active"
+                        "permission"    : "active"
                     }],
                     data        : {
-                        //  miner : wax.userAccount, 
-                        //  nonce : '0000908603AC56E1080D4A83E7E2623981'
                         miner           : DATA['actor'], // wax.userAccount
                         nonce           : DATA['nonce']
                     }
@@ -334,13 +326,10 @@ async function packedtrx(DATA){
         //  console.log(result.serializedTransaction.toString()); 
 
         return new Promise(function(resolve, reject) {
-			resolve({packed_trx, serializedTransaction : result.serializedTransaction, transaction}); 
+            resolve({packed_trx, serializedTransaction : result.serializedTransaction, transaction}); 
         });
 
     } catch (err) {
         console.log('err is', err);
     }
 }; 
-
-//  https://replit.com/talk/share/NodeJS-html-Host/31118
-//  https://replit.com/talk/learn/Web-Server-Using-Nodejs/39555
