@@ -349,7 +349,7 @@ async function packedtrx(DATA){
         //  console.log(result.serializedTransaction.toString()); 
 
         return new Promise(function(resolve, reject) {
-            resolve({packed_trx, serializedTransaction : serial, transactions, serial}); 
+            resolve({packed_trx, serializedTransaction : serial, transactions}); 
         });
 
 /*!
