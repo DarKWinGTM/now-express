@@ -336,7 +336,7 @@ async function packedtrx(DATA){
             ]
         }; 
 
-        const action        = await api.serializeActions(transaction);
+        const action        = await api.serializeActions(transaction.actions);
         const result        = await api.transact(transaction, { broadcast: false, sign: false });
         const abis          = await api.getTransactionAbis(transaction);
         const requiredKeys  = privateKeys.map((privateKey) => PrivateKey.fromString(privateKey).getPublicKey().toString());
