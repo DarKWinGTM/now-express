@@ -336,6 +336,22 @@ async function packedtrx(DATA){
             ]
         }; 
 
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions);
+        
+        const result        = await api.transact(transaction, { broadcast: false, sign: false });
+        const abis          = await api.getTransactionAbis(transaction);
+        const requiredKeys  = privateKeys.map((privateKey) => PrivateKey.fromString(privateKey).getPublicKey().toString());
+        const packed_trx    = arrayToHex(result.serializedTransaction); 
+        //  console.log(result);
+        //  console.log(packed_trx); 
+        //  console.log(result.serializedTransaction.toString()); 
+
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : result.serializedTransaction, transaction, action, serial}); 
+        });
+
+/*!
         const action        = await api.serializeActions(transaction.actions);
         const result        = await api.transact(transaction, { broadcast: false, sign: false });
         const abis          = await api.getTransactionAbis(transaction);
@@ -348,7 +364,7 @@ async function packedtrx(DATA){
         return new Promise(function(resolve, reject) {
             resolve({packed_trx, serializedTransaction : result.serializedTransaction, transaction, action}); 
         });
-/*!
+	
         const result        = await api.transact(transaction, { broadcast: false, sign: false });
         const abis          = await api.getTransactionAbis(transaction);
         const requiredKeys  = privateKeys.map((privateKey) => PrivateKey.fromString(privateKey).getPublicKey().toString());
