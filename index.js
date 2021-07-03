@@ -336,8 +336,8 @@ async function packedtrx(DATA){
             ]
         }; 
 
-        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
-        const serial        = api.serializeTransaction(transactions);
+        const transaction   = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transaction);
         const packed_trx    = arrayToHex(serial); 
         
         //	const result        = await api.transact(transaction, { broadcast: false, sign: false });
