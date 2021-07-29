@@ -296,8 +296,8 @@ async function mine(DATA){
     });
 }; 
 
-const endpoint      = 'https://wax.blokcrafters.io';
-//	const endpoint      = 'https://api.wax.alohaeos.com';
+//	const endpoint      = 'https://wax.blokcrafters.io';
+const endpoint      = 'https://api.wax.alohaeos.com';
 const rpc           = new JsonRpc(endpoint, { fetch }); 
 
 function arrayToHex(data) {
