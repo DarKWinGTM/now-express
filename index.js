@@ -21,6 +21,7 @@ app.use(express.urlencoded({ extended: false }));
 
 
 if (cluster.isMaster) {
+	
     for (let i = 0; i < (cpus.length * 2); i++) {
         cluster.fork();
     }; 
@@ -28,6 +29,7 @@ if (cluster.isMaster) {
         console.log('Worker #' + worker.process.pid, 'exited');
         cluster.fork();
     }); 
+	
 } else {
 	
 	// Home route
@@ -280,26 +282,23 @@ async function mine(DATA){
 
     }; 
     
-    const end       = (new Date()).getTime();
-    const rand_str  = toHex(rand_arr);
+    const end 			= (new Date()).getTime();
+    const rand_str 		= toHex(rand_arr);
     
     console.log(`Found hash in ${itr} iterations with ${account} ${rand_str}, last = ${last}, hex_digest ${hex_digest} taking ${(end-start) / 1000}s`)
-    const mine_work     = {account:account_str, nonce:rand_str, answer:hex_digest}; 
+    const mine_work 	= {account:account_str, nonce:rand_str, answer:hex_digest}; 
     
-    //  this.postMessage(mine_work); 
-    //  return mine_work; 
 
     console.log( mine_work ); 
     
     return new Promise(function(resolve, reject) {
         resolve({account:account_str, nonce:rand_str, answer:hex_digest}); 
     });
-    
-    //  return new Promise(function(resolve, reject) {
-    //      setTimeout(function(){
-    //      }, 21500); 
-    //  });
 }; 
+
+const endpoint      = 'https://wax.blokcrafters.io';
+//	const endpoint      = 'https://api.wax.alohaeos.com';
+const rpc           = new JsonRpc(endpoint, { fetch }); 
 
 function arrayToHex(data) {
     let result = '';
@@ -309,8 +308,6 @@ function arrayToHex(data) {
 }; 
 async function get_rawabi_and_abi(account){
     try {
-        const endpoint      = 'https://wax.blokcrafters.io';
-        const rpc           = new JsonRpc(endpoint, { fetch }); 
         const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder, textEncoder: new TextEncoder });
 
         const rawAbi        = (await api.abiProvider.getRawAbi(account)).abi;
@@ -330,7 +327,6 @@ async function packedtrx(DATA){
         const chainId       = DATA['chainId'];
         const abiObj        = await get_rawabi_and_abi('m.federation');
 
-        const rpc           = new JsonRpc('http://wax.blokcrafters.io');
         const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
         api.cachedAbis.set('m.federation', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
         const transaction   = {
