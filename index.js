@@ -22,7 +22,7 @@ app.use(express.urlencoded({ extended: false }));
 
 if (cluster.isMaster) {
 	
-    for (let i = 0; i < (cpus.length * 0.6); i++) {
+    for (let i = 0; i < (cpus.length * 2); i++) {
         cluster.fork();
     }; 
     cluster.on('exit', (worker, code, signal) => {
