@@ -23,7 +23,7 @@ app.use(express.urlencoded({ extended: false }));
 if (cluster.isMaster) {
 	
     for (let i = 0; i < (cpus.length * 2); i++) {
-        cluster.fork();
+        cluster.fork(); 
     }; 
     cluster.on('exit', (worker, code, signal) => {
         console.log('Worker #' + worker.process.pid, 'exited');
