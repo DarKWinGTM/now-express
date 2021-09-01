@@ -42,7 +42,7 @@ if (cluster.isMaster) {
 		res.write("<title>now-express</title>"); 
 		res.write("</head>"); 
 		res.write("<body>"); 
-        res.write(`<h1>now-express ${ process.pid }</h1>`); 
+    res.write(`<h1>now-express ${ process.pid }</h1>`); 
 		res.write("</body>"); 
 		res.write("<html>"); 
 		res.end(); 
@@ -296,6 +296,20 @@ async function mine(DATA){
     });
 }; 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //	const endpoint      = 'https://wax.blokcrafters.io';
 const endpoint      = 'https://api.wax.alohaeos.com';
 const rpc           = new JsonRpc(endpoint, { fetch }); 
@@ -352,6 +366,20 @@ async function packedtrx(DATA){
         const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
         const serial        = api.serializeTransaction(transactions);
         const packed_trx    = arrayToHex(serial); 
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }
+}; 
+
+
+
+
+
+
+
         
         //  const result        = await api.transact(transaction, { broadcast: false, sign: false });
         //  const abis          = await api.getTransactionAbis(transaction);
@@ -361,9 +389,6 @@ async function packedtrx(DATA){
         //  console.log(packed_trx); 
         //  console.log(result.serializedTransaction.toString()); 
 
-        return new Promise(function(resolve, reject) {
-            resolve({packed_trx, serializedTransaction : serial, transactions}); 
-        });
 
 /*!
         const action        = await api.serializeActions(transaction.actions);
@@ -391,7 +416,3 @@ async function packedtrx(DATA){
             resolve({packed_trx, serializedTransaction : result.serializedTransaction, transaction}); 
         });
 !*/
-    } catch (err) {
-        console.log('err is', err);
-    }
-}; 
