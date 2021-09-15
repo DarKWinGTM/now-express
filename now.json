@@ -3,6 +3,11 @@
   "builds": [{ "src": "index.js", "use": "@now/node-server" }],
   "routes": [
     {
+      "src": "/",
+      "dest": "/server.js",
+      "methods": ["GET"]
+    },
+    {
       "src": "/echo",
       "dest": "/index.js",
       "methods": ["GET"]
@@ -19,6 +24,36 @@
     }, 
     {
       "src": "/packedtrx",
+      "dest": "/index.js",
+      "methods": ["POST"]
+    }, 
+    {
+      "src": "/packedtrx_swap",
+      "dest": "/index.js",
+      "methods": ["GET"]
+    }, 
+    {
+      "src": "/packedtrx_swap",
+      "dest": "/index.js",
+      "methods": ["POST"]
+    }, 
+    {
+      "src": "/packedtrx_transfer",
+      "dest": "/index.js",
+      "methods": ["GET"]
+    }, 
+    {
+      "src": "/packedtrx_transfer",
+      "dest": "/index.js",
+      "methods": ["POST"]
+    }, 
+    {
+      "src": "/packedtrx_setland",
+      "dest": "/index.js",
+      "methods": ["GET"]
+    }, 
+    {
+      "src": "/packedtrx_setland",
       "dest": "/index.js",
       "methods": ["POST"]
     }, 
