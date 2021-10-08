@@ -593,10 +593,12 @@ async function packedtrx_free_trx(DATA){
             "actions": [{
                 "account"       : "yeomenwarder", 
                 "name"          : "warder", 
-                "authorization"     : [{
-                    "actor"         : 'yeomenwarder',
-                    "permission"    : "guard"
-                }],
+                "authorization"     : [
+                  //  {
+                  //    "actor"         : 'yeomenwarder',
+                  //    "permission"    : "guard"
+                  //  }
+                ],
                 data        : {
                     message         : DATA['message']
                 }
