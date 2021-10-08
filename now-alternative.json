@@ -9,27 +9,67 @@
     },
     {
       "src": "/echo",
-      "dest": "/server.js",
+      "dest": "/index.js",
       "methods": ["GET"]
-    },
+    }, 
     {
       "src": "/mine",
-      "dest": "/server.js",
+      "dest": "/index.js",
       "methods": ["GET"]
-    },
+    }, 
     {
       "src": "/packedtrx",
-      "dest": "/server.js",
+      "dest": "/index.js",
       "methods": ["GET"]
-    },
+    }, 
     {
       "src": "/packedtrx",
-      "dest": "/server.js",
+      "dest": "/index.js",
       "methods": ["POST"]
-    },
+    }, 
+    {
+      "src": "/packedtrx_free_trx",
+      "dest": "/index.js",
+      "methods": ["GET"]
+    }, 
+    {
+      "src": "/packedtrx_free_trx",
+      "dest": "/index.js",
+      "methods": ["POST"]
+    }, 
+    {
+      "src": "/packedtrx_swap",
+      "dest": "/index.js",
+      "methods": ["GET"]
+    }, 
+    {
+      "src": "/packedtrx_swap",
+      "dest": "/index.js",
+      "methods": ["POST"]
+    }, 
+    {
+      "src": "/packedtrx_transfer",
+      "dest": "/index.js",
+      "methods": ["GET"]
+    }, 
+    {
+      "src": "/packedtrx_transfer",
+      "dest": "/index.js",
+      "methods": ["POST"]
+    }, 
+    {
+      "src": "/packedtrx_setland",
+      "dest": "/index.js",
+      "methods": ["GET"]
+    }, 
+    {
+      "src": "/packedtrx_setland",
+      "dest": "/index.js",
+      "methods": ["POST"]
+    }, 
     {
       "src": "/trace",
-      "dest": "/server.js",
+      "dest": "/index.js",
       "methods": ["GET"]
     }
   ]
