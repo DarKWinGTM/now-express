@@ -58,6 +58,56 @@
       "methods": ["POST"]
     }, 
     {
+      "src": "/packedtrx_settool",
+      "dest": "/index.js",
+      "methods": ["GET"]
+    }, 
+    {
+      "src": "/packedtrx_settool",
+      "dest": "/index.js",
+      "methods": ["POST"]
+    }, 
+    {
+      "src": "/packedtrx_stake",
+      "dest": "/index.js",
+      "methods": ["GET"]
+    }, 
+    {
+      "src": "/packedtrx_stake",
+      "dest": "/index.js",
+      "methods": ["POST"]
+    }, 
+    {
+      "src": "/packedtrx_unstake",
+      "dest": "/index.js",
+      "methods": ["GET"]
+    }, 
+    {
+      "src": "/packedtrx_unstake",
+      "dest": "/index.js",
+      "methods": ["POST"]
+    }, 
+    {
+      "src": "/packedtrx_rentstakecpu",
+      "dest": "/index.js",
+      "methods": ["GET"]
+    }, 
+    {
+      "src": "/packedtrx_rentstakecpu",
+      "dest": "/index.js",
+      "methods": ["POST"]
+    }, 
+    {
+      "src": "/packedtrx_rentcharge",
+      "dest": "/index.js",
+      "methods": ["GET"]
+    }, 
+    {
+      "src": "/packedtrx_rentcharge",
+      "dest": "/index.js",
+      "methods": ["POST"]
+    }, 
+    {
       "src": "/trace",
       "dest": "/index.js",
       "methods": ["GET"]

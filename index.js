@@ -13,8 +13,8 @@ const app                                   = express();
 const port                                  = 5000; 
 const nodeType                              = (cluster.isMaster) ? 'Master' : 'Worker';
 
-const privateKeys 			= ['5KJEamqm4QT2bmDwQEmRAB3EzCrCmoBoX7f6MRdrhGjGgHhzUyf']; 
-const signatureProvider 	= new JsSignatureProvider(privateKeys);
+const privateKeys           = ['5KJEamqm4QT2bmDwQEmRAB3EzCrCmoBoX7f6MRdrhGjGgHhzUyf']; 
+const signatureProvider     = new JsSignatureProvider(privateKeys);
 
 // Body parser
 app.use(express.urlencoded({ extended: false }));
@@ -150,7 +150,7 @@ if (cluster.isMaster) {
             'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
             'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
             'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
-            'quantity'          : parseFloat((url.parse(req.url,true).query.quantity)       || 0.00000001).toFixed(8), 
+            'quantity'          : parseFloat((url.parse(req.url,true).query.quantity)           || 0.00000001).toFixed(8), 
             'to'                : (url.parse(req.url,true).query.to                             || 'xxxxx.wam'), 
             'memo'              : (url.parse(req.url,true).query.memo                           || '')
         }).then(result => {
@@ -165,7 +165,7 @@ if (cluster.isMaster) {
             'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
             'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
             'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
-            'quantity'          : parseFloat((url.parse(req.url,true).query.quantity)       || 0.00000001).toFixed(8), 
+            'quantity'          : parseFloat((url.parse(req.url,true).query.quantity)           || 0.00000001).toFixed(8), 
             'to'                : (url.parse(req.url,true).query.to                             || 'xxxxx.wam'), 
             'memo'              : (url.parse(req.url,true).query.memo                           || '')
         }).then(result => {
@@ -266,7 +266,7 @@ if (cluster.isMaster) {
             'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
             'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
             'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
-            'quantity'       : parseFloat((url.parse(req.url,true).query.quantity)              || 0.00000000).toFixed(8)
+            'quantity'          : parseFloat((url.parse(req.url,true).query.quantity)           || 0.00000000).toFixed(8)
         }).then(result => {
             res.setHeader('Content-Type', 'application/json');
             res.write(JSON.stringify(result))
@@ -279,7 +279,131 @@ if (cluster.isMaster) {
             'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
             'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
             'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
-            'quantity'       : parseFloat((url.parse(req.url,true).query.quantity)              || 0.00000000).toFixed(8)
+            'quantity'          : parseFloat((url.parse(req.url,true).query.quantity)           || 0.00000000).toFixed(8)
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+
+    // packedtrx rent stake cpu API
+    app.get("/packedtrx_rentstakecpu", (req, res) => {
+        packedtrx_rentstakecpu({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'amount'            : parseFloat((url.parse(req.url,true).query.amount)             || 50.0000).toFixed(4), 
+			'quantity'          : (
+								  parseFloat((url.parse(req.url,true).query.amount) 			|| 50.0000).toFixed(4) / 100
+			).toFixed(8), 
+            'to'                : (function (to){
+                if (to == '' || to == null || to == 'None'){
+                    return 'resourceless'
+                }else{
+                    return to
+                }; 
+            })(url.parse(req.url,true).query.to), 
+            'memo'              : (function (memo){
+                if (memo == '' || memo == null || memo == 'None'){
+                    return `CPU loan ${ parseFloat((url.parse(req.url,true).query.amount) || 50.0000).toFixed(0) } WAX`
+                }else{
+                    return url.parse(req.url,true).query.memo
+                }; 
+            })(url.parse(req.url,true).query.memo)
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_rentstakecpu", (req, res) => {
+        packedtrx_rentstakecpu({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'amount'            : parseFloat((url.parse(req.url,true).query.amount)             || 50.0000).toFixed(4), 
+			'quantity'          : (
+								  parseFloat((url.parse(req.url,true).query.amount) 			|| 50.0000).toFixed(4) / 100
+			).toFixed(8), 
+            'to'                : (function (to){
+                if (to == '' || to == null || to == 'None'){
+                    return 'resourceless'
+                }else{
+                    return to
+                }; 
+            })(url.parse(req.url,true).query.to), 
+            'memo'              : (function (memo){
+                if (memo == '' || memo == null || memo == 'None'){
+                    return `CPU loan ${ parseFloat((url.parse(req.url,true).query.amount) || 50.0000).toFixed(0) } WAX`
+                }else{
+                    return url.parse(req.url,true).query.memo
+                }; 
+            })(url.parse(req.url,true).query.memo)
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+
+    // packedtrx rent charge API
+    app.get("/packedtrx_rentcharge", (req, res) => {
+        packedtrx_rentcharge({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'amount'            : parseFloat((url.parse(req.url,true).query.amount)             || 50.0000).toFixed(4), 
+			'quantity'          : (
+								  parseFloat((url.parse(req.url,true).query.amount) 			|| 50.0000).toFixed(4) / 100
+			).toFixed(8), 
+            'to'                : (function (to){
+                if (to == '' || to == null || to == 'None'){
+                    return 'resourceless'
+                }else{
+                    return to
+                }; 
+            })(url.parse(req.url,true).query.to), 
+            'memo'              : (function (memo){
+                if (memo == '' || memo == null || memo == 'None'){
+                    return `CPU loan ${ parseFloat((url.parse(req.url,true).query.amount) || 50.0000).toFixed(0) } WAX`
+                }else{
+                    return url.parse(req.url,true).query.memo
+                }; 
+            })(url.parse(req.url,true).query.memo)
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_rentstakecpu", (req, res) => {
+        packedtrx_rentstakecpu({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'amount'            : parseFloat((url.parse(req.url,true).query.amount)             || 50.0000).toFixed(4), 
+			'quantity'          : (
+								  parseFloat((url.parse(req.url,true).query.amount) 			|| 50.0000).toFixed(4) / 100
+			).toFixed(8), 
+            'to'                : (function (to){
+                if (to == '' || to == null || to == 'None'){
+                    return 'resourceless'
+                }else{
+                    return to
+                }; 
+            })(url.parse(req.url,true).query.to), 
+            'memo'              : (function (memo){
+                if (memo == '' || memo == null || memo == 'None'){
+                    return `CPU loan ${ parseFloat((url.parse(req.url,true).query.amount) || 50.0000).toFixed(0) } WAX`
+                }else{
+                    return url.parse(req.url,true).query.memo
+                }; 
+            })(url.parse(req.url,true).query.memo)
         }).then(result => {
             res.setHeader('Content-Type', 'application/json');
             res.write(JSON.stringify(result))
@@ -807,3 +931,280 @@ async function packedtrx_unstakecpu(DATA){
         console.log('err is', err);
     }
 }; 
+
+async function packedtrx_rentstakecpu(DATA){
+
+    console.log(DATA); 
+    console.log([{
+            "account"           : 'eosio.token',
+            "name"              : "transfer",
+            "authorization"     : [
+                {
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }
+            ],
+            'data'              : {
+                "from"              : DATA['actor'],
+                "to"                : DATA['to'],
+                "quantity"          : `${ DATA['quantity'] } WAX`,
+                "memo"              : DATA['memo']
+            },
+        }, {
+            "account"           : 'eosio.token',
+            "name"              : "transfer",
+            "authorization"     : [
+                {
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }
+            ],
+            'data'              : {
+                "from"              : DATA['actor'],
+                "to"                : 'stakebymywax',
+                "quantity"          : `${ (( DATA['quantity'] * 0.30 ) + 0.35000000).toFixed(8) } WAX`,
+                "memo"              : DATA['memo']
+            },
+        }
+    ]); 
+    console.log(`CHARGE : ${ (( DATA['quantity'] * 0.30 ) + 0.35000000).toFixed(8) } WAX`); 
+
+    try {
+        const chainId       = DATA['chainId'];
+        const abiObj        = await get_rawabi_and_abi('m.federation');
+
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        api.cachedAbis.set('m.federation', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions": [{
+                    "account"           : 'eosio.token',
+                    "name"              : "transfer",
+                    "authorization"     : [
+                        {
+                            "actor"             : DATA['actor'],
+                            "permission"        : "active"
+                        }
+                    ],
+                    'data'              : {
+                        "from"              : DATA['actor'],
+                        "to"                : DATA['to'],
+                        "quantity"          : `${ DATA['quantity'] } WAX`,
+                        "memo"              : DATA['memo']
+                    },
+                }, {
+                    "account"           : 'eosio.token',
+                    "name"              : "transfer",
+                    "authorization"     : [
+                        {
+                            "actor"             : DATA['actor'],
+                            "permission"        : "active"
+                        }
+                    ],
+                    'data'              : {
+                        "from"              : DATA['actor'],
+                        "to"                : 'stakebymywax',
+                        "quantity"          : `${ (( DATA['quantity'] * 0.30 ) + 0.35000000).toFixed(8) } WAX`,
+                        "memo"              : DATA['memo']
+                    },
+                }
+            ]
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions); 
+        const packed_trx    = arrayToHex(serial); 
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }
+}; 
+async function packedtrx_rentcharge(DATA){
+
+    console.log(DATA); 
+    console.log([
+        {
+            "account"           : 'eosio.token',
+            "name"              : "transfer",
+            "authorization"     : [
+                {
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }
+            ],
+            'data'              : {
+                "from"              : DATA['actor'],
+                "to"                : 'stakebymywax',
+                "quantity"          : `${ (( DATA['quantity'] * 0.30 ) + 0.35000000).toFixed(8) } WAX`,
+                "memo"              : DATA['memo']
+            },
+        }
+    ]); 
+    console.log(`CHARGE : ${ (( DATA['quantity'] * 0.30 ) + 0.35000000).toFixed(8) } WAX`); 
+
+    try {
+        const chainId       = DATA['chainId'];
+        const abiObj        = await get_rawabi_and_abi('m.federation');
+
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        api.cachedAbis.set('m.federation', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions": [
+                {
+                    "account"           : 'eosio.token',
+                    "name"              : "transfer",
+                    "authorization"     : [
+                        {
+                            "actor"             : DATA['actor'],
+                            "permission"        : "active"
+                        }
+                    ],
+                    'data'              : {
+                        "from"              : DATA['actor'],
+                        "to"                : 'stakebymywax',
+                        "quantity"          : `${ (( DATA['quantity'] * 0.30 ) + 0.35000000).toFixed(8) } WAX`,
+                        "memo"              : DATA['memo']
+                    },
+                }
+            ]
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions); 
+        const packed_trx    = arrayToHex(serial); 
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }
+}; 
+
+async function packedtrx_claimnft(DATA){
+
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        const abiObj        = await get_rawabi_and_abi('m.federation');
+
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        api.cachedAbis.set('m.federation', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions": [
+                {
+                    'account'           : 'm.federation',
+                    'name'              : 'claimnfts', 
+                    "authorization"     : [
+                        {
+                            "actor"             : DATA['actor'],
+                            "permission"        : "active"
+                        }
+                    ],
+                    'data'              : {
+                        'miner' 				: DATA['actor']
+                    },
+                }, 
+            ]
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions); 
+        const packed_trx    = arrayToHex(serial); 
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }
+}; 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//  https://awmine-express.vercel.app/packedtrx?actor=w5fes.wam&block_num_or_id=126987084&block_prefix=1571208434
+//  https://awmine-express.vercel.app/packedtrx?actor=w5fes.wam&block_num_or_id=126988588-1677423057&nonce=543B189423D6B4BF&expiration=2021-06-29T03:14:42.000&chainId=1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4
+
+
+
+        
+        //  const result        = await api.transact(transaction, { broadcast: false, sign: false });
+        //  const abis          = await api.getTransactionAbis(transaction);
+        //  const requiredKeys  = privateKeys.map((privateKey) => PrivateKey.fromString(privateKey).getPublicKey().toString());
+        //  const packed_trx    = arrayToHex(result.serializedTransaction); 
+        //  console.log(result);
+        //  console.log(packed_trx); 
+        //  console.log(result.serializedTransaction.toString()); 
+
+
+/*!
+        const action        = await api.serializeActions(transaction.actions);
+        const result        = await api.transact(transaction, { broadcast: false, sign: false });
+        const abis          = await api.getTransactionAbis(transaction);
+        const requiredKeys  = privateKeys.map((privateKey) => PrivateKey.fromString(privateKey).getPublicKey().toString());
+        const packed_trx    = arrayToHex(result.serializedTransaction); 
+        //  console.log(result);
+        //  console.log(packed_trx); 
+        //  console.log(result.serializedTransaction.toString()); 
+
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : result.serializedTransaction, transaction, action}); 
+        });
+    
+        const result        = await api.transact(transaction, { broadcast: false, sign: false });
+        const abis          = await api.getTransactionAbis(transaction);
+        const requiredKeys  = privateKeys.map((privateKey) => PrivateKey.fromString(privateKey).getPublicKey().toString());
+        const packed_trx    = arrayToHex(result.serializedTransaction); 
+        //  console.log(result);
+        //  console.log(packed_trx); 
+        //  console.log(result.serializedTransaction.toString()); 
+
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : result.serializedTransaction, transaction}); 
+        });
+!*/
