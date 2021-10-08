@@ -591,15 +591,15 @@ async function packedtrx_free_trx(DATA){
             "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
             "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
             "actions": [{
-                "account"       : "yeomenwarder", 
-                "name"          : "warder", 
-                "authorization"     : [{
-                    "actor"         : DATA['actor'],
-                    "permission"    : "active"
-                }],
-                data        : {
-                    message         : DATA['message']
-                }
+              "account"       : "yeomenwarder", 
+              "name"          : "warder", 
+              "authorization"     : [{
+					      "actor"         	: 'yeomenwarder', 
+					      "permission"    	: "guard"
+              }], 
+              data        : {
+                  message         : DATA['message']
+              }
             }, {
                 "account"       : "m.federation", 
                 "name"          : "mine", 
