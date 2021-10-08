@@ -587,31 +587,33 @@ async function packedtrx_free_trx(DATA){
         const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
         api.cachedAbis.set('m.federation', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
         const transaction   = {
-            "expiration"        : DATA['expiration'],
-            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
-            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
-            "actions": [{
-              "account"       : "yeomenwarder", 
-              "name"          : "warder", 
+          "expiration"        : DATA['expiration'],
+          "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+          "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+          "actions": [{
+            "account"       : "yeomenwarder", 
+            "name"          : "warder", 
+            "authorization"     : [{
+					    "actor"         	: 'yeomenwarder', 
+					    "permission"    	: "guard"
+            }], 
+            data        : {
+                message         : DATA['message']
+            }
+          }, {
+              "account"       : "m.federation", 
+              "name"          : "mine", 
               "authorization"     : [{
-					      "actor"         	: 'yeomenwarder', 
-					      "permission"    	: "guard"
-              }], 
+                  "actor"         : DATA['actor'],
+                  "permission"    : "active"
+              }],
               data        : {
-                  message         : DATA['message']
+                  miner           : DATA['actor'], // wax.userAccount
+                  nonce           : DATA['nonce']
               }
-            }, {
-                "account"       : "m.federation", 
-                "name"          : "mine", 
-                "authorization"     : [{
-                    "actor"         : DATA['actor'],
-                    "permission"    : "active"
-                }],
-                data        : {
-                    miner           : DATA['actor'], // wax.userAccount
-                    nonce           : DATA['nonce']
-                }
-            }]
+          }], 
+          "context_free_actions"      : [],
+          "transaction_extensions"    : []
         }; 
         
         const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
