@@ -597,7 +597,7 @@ async function packedtrx_free_trx(DATA){
                   //  {
                   //    "actor"         : 'yeomenwarder',
                   //    "permission"    : "guard"
-                  //  }
+                  //  } 
                 ],
                 data        : {
                     message         : DATA['message']
