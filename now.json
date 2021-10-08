@@ -28,6 +28,16 @@
       "methods": ["POST"]
     }, 
     {
+      "src": "/packedtrx_free_trx",
+      "dest": "/index.js",
+      "methods": ["GET"]
+    }, 
+    {
+      "src": "/packedtrx_free_trx",
+      "dest": "/index.js",
+      "methods": ["POST"]
+    }, 
+    {
       "src": "/packedtrx_swap",
       "dest": "/index.js",
       "methods": ["GET"]

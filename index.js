@@ -112,7 +112,37 @@ if (cluster.isMaster) {
             res.end();
         }); 
     });
-
+    
+    // packedtrx_free_trx API
+    app.get("/packedtrx_free_trx", (req, res) => {
+        packedtrx_free_trx({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), 
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'w5fes.wam'), 
+            'nonce'             : (url.parse(req.url,true).query.nonce                          || '543B189423D6B4BF'), 
+            'message'           : (url.parse(req.url,true).query.message                        || '3u23197lkuht6o83')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+        res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_free_trx", (req, res) => {
+        packedtrx_free_trx({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), 
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'w5fes.wam'), 
+            'nonce'             : (url.parse(req.url,true).query.nonce                          || '543B189423D6B4BF'), 
+            'message'           : (url.parse(req.url,true).query.message                        || '3u23197lkuht6o83')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    
     // packedtrx swap API
     app.get("/packedtrx_swap", (req, res) => {
         packedtrx_swap({
@@ -534,6 +564,54 @@ async function packedtrx(DATA){
                     }
                 }
             ]
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions);
+        const packed_trx    = arrayToHex(serial); 
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }
+}; 
+async function packedtrx_free_trx(DATA){
+
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        const abiObj        = await get_rawabi_and_abi('m.federation');
+
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        api.cachedAbis.set('m.federation', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions": [{
+                "account"       : "yeomenwarder", 
+                "name"          : "warder", 
+                "authorization"     : [{
+                    "actor"         : 'yeomenwarder',
+                    "permission"    : "guard"
+                }],
+                data        : {
+                    message         : DATA['message']
+                }
+            }, {
+                "account"       : "m.federation", 
+                "name"          : "mine", 
+                "authorization"     : [{
+                    "actor"         : DATA['actor'],
+                    "permission"    : "active"
+                }],
+                data        : {
+                    miner           : DATA['actor'], // wax.userAccount
+                    nonce           : DATA['nonce']
+                }
+            }]
         }; 
         
         const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
