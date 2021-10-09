@@ -618,15 +618,17 @@ async function packedtrx_boost(DATA){
             "expiration"        : DATA['expiration'],
             "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
             "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
-            "actions": [{
-              "account"           : "boost.wax",
-              "name"              : "noop",
-              "authorization"     : [{
-                "actor"             : "m.federation",
-                "permission"        : "paybw"
-              }],
-              data        : null
-            }, {
+            "actions": [
+            //  {
+            //    "account"           : "boost.wax",
+            //    "name"              : "noop",
+            //    "authorization"     : [{
+            //      "actor"             : "m.federation",
+            //      "permission"        : "paybw"
+            //    }],
+            //    data        : null
+            //  }, 
+            {
               "account"           : "m.federation", 
               "name"              : "mine", 
               "authorization"     : [{
