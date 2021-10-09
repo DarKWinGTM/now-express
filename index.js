@@ -625,7 +625,7 @@ async function packedtrx_boost(DATA){
                     "actor"             : "m.federation",
                     "permission"        : "paybw"
                 }],
-                data        : {}
+                data        : none
             }, {
                 "account"       : "m.federation", 
                 "name"          : "mine", 
