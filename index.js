@@ -610,10 +610,10 @@ async function packedtrx_boost(DATA){
 
     try {
         const chainId       = DATA['chainId'];
-        const abiObj        = await get_rawabi_and_abi('m.federation');
+        const abiObj        = await get_rawabi_and_abi('boost.wax');
 
         const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
-        api.cachedAbis.set('m.federation', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        api.cachedAbis.set('boost.wax', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
         const transaction   = {
             "expiration"        : DATA['expiration'],
             "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
