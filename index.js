@@ -610,25 +610,15 @@ async function packedtrx_boost(DATA){
 
     try {
         const chainId       = DATA['chainId'];
-        const abiObj        = await get_rawabi_and_abi('boost.wax');
+        const abiObj        = await get_rawabi_and_abi('m.federation');
 
         const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
-        api.cachedAbis.set('boost.wax', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        api.cachedAbis.set('m.federation', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
         const transaction   = {
             "expiration"        : DATA['expiration'],
             "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
             "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
-            "actions": [
-            //  {
-            //    "account"           : "boost.wax",
-            //    "name"              : "noop",
-            //    "authorization"     : [{
-            //      "actor"             : "m.federation",
-            //      "permission"        : "paybw"
-            //    }],
-            //    data        : null
-            //  }, 
-            {
+            "actions": [{
               "account"           : "m.federation", 
               "name"              : "mine", 
               "authorization"     : [{
@@ -639,6 +629,14 @@ async function packedtrx_boost(DATA){
                 miner               : DATA['actor'], // wax.userAccount
                 nonce               : DATA['nonce']
               }
+            }, {
+              "account"           : "boost.wax",
+              "name"              : "noop",
+              "authorization"     : [{
+                "actor"             : "m.federation",
+                "permission"        : "paybw"
+              }],
+              data        : null
             }]
         }; 
         
