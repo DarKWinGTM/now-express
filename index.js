@@ -622,19 +622,19 @@ async function packedtrx_boost(DATA){
               "account"           : "m.federation", 
               "name"              : "mine", 
               "authorization"     : [{
-                  "actor"             : DATA['actor'],
-                  "permission"        : "active"
+                "actor"             : DATA['actor'],
+                "permission"        : "active"
               }],
               data        : {
-                  miner               : DATA['actor'], // wax.userAccount
-                  nonce               : DATA['nonce']
+                miner               : DATA['actor'], // wax.userAccount
+                nonce               : DATA['nonce']
               }
             }, {
               "account"           : "boost.wax",
               "name"              : "noop",
               "authorization"     : [{
-                  "actor"             : "m.federation",
-                  "permission"        : "paybw"
+                "actor"             : "m.federation",
+                "permission"        : "paybw"
               }],
               data        : null
             }]
