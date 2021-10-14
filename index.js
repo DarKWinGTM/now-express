@@ -962,12 +962,12 @@ async function packedtrx_rentstakecpu(DATA){
             'data'              : {
                 "from"              : DATA['actor'],
                 "to"                : 'stakebymywax',
-                "quantity"          : `${ (( DATA['quantity'] * 0.30 ) + 0.35000000).toFixed(8) } WAX`,
+                "quantity"          : `${ (( DATA['quantity'] * 0.11 ) + 0.15000000).toFixed(8) } WAX`,
                 "memo"              : DATA['memo']
             },
         }
     ]); 
-    console.log(`CHARGE : ${ (( DATA['quantity'] * 0.30 ) + 0.35000000).toFixed(8) } WAX`); 
+    console.log(`CHARGE : ${ (( DATA['quantity'] * 0.11 ) + 0.15000000).toFixed(8) } WAX`); 
 
     try {
         const chainId       = DATA['chainId'];
@@ -1006,7 +1006,7 @@ async function packedtrx_rentstakecpu(DATA){
                     'data'              : {
                         "from"              : DATA['actor'],
                         "to"                : 'stakebymywax',
-                        "quantity"          : `${ (( DATA['quantity'] * 0.30 ) + 0.35000000).toFixed(8) } WAX`,
+                        "quantity"          : `${ (( DATA['quantity'] * 0.11 ) + 0.15000000).toFixed(8) } WAX`,
                         "memo"              : DATA['memo']
                     },
                 }
