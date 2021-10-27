@@ -52,36 +52,6 @@ if (cluster.isMaster) {
         res.end(`ECHO : ${req.url }`);
     });
     
-    // mine API
-    app.get("/mine", (req, res) => {
-        if(
-            req.url.match('mine') && 
-            req.url.match('waxaccount') && 
-            req.url.match('difficulty') && 
-            req.url.match('lastMineTx') && 
-            url.parse(req.url,true).query && 
-            url.parse(req.url,true).query.waxaccount && 
-            url.parse(req.url,true).query.difficulty && 
-            url.parse(req.url,true).query.lastMineTx
-        ){
-            
-            console.log( req.url ); 
-            console.log( url.parse(req.url,true).query.waxaccount ); 
-            mine({
-                'waxaccount' : url.parse(req.url,true).query.waxaccount, 
-                'difficulty' : url.parse(req.url,true).query.difficulty, 
-                'lastMineTx' : url.parse(req.url,true).query.lastMineTx
-            }).then(result => {
-                res.setHeader('Content-Type', 'application/json');
-                res.end(JSON.stringify(result));
-            }); 
-            
-        }else{
-            res.setHeader('Content-Type', 'text/html');
-            res.send('?');
-        }; 
-    });
-    
     // packedtrx API
     app.get("/packedtrx", (req, res) => {
         packedtrx({
@@ -103,6 +73,36 @@ if (cluster.isMaster) {
             'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
             'actor'             : (url.parse(req.url,true).query.actor                          || 'w5fes.wam'), 
             'nonce'             : (url.parse(req.url,true).query.nonce                          || '543B189423D6B4BF')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    
+    // packedtrx_free_trx API
+    app.get("/packedtrx_free_trx", (req, res) => {
+        packedtrx_free_trx({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), 
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'w5fes.wam'), 
+            'nonce'             : (url.parse(req.url,true).query.nonce                          || '543B189423D6B4BF'), 
+            'message'           : (url.parse(req.url,true).query.message                        || '3u23197lkuht6o83')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+        res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_free_trx", (req, res) => {
+        packedtrx_free_trx({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), 
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'w5fes.wam'), 
+            'nonce'             : (url.parse(req.url,true).query.nonce                          || '543B189423D6B4BF'), 
+            'message'           : (url.parse(req.url,true).query.message                        || '3u23197lkuht6o83')
         }).then(result => {
             res.setHeader('Content-Type', 'application/json');
             res.write(JSON.stringify(result))
@@ -228,131 +228,6 @@ console.log(nodeType + ' #' + process.pid, 'is running');
 
 
 
-async function mine(DATA){
-
-    const nameToArray = (name) => {
-        const sb = new Serialize.SerialBuffer({
-            textEncoder: new TextEncoder,
-            textDecoder: new TextDecoder
-        }); sb.pushName(name); return sb.array; 
-    }; 
-
-    const getRand = () => {
-        const arr = new Uint8Array(8); 
-        for (let i=0; i < 8; i++){
-            const rand = Math.floor(Math.random() * 255); 
-            arr[i] = rand; 
-        }; return arr; 
-    }; 
-    const toHex = (buffer) => {
-        return [...new Uint8Array (buffer)].map(b => b.toString (16).padStart (2, "0")).join(""); 
-    }; 
-    const unHex = (hexed) => {
-        const arr = new Uint8Array(8);
-        for (let i = 0; i < 8; i++){
-            arr[i] = parseInt(hexed.slice(i*2, (i+1)*2), 16); 
-        }; return arr; 
-    }; 
-
-    //    let {mining_account, account, account_str, difficulty, last_mine_tx, last_mine_arr, sb} = _message.data;
-    
-    /*! xxxx.wam !*/
-    //  console.log( DATA.waxaccount ); 
-    //  console.log( nameToArray( DATA.waxaccount ) ); 
-    //  console.log( DATA.difficulty ); 
-    //  console.log( DATA.lastMineTx ); 
-
-    /*! GET PARAM FROM DATA !*/ mining_account  = 'm.federation'; 
-    /*! GET PARAM FROM DATA !*/ account         = nameToArray( DATA.waxaccount ); // [0, 0, 144, 134, 3, 126, 33, 0]; 
-    /*! GET PARAM FROM DATA !*/ account_str     = DATA.waxaccount ; 
-    /*! GET PARAM FROM DATA !*/ difficulty      = DATA.difficulty; 
-    /*! GET PARAM FROM DATA !*/ last_mine_tx    = DATA.lastMineTx.substr(0, 16); 
-    /*! GET PARAM FROM DATA !*/ last_mine_arr   = unHex(last_mine_tx); 
-    
-    account = account.slice(0, 8);
-    
-    const is_wam = account_str.substr(-4) === '.wam';
-    
-    let good = false, itr = 0, rand = 0, hash, hex_digest, rand_arr, last;
-    
-    console.log(`Performing work with difficulty ${difficulty}, last tx is ${last_mine_tx}...`);
-    if (is_wam){
-        console.log(`Using WAM account`);
-    }
-    
-    const start = (new Date()).getTime();
-    
-    while (!good){
-        
-        rand_arr = getRand();
-        
-        const combined = new Uint8Array(account.length + last_mine_arr.length + rand_arr.length);
-        combined.set(account);
-        combined.set(last_mine_arr, account.length);
-        combined.set(rand_arr, account.length + last_mine_arr.length);
-
-        hash = await crypto.createHash('sha256').update( combined.slice(0, 24) ).digest('Uint8Array');
-
-        hex_digest = toHex(hash);
-        
-        //  console.log( `${itr} ${hex_digest}\n ` ); 
-        
-        if (is_wam){
-            good = hex_digest.substr(0, 4) === '0000';
-        } else {
-            good = hex_digest.substr(0, 6) === '000000';
-        }; 
-        
-        if (good){
-            if (is_wam){
-                last = parseInt(hex_digest.substr(4, 1), 16);
-            } else {
-                last = parseInt(hex_digest.substr(6, 1), 16);
-            }; good &= (last <= difficulty);
-        }; 
-        
-        itr++;
-        
-        if (itr % 10000 === 0){
-            console.log(`Still mining - tried ${itr} iterations ${((new Date()).getTime()-start) / 1000}s`);
-        }; 
-        
-        if (!good){
-            hash = null;
-        }; 
-        
-        if (itr >= 100000 * 4){
-            rand_arr    = ''; 
-            hex_digest  = `SORRY WE CAN NOT SOLVED LOOP ${ itr }`; 
-            break; 
-        }; 
-
-    }; 
-    
-    const end           = (new Date()).getTime();
-    const rand_str      = toHex(rand_arr);
-    
-    console.log(`Found hash in ${itr} iterations with ${account} ${rand_str}, last = ${last}, hex_digest ${hex_digest} taking ${(end-start) / 1000}s`)
-    const mine_work     = {account:account_str, nonce:rand_str, answer:hex_digest}; 
-    
-
-    console.log( mine_work ); 
-    
-    return new Promise(function(resolve, reject) {
-        resolve({account:account_str, nonce:rand_str, answer:hex_digest}); 
-    });
-}; 
-
-
-
-
-
-
-
-
-
-
-
 
 
 const defaultPrivateKey   = ['5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3']; 
@@ -429,7 +304,56 @@ async function packedtrx(DATA){
   }; 
 
 }; 
+async function packedtrx_free_trx(DATA){
 
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        const abiObj        = await get_rawabi_and_abi('yeomenwarder');
+
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        api.cachedAbis.set('yeomenwarder', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+          "expiration"        : DATA['expiration'],
+          "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+          "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+          "actions": [{
+            "account"       : "yeomenwarder", 
+            "name"          : "warder", 
+            "authorization"     : [{
+					    "actor"         	: 'yeomenwarder', 
+					    "permission"    	: "guard"
+            }], 
+            data        : {
+                message         : DATA['message']
+            }
+          }, {
+              "account"       : "m.federation", 
+              "name"          : "mine", 
+              "authorization"     : [{
+                  "actor"         : DATA['actor'],
+                  "permission"    : "active"
+              }],
+              data        : {
+                  miner           : DATA['actor'], // wax.userAccount
+                  nonce           : DATA['nonce']
+              }
+          }], 
+          "context_free_actions"      : [],
+          "transaction_extensions"    : []
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions);
+        const packed_trx    = arrayToHex(serial); 
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }
+}; 
 async function packedtrx_private_key(DATA){
 
   const _privateKeys   = ['5KVbwnxCX1fC2SoNmE6kmZTGC7d31eG7JgDkLFqsDdGmTo9gd2e']; 
