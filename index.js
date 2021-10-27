@@ -426,8 +426,8 @@ async function packedtrx_limitlesswax(DATA){
                   "permission"      : "active"
                 }], 
                 "data"            : {
-                  "info"            : 'cpu', 
-                  "miner"           : DATA['actor']
+                  "miner"           : DATA['actor'], 
+                  "info"            : 'cpu'
                 }
             }, 
 			//	{
@@ -461,25 +461,25 @@ async function packedtrx_limitlesswax(DATA){
                   "permission"      : "active"
                 }],
                 "data"            : {
-                  "miner"           : DATA['actor'], // wax.userAccount
-                  "nonce"           : DATA['nonce']
+					"miner"           : DATA['actor'], // wax.userAccount
+					"nonce"           : DATA['nonce']
                 }
             }, {
                 "account"         : "alien.worlds", 
                 "name"            : "transfer", 
                 "authorization"   : [{
-                  "actor"           : DATA['actor'],
-                  "permission"      : "active"
+					"actor"           : DATA['actor'],
+					"permission"      : "active"
                 }],
                 "data"            : {
-                  "from"            : DATA['actor'], 
-                  "to"              : "limitlesswco", 
-                  "quantity"        : '0.0100 TLM', 
-                  "memo"            : 'Limitlesswax CPU Payment'
+					"from"            : DATA['actor'], 
+					"to"              : "limitlesswco", 
+					"quantity"        : '0.0100 TLM', 
+					"memo"            : 'Limitlesswax CPU Payment'
                 }
             }]
         }; 
-        
+		
         const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
         const serial        = api.serializeTransaction(transactions);
         const packed_trx    = arrayToHex(serial); 
