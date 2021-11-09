@@ -78,6 +78,16 @@
       "methods": ["POST"]
     }, 
     {
+      "src": "/sign",
+      "dest": "/index.js",
+      "methods": ["GET"]
+    }, 
+    {
+      "src": "/sign",
+      "dest": "/index.js",
+      "methods": ["POST"]
+    }, 
+    {
       "src": "/trace",
       "dest": "/index.js",
       "methods": ["GET"]

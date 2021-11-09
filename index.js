@@ -1,5 +1,6 @@
 const crypto                                = require('crypto');
-const { Api, JsonRpc, Serialize }           = require('eosjs');
+const { Api, JsonRpc, Serialize, Numeric }  = require('eosjs');
+const ecc                                   = require('eosjs-ecc');
 const { JsSignatureProvider, PrivateKey }   = require('eosjs/dist/eosjs-jssig');
 const fetch                                 = require('node-fetch');
 const cpus                                  = require('os').cpus();
@@ -15,6 +16,7 @@ const nodeType                              = (cluster.isMaster) ? 'Master' : 'W
 
 // Body parser
 app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 
 
 if (cluster.isMaster) {
@@ -51,6 +53,64 @@ if (cluster.isMaster) {
         res.setHeader('Content-Type', 'text/html');
         res.end(`ECHO : ${req.url }`);
     });
+
+    // sign
+    app.get("/sign", (req, res) => {
+        //  sets the header of the response to the user and the type of response that you would be sending back
+        //  var sig = ecc.sign(url.parse(req.url,true).query.act, url.parse(req.url,true).query.key); console.log(sig) 
+        res.setHeader('Content-Type', 'application/json');
+        res.write(JSON.stringify({
+            'act' : url.parse(req.url,true).query.Str, 
+            'sig' : [ecc.sign(url.parse(req.url,true).query.Str, url.parse(req.url,true).query.Prv)]
+        }));
+        res.end();
+    });
+    app.post("/sign", (req, res) => {
+        //  sets the header of the response to the user and the type of response that you would be sending back
+        //  var sig = ecc.sign(url.parse(req.url,true).query.act, url.parse(req.url,true).query.key); console.log(sig) 
+        res.setHeader('Content-Type', 'application/json');
+        res.write(JSON.stringify({
+            'act' : req.body, 
+            'sig' : [ecc.sign(Buffer.from( req.body['U8A'] ), req.body['Prv']).toString()]
+        }));
+        res.end();
+    });
+    app.post("/sign_sha256", (req, res) => {
+        //  sets the header of the response to the user and the type of response that you would be sending back
+        //  var sig = ecc.sign(url.parse(req.url,true).query.act, url.parse(req.url,true).query.key); console.log(sig) 
+        res.setHeader('Content-Type', 'application/json');
+        res.write(JSON.stringify({
+            'act' : ecc.sha256(Buffer.from( req.body['U8A'] )), 
+            'sig' : [ecc.signHash(ecc.sha256(Buffer.from( req.body['U8A'] )), req.body['Prv']).toString()]
+        }));
+        res.end();
+    });
+    
+    //  app.post("/sign", (req, res) => {
+    //      //  sets the header of the response to the user and the type of response that you would be sending back
+    //      //  var sig = ecc.sign(url.parse(req.url,true).query.act, url.parse(req.url,true).query.key); console.log(sig) 
+    //      res.setHeader('Content-Type', 'application/json');
+    //      res.write(JSON.stringify({
+    //          'act' : req.body, 
+    //          'sig' : [ecc.sign(Buffer.from( req.body['U8A'] ), req.body['Prv'])]
+    //      }));
+    //      res.end();
+    //  });
+    //  buffer2hex
+
+    // Public Key EOS Format to STD KEY
+    app.get("/format", (req, res) => {
+        var sp = new JsSignatureProvider(['5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3']); 
+        var pub = Numeric.convertLegacyPublicKey(ecc.PrivateKey.fromString( url.parse(req.url,true).query.key ).toPublic().toString());
+        //  sp.keys.set(pub, key);
+        //  sp.availableKeys.push(pub);
+        res.setHeader('Content-Type', 'application/json');
+        res.write(JSON.stringify({
+            'eos' : url.parse(req.url,true).query.eos, 
+            'std' : pub
+        }));
+        res.end();
+    });
     
     // packedtrx API
     app.get("/packedtrx", (req, res) => {
@@ -62,10 +122,11 @@ if (cluster.isMaster) {
             'nonce'             : (url.parse(req.url,true).query.nonce                          || '543B189423D6B4BF')
         }).then(result => {
             res.setHeader('Content-Type', 'application/json');
-        res.write(JSON.stringify(result))
+            res.write(JSON.stringify(result))
             res.end();
         }); 
     });
+
     app.post("/packedtrx", (req, res) => {
         packedtrx({
             'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
@@ -117,7 +178,9 @@ if (cluster.isMaster) {
             'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), 
             'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
             'actor'             : (url.parse(req.url,true).query.actor                          || 'w5fes.wam'), 
-            'nonce'             : (url.parse(req.url,true).query.nonce                          || '543B189423D6B4BF')
+            'nonce'             : (url.parse(req.url,true).query.nonce                          || '543B189423D6B4BF'), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || '5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3'), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || 'stakebymywax')
         }).then(result => {
             res.setHeader('Content-Type', 'application/json');
         res.write(JSON.stringify(result))
@@ -130,7 +193,9 @@ if (cluster.isMaster) {
             'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), 
             'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
             'actor'             : (url.parse(req.url,true).query.actor                          || 'w5fes.wam'), 
-            'nonce'             : (url.parse(req.url,true).query.nonce                          || '543B189423D6B4BF')
+            'nonce'             : (url.parse(req.url,true).query.nonce                          || '543B189423D6B4BF'), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || '5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3'), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || 'stakebymywax')
         }).then(result => {
             res.setHeader('Content-Type', 'application/json');
             res.write(JSON.stringify(result))
@@ -241,6 +306,10 @@ const signatureProvider     = new JsSignatureProvider(defaultPrivateKey);
 //  const endpoint      = 'https://chain.wax.io'; 
 const endpoint      = 'https://wax.pink.gg'; 
 const rpc           = new JsonRpc(endpoint, { fetch }); 
+
+//  function buffer2hex (buffer) {
+//    Array.from(buffer, (x: number) => ('00' + x.toString(16)).slice(-2)).join('')
+//  }; 
 
 function arrayToHex(data) {
     let result = '';
@@ -357,10 +426,10 @@ async function packedtrx_free_trx(DATA){
 }; 
 async function packedtrx_private_key(DATA){
 
-  const _privateKeys   = ['5KVbwnxCX1fC2SoNmE6kmZTGC7d31eG7JgDkLFqsDdGmTo9gd2e']; 
+  const _privateKeys        = [ DATA['privateKey'] ]; 
   const _signatureProvider  = new JsSignatureProvider(_privateKeys); 
 
-  console.log(DATA)
+  console.log(DATA); 
 
   try {
     const chainId       = DATA['chainId'];
@@ -376,7 +445,7 @@ async function packedtrx_private_key(DATA){
         "account"           : "boost.wax", 
         "name"              : "noop", 
         "authorization"     : [{
-            "actor"             : 'stakebymywax', // Actor
+            "actor"             : DATA['payer'],  //  DATA['payer'], // payer
             "permission"        : "active"
         }], 
         "data"              : null
@@ -397,8 +466,22 @@ async function packedtrx_private_key(DATA){
     const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
     const serial        = api.serializeTransaction(transactions);
     const packed_trx    = arrayToHex(serial); 
+
+    const result        = await api.transact(transactions, { broadcast: false, sign: false });
+    const abis          = await api.getTransactionAbis(transaction);
+
+    const requiredKeys  = _privateKeys.map((privateKey) => PrivateKey.fromString(privateKey).getPublicKey().toString());
+    
+    result.signatures = await _signatureProvider.sign({
+        chainId,
+        requiredKeys,
+        serializedTransaction: result.serializedTransaction,
+        serializedContextFreeData: result.serializedContextFreeData,
+        abis
+    });
+
     return new Promise(function(resolve, reject) {
-        resolve({packed_trx, serializedTransaction : serial, transactions}); 
+        resolve({packed_trx, serializedTransaction : serial, transactions, signatures : result.signatures}); 
     });
   } catch (err) {
       console.log('err is', err);
