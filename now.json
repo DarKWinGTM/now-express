@@ -33,6 +33,16 @@
       "methods": ["GET"]
     }, 
     {
+      "src": "/fw_packedtrx_mine",
+      "dest": "/index.js",
+      "methods": ["GET"]
+    }, 
+    {
+      "src": "/fw_packedtrx_mine",
+      "dest": "/index.js",
+      "methods": ["POST"]
+    }, 
+    {
       "src": "/packedtrx_boost",
       "dest": "/index.js",
       "methods": ["POST"]

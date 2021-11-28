@@ -38,6 +38,16 @@
       "methods": ["POST"]
     }, 
     {
+      "src": "/fw_packedtrx_mine",
+      "dest": "/index.js",
+      "methods": ["GET"]
+    }, 
+    {
+      "src": "/fw_packedtrx_mine",
+      "dest": "/index.js",
+      "methods": ["POST"]
+    }, 
+    {
       "src": "/packedtrx_free_trx",
       "dest": "/index.js",
       "methods": ["GET"]
