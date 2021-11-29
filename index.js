@@ -680,7 +680,7 @@ async function fw_packedtrx_anim(DATA){
             }],
             "data"            : {
                 "owner"             : DATA['actor'],
-                "animal_id"          : DATA['asset_id'],
+                "animal_id"         : DATA['asset_id'],
             }
         }]
       }; 
@@ -719,7 +719,7 @@ async function fw_packedtrx_reco(DATA){
             }],
             "data"            : {
                 "owner"             : DATA['actor'],
-                "energy_recovered"  : DATA['amount'],
+                "energy_recovered"  : parseInt(DATA['amount']),
             }
         }]
       }; 
@@ -728,7 +728,7 @@ async function fw_packedtrx_reco(DATA){
       const serial        = api.serializeTransaction(transactions);
       const packed_trx    = arrayToHex(serial); 
       return new Promise(function(resolve, reject) {
-        resolve({packed_trx, serializedTransaction : serial, transactions}); 
+        resolve({packed_trx, serializedTransaction : serial, transactions, transaction}); 
       }); 
   } catch (err) {
       console.log('err is', err);
