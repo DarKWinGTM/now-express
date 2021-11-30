@@ -572,7 +572,7 @@ async function fw_packedtrx_mine(DATA){
       const serial        = api.serializeTransaction(transactions);
       const packed_trx    = arrayToHex(serial); 
       return new Promise(function(resolve, reject) {
-        resolve({packed_trx, serializedTransaction : serial, transactions}); 
+        resolve({packed_trx, serializedTransaction : serial, transactions, transaction}); 
       }); 
   } catch (err) {
       console.log('err is', err);
