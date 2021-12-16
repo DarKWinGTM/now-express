@@ -603,10 +603,9 @@ async function packedtrx(DATA){
 
   try {
       const chainId       = DATA['chainId'];
-      const abiObj        = await get_rawabi_and_abi('m.federation');
-
+      //    const abiObj        = await get_rawabi_and_abi('m.federation');
       const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
-      api.cachedAbis.set('m.federation', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+      //    api.cachedAbis.set('m.federation', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
       const transaction   = {
         "expiration"        : DATA['expiration'],
         "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
@@ -642,10 +641,9 @@ async function fw_packedtrx_mine(DATA){
 
   try {
       const chainId       = DATA['chainId'];
-      const abiObj        = await get_rawabi_and_abi('farmersworld');
-
+      //    const abiObj        = await get_rawabi_and_abi('farmersworld');
       const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
-      api.cachedAbis.set('farmersworld', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+      //    api.cachedAbis.set('farmersworld', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
       const transaction   = {
         "expiration"        : DATA['expiration'],
         "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
@@ -683,10 +681,9 @@ async function fw_packedtrx_mine_free_trx(DATA){
 
   try {
       const chainId       = DATA['chainId'];
-      const abiObj        = await get_rawabi_and_abi('farmersworld');
-
+      //    const abiObj        = await get_rawabi_and_abi('farmersworld');
       const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
-      api.cachedAbis.set('farmersworld', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+      //    api.cachedAbis.set('farmersworld', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
       const transaction   = {
         "expiration"        : DATA['expiration'],
         "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
@@ -730,10 +727,9 @@ async function fw_packedtrx_mbrs(DATA){
 
   try {
       const chainId       = DATA['chainId'];
-      const abiObj        = await get_rawabi_and_abi('farmersworld');
-
+      //    const abiObj        = await get_rawabi_and_abi('farmersworld');
       const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
-      api.cachedAbis.set('farmersworld', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+      //    api.cachedAbis.set('farmersworld', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
       const transaction   = {
         "expiration"        : DATA['expiration'],
         "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
@@ -771,10 +767,9 @@ async function fw_packedtrx_mbrs_free_trx(DATA){
 
   try {
       const chainId       = DATA['chainId'];
-      const abiObj        = await get_rawabi_and_abi('farmersworld');
-
+      //    const abiObj        = await get_rawabi_and_abi('farmersworld');
       const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
-      api.cachedAbis.set('farmersworld', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+      //    api.cachedAbis.set('farmersworld', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
       const transaction   = {
         "expiration"        : DATA['expiration'],
         "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
@@ -818,10 +813,9 @@ async function fw_packedtrx_crop(DATA){
 
   try {
       const chainId       = DATA['chainId'];
-      const abiObj        = await get_rawabi_and_abi('farmersworld');
-
+      //    const abiObj        = await get_rawabi_and_abi('farmersworld');
       const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
-      api.cachedAbis.set('farmersworld', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+      //    api.cachedAbis.set('farmersworld', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
       const transaction   = {
         "expiration"        : DATA['expiration'],
         "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
@@ -857,10 +851,9 @@ async function fw_packedtrx_anim(DATA){
 
   try {
       const chainId       = DATA['chainId'];
-      const abiObj        = await get_rawabi_and_abi('farmersworld');
-
+      //    const abiObj        = await get_rawabi_and_abi('farmersworld');
       const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
-      api.cachedAbis.set('farmersworld', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+      //    api.cachedAbis.set('farmersworld', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
       const transaction   = {
         "expiration"        : DATA['expiration'],
         "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
@@ -896,10 +889,9 @@ async function fw_packedtrx_reco(DATA){
 
   try {
       const chainId       = DATA['chainId'];
-      const abiObj        = await get_rawabi_and_abi('farmersworld');
-
+      //    const abiObj        = await get_rawabi_and_abi('farmersworld');
       const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
-      api.cachedAbis.set('farmersworld', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+      //    api.cachedAbis.set('farmersworld', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
       const transaction   = {
         "expiration"        : DATA['expiration'],
         "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
@@ -935,10 +927,9 @@ async function fw_packedtrx_repa(DATA){
 
   try {
       const chainId       = DATA['chainId'];
-      const abiObj        = await get_rawabi_and_abi('farmersworld');
-
+      //    const abiObj        = await get_rawabi_and_abi('farmersworld');
       const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
-      api.cachedAbis.set('farmersworld', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+      //    api.cachedAbis.set('farmersworld', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
       const transaction   = {
         "expiration"        : DATA['expiration'],
         "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
@@ -974,10 +965,9 @@ async function packedtrx_free_trx(DATA){
 
     try {
         const chainId       = DATA['chainId'];
-        const abiObj        = await get_rawabi_and_abi('yeomenwarder');
-
+        //    const abiObj        = await get_rawabi_and_abi('yeomenwarder');
         const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
-        api.cachedAbis.set('yeomenwarder', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        //    api.cachedAbis.set('yeomenwarder', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
         const transaction   = {
           "expiration"        : DATA['expiration'],
           "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
@@ -1027,10 +1017,9 @@ async function packedtrx_private_key(DATA){
 
   try {
     const chainId       = DATA['chainId'];
-    const abiObj        = await get_rawabi_and_abi('m.federation');
-
+    //    const abiObj        = await get_rawabi_and_abi('m.federation');
     const api           = new Api({ rpc, _signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
-    api.cachedAbis.set('m.federation', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+    //    api.cachedAbis.set('m.federation', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
     const transaction   = {
       "expiration"        : DATA['expiration'],
       "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
@@ -1091,10 +1080,9 @@ async function packedtrx_private_key_greymass(DATA){
 
   try {
     const chainId       = DATA['chainId'];
-    const abiObj        = await get_rawabi_and_abi('m.federation');
-
+    //    const abiObj        = await get_rawabi_and_abi('m.federation');
     const api           = new Api({ rpc, _signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
-    api.cachedAbis.set('m.federation', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+    //    api.cachedAbis.set('m.federation', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
     const transaction   = {
       "expiration"        : DATA['expiration'],
       "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
@@ -1155,10 +1143,9 @@ async function packedtrx_private_key_pink(DATA){
 
   try {
     const chainId       = DATA['chainId'];
-    const abiObj        = await get_rawabi_and_abi('m.federation');
-
+    //    const abiObj        = await get_rawabi_and_abi('m.federation');
     const api           = new Api({ rpc, _signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
-    api.cachedAbis.set('m.federation', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+    //    api.cachedAbis.set('m.federation', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
     const transaction   = {
       "expiration"        : DATA['expiration'],
       "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
@@ -1219,10 +1206,9 @@ async function packedtrx_private_key_dragonvalley(DATA){
 
   try {
     const chainId       = DATA['chainId'];
-    const abiObj        = await get_rawabi_and_abi('m.federation');
-
+    //    const abiObj        = await get_rawabi_and_abi('m.federation');
     const api           = new Api({ rpc, _signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
-    api.cachedAbis.set('m.federation', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+    //    api.cachedAbis.set('m.federation', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
     const transaction   = {
       "expiration"        : DATA['expiration'],
       "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
@@ -1280,10 +1266,9 @@ async function packedtrx_limitlesswax(DATA){
 
     try {
         const chainId       = DATA['chainId'];
-        const abiObj        = await get_rawabi_and_abi('limitlesswax');
-
+        //    const abiObj        = await get_rawabi_and_abi('limitlesswax');
         const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
-        api.cachedAbis.set('limitlesswax', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        //    api.cachedAbis.set('limitlesswax', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
         const transaction   = {
             "expiration"        : DATA['expiration'],
             "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
