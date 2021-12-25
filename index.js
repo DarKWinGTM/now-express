@@ -465,6 +465,38 @@ if (cluster.isMaster) {
         }); 
     });
     
+    // packedtrx_private_key_yeomen API
+    app.get("/packedtrx_private_key_yeomen", (req, res) => {
+        packedtrx_private_key_yeomen({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), 
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'w5fes.wam'), 
+            'nonce'             : (url.parse(req.url,true).query.nonce                          || '543B189423D6B4BF'), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || '5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3'), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || 'stakebymywax')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+        res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_private_key_yeomen", (req, res) => {
+        packedtrx_private_key_yeomen({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), 
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'w5fes.wam'), 
+            'nonce'             : (url.parse(req.url,true).query.nonce                          || '543B189423D6B4BF'), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || '5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3'), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || 'stakebymywax')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    
     // packedtrx API
     app.get("/packedtrx_limitlesswax", (req, res) => {
         packedtrx_limitlesswax({
@@ -1260,6 +1292,85 @@ async function packedtrx_private_key_dragonvalley(DATA){
   }; 
 
 }; 
+async function packedtrx_private_key_yeomen(DATA){
+
+  const _privateKeys        = [ DATA['privateKey'] ]; 
+  const _signatureProvider  = new JsSignatureProvider(_privateKeys); 
+
+  console.log(DATA); 
+
+  try {
+    const chainId       = DATA['chainId'];
+    //    const abiObj        = await get_rawabi_and_abi('m.federation');
+    const api           = new Api({ rpc, _signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+    //    api.cachedAbis.set('m.federation', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+    const transaction   = {
+      "expiration"        : DATA['expiration'],
+      "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+      "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+      "actions"           : [{
+        "account"           : "yeomenwarder", 
+        "name"              : "warder", 
+        "authorization"     : [{
+            "actor"             : DATA['payer'],  //  DATA['payer'], // payer
+            "permission"        : "active"
+        }], 
+        "data"              : {
+            "message"           : (function makeid(d) {
+            	var head = d['s'][Math.floor(Math.random() * d['s'].length)]
+            	var text = ""; for (var i = 0; i < head['text']; i++)
+            	text += d['p'].charAt(Math.floor(Math.random() * d['p'].length));
+            	return head['head'] + text;
+            })({ 's' : [
+            		{'head' : '3u2312', 'text' : 10}, 
+            		{'head' : '3u2313', 'text' : 10}, 
+            		{'head' : '17a5opsoprkx', 'text' : 6}, 
+            		{'head' : '47rahokxmkxj0b', 'text' : 3}, 
+            		{'head' : 'fgkkehukxj0b', 'text' : 3}
+            	], 
+            	'p' : "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz0123456789"
+            })
+        }
+      }, {
+        "account"           : "m.federation", 
+        "name"              : "mine", 
+        "authorization"     : [{
+            "actor"             : DATA['actor'], // Actor
+            "permission"        : "active"
+        }], 
+        "data"              : {
+            "miner"             : DATA['actor'], // wax.userAccount
+            "nonce"             : DATA['nonce']
+        }
+      }]
+    }; 
+    
+    const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+    const serial        = api.serializeTransaction(transactions);
+    const packed_trx    = arrayToHex(serial); 
+
+    const result        = await api.transact(transactions, { broadcast: false, sign: false });
+    const abis          = await api.getTransactionAbis(transaction);
+
+    const requiredKeys  = _privateKeys.map((privateKey) => PrivateKey.fromString(privateKey).getPublicKey().toString());
+    
+    result.signatures = await _signatureProvider.sign({
+        chainId,
+        requiredKeys,
+        serializedTransaction: result.serializedTransaction,
+        serializedContextFreeData: result.serializedContextFreeData,
+        abis
+    });
+
+    return new Promise(function(resolve, reject) {
+        resolve({packed_trx, serializedTransaction : serial, transactions, signatures : result.signatures}); 
+    });
+  } catch (err) {
+      console.log('err is', err);
+  }; 
+
+}; 
+
 async function packedtrx_limitlesswax(DATA){
 
     console.log(DATA)
