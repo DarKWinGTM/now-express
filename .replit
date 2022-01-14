@@ -1,2 +1,2 @@
 language = "nodejs"
-run = "npm start"
+run = "while [ true ]; do npm install nodemon; sleep 1; npx nodemon -L -x 'npm start || sleep 1; echo $(date +'%Y/%d/%m_%H:%M:%S') >> restart.log' --watch restart.log; continue; done"
