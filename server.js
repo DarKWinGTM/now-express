@@ -556,6 +556,62 @@ if (cluster.isMaster) {
             res.end();
         }); 
     });
+    
+    // packedtrx API
+    app.get("/packedtrx_ss_return", (req, res) => {
+        packedtrx_ss_return({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), 
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'w5fes.wam'), 
+            'shipid'            : (url.parse(req.url,true).query.shipid                         || '7062').match(/\d{1,8}/gi).join('')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+        res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_ss_return", (req, res) => {
+        packedtrx_ss_return({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), 
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'w5fes.wam'), 
+            'shipid'            : (url.parse(req.url,true).query.shipid                         || '7062').match(/\d{1,8}/gi).join('')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    
+    // packedtrx API
+    app.get("/packedtrx_ss_launch", (req, res) => {
+        packedtrx_ss_launch({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), 
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'w5fes.wam'), 
+            'shipid'            : (url.parse(req.url,true).query.shipid                         || '7062-55356,7063-55356,7064-55356').match(/\d{1,8}-\d{1,8}/gi)
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+        res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_ss_launch", (req, res) => {
+        packedtrx_ss_launch({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), 
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'w5fes.wam'), 
+            'shipid'            : (url.parse(req.url,true).query.shipid                         || '7062-55356,7063-55356,7064-55356').match(/\d{1,8}-\d{1,8}/gi)
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
 
 
     app.get("/trace", (req, res) => {
@@ -1576,7 +1632,7 @@ async function packedtrx_ss_return(DATA){
                 }],
                 'data'              : {
                     'player' 				: DATA['actor'],
-                    'starship'              : DATA['shipid'][0].split('-')[0]
+                    'starship'              : DATA['shipid']
                 },
             }], 
             "context_free_actions"      : [],
@@ -1587,7 +1643,7 @@ async function packedtrx_ss_return(DATA){
         const serial        = api.serializeTransaction(transactions);
         const packed_trx    = arrayToHex(serial); 
         return new Promise(function(resolve, reject) {
-            resolve({packed_trx, serializedTransaction : serial, transactions}); 
+            resolve({packed_trx, serializedTransaction : serial, transactions, transaction}); 
         });
     } catch (err) {
         console.log('err is', err);
@@ -1661,7 +1717,7 @@ async function packedtrx_ss_launch(DATA){
         const serial        = api.serializeTransaction(transactions);
         const packed_trx    = arrayToHex(serial); 
         return new Promise(function(resolve, reject) {
-            resolve({packed_trx, serializedTransaction : serial, transactions}); 
+            resolve({packed_trx, serializedTransaction : serial, transactions, transaction}); 
         });
     } catch (err) {
         console.log('err is', err);
