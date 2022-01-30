@@ -252,33 +252,34 @@ if (cluster.isMaster) {
         }); 
     });
 
-    // fw_packedtrx_reco API
-    app.get("/fw_packedtrx_reco", (req, res) => {
-        fw_packedtrx_reco({
+    // fw_packedtrx_plot API
+    app.get("/fw_packedtrx_plot", (req, res) => {
+        fw_packedtrx_plot({
             'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
             'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), 
             'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
             'actor'             : (url.parse(req.url,true).query.actor                          || '435yo.wam'), 
-            'amount'            : (url.parse(req.url,true).query.amount                         || 5)
+            'asset_id'          : (url.parse(req.url,true).query.asset_id                       || '1099584547424')
         }).then(result => {
             res.setHeader('Content-Type', 'application/json');
             res.write(JSON.stringify(result))
             res.end();
         }); 
     });
-    app.post("/fw_packedtrx_reco", (req, res) => {
-        fw_packedtrx_reco({
+    app.post("/fw_packedtrx_plot", (req, res) => {
+        fw_packedtrx_plot({
             'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
             'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), 
             'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
             'actor'             : (url.parse(req.url,true).query.actor                          || '435yo.wam'), 
-            'amount'            : (url.parse(req.url,true).query.amount                         || 5)
+            'asset_id'          : (url.parse(req.url,true).query.asset_id                       || '1099584547424')
         }).then(result => {
             res.setHeader('Content-Type', 'application/json');
             res.write(JSON.stringify(result))
             res.end();
         }); 
     });
+    
     // fw_packedtrx_reco API
     app.get("/fw_packedtrx_repa", (req, res) => {
         fw_packedtrx_repa({
@@ -911,7 +912,7 @@ async function fw_packedtrx_mbrs_free_trx(DATA){
             }],
             "data"            : {
                 "owner"             : DATA['actor'],
-                "asset_id"          : DATA['asset_id'],
+                "asset_id"          : DATA['asset_id']
             }
         }]
       }; 
@@ -1003,6 +1004,44 @@ async function fw_packedtrx_anim(DATA){
   }; 
 
 }; 
+async function fw_packedtrx_plot(DATA){
+
+  console.log(DATA)
+
+  try {
+      const chainId       = DATA['chainId'];
+      //    const abiObj        = await get_rawabi_and_abi('farmersworld');
+      const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+      //    api.cachedAbis.set('farmersworld', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+      const transaction   = {
+        "expiration"        : DATA['expiration'],
+        "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+        "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+        "actions": [{
+            "account"         : "farmersworld", 
+            "name"            : "bldclaim", 
+            "authorization"   : [{
+                "actor"             : DATA['actor'],
+                "permission"        : "active"
+            }],
+            "data"            : {
+                "owner"             : DATA['actor'],
+                "asset_id"          : DATA['asset_id'],
+            }
+        }]
+      }; 
+      
+      const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+      const serial        = api.serializeTransaction(transactions);
+      const packed_trx    = arrayToHex(serial); 
+      return new Promise(function(resolve, reject) {
+        resolve({packed_trx, serializedTransaction : serial, transactions, transaction}); 
+      }); 
+  } catch (err) {
+      console.log('err is', err);
+  }; 
+
+}; 
 async function fw_packedtrx_reco(DATA){
 
   console.log(DATA)
@@ -1026,44 +1065,6 @@ async function fw_packedtrx_reco(DATA){
             "data"            : {
                 "owner"             : DATA['actor'],
                 "energy_recovered"  : parseInt(DATA['amount']),
-            }
-        }]
-      }; 
-      
-      const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
-      const serial        = api.serializeTransaction(transactions);
-      const packed_trx    = arrayToHex(serial); 
-      return new Promise(function(resolve, reject) {
-        resolve({packed_trx, serializedTransaction : serial, transactions, transaction}); 
-      }); 
-  } catch (err) {
-      console.log('err is', err);
-  }; 
-
-}; 
-async function fw_packedtrx_repa(DATA){
-
-  console.log(DATA)
-
-  try {
-      const chainId       = DATA['chainId'];
-      //    const abiObj        = await get_rawabi_and_abi('farmersworld');
-      const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
-      //    api.cachedAbis.set('farmersworld', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
-      const transaction   = {
-        "expiration"        : DATA['expiration'],
-        "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
-        "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
-        "actions": [{
-            "account"         : "farmersworld", 
-            "name"            : "repair", 
-            "authorization"   : [{
-                "actor"             : DATA['actor'],
-                "permission"        : "active"
-            }],
-            "data"            : {
-                "asset_owner"       : DATA['actor'],
-                "asset_id"          : DATA['asset_id'],
             }
         }]
       }; 
