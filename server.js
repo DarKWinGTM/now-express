@@ -1042,6 +1042,44 @@ async function fw_packedtrx_plot(DATA){
   }; 
 
 }; 
+async function fw_packedtrx_repa(DATA){
+
+  console.log(DATA)
+
+  try {
+      const chainId       = DATA['chainId'];
+      //    const abiObj        = await get_rawabi_and_abi('farmersworld');
+      const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+      //    api.cachedAbis.set('farmersworld', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+      const transaction   = {
+        "expiration"        : DATA['expiration'],
+        "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+        "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+        "actions": [{
+            "account"         : "farmersworld", 
+            "name"            : "repair", 
+            "authorization"   : [{
+                "actor"             : DATA['actor'],
+                "permission"        : "active"
+            }],
+            "data"            : {
+                "asset_owner"       : DATA['actor'],
+                "asset_id"          : DATA['asset_id'],
+            }
+        }]
+      }; 
+      
+      const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+      const serial        = api.serializeTransaction(transactions);
+      const packed_trx    = arrayToHex(serial); 
+      return new Promise(function(resolve, reject) {
+        resolve({packed_trx, serializedTransaction : serial, transactions, transaction}); 
+      }); 
+  } catch (err) {
+      console.log('err is', err);
+  }; 
+
+}; 
 async function fw_packedtrx_reco(DATA){
 
   console.log(DATA)
