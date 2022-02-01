@@ -279,8 +279,36 @@ if (cluster.isMaster) {
             res.end();
         }); 
     });
-    
+
     // fw_packedtrx_reco API
+    app.get("/fw_packedtrx_reco", (req, res) => {
+        fw_packedtrx_reco({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), 
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || '435yo.wam'), 
+            'amount'            : (url.parse(req.url,true).query.amount                         || 5)
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/fw_packedtrx_reco", (req, res) => {
+        fw_packedtrx_reco({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), 
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || '435yo.wam'), 
+            'amount'            : (url.parse(req.url,true).query.amount                         || 5)
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    
+    // fw_packedtrx_repa API
     app.get("/fw_packedtrx_repa", (req, res) => {
         fw_packedtrx_repa({
             'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
