@@ -167,7 +167,7 @@ if (cluster.isMaster) {
             res.end();
         }); 
     });
-
+    
     // fw_packedtrx_crop API
     app.get("/fw_packedtrx_mbrs", (req, res) => {
         fw_packedtrx_mbrs({
@@ -203,7 +203,10 @@ if (cluster.isMaster) {
             'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), 
             'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
             'actor'             : (url.parse(req.url,true).query.actor                          || '435yo.wam'), 
+            'asset_id'          : (url.parse(req.url,true).query.asset_id                       || '1099660508001,1099660508002,1099660508003').match(/\d{13,13}/gi)
+            /*!
             'asset_id'          : (url.parse(req.url,true).query.asset_id                       || '1099584547424')
+            */
         }).then(result => {
             res.setHeader('Content-Type', 'application/json');
             res.write(JSON.stringify(result))
@@ -216,7 +219,10 @@ if (cluster.isMaster) {
             'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), 
             'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
             'actor'             : (url.parse(req.url,true).query.actor                          || '435yo.wam'), 
+            'asset_id'          : (url.parse(req.url,true).query.asset_id                       || '1099660508001,1099660508002,1099660508003').match(/\d{13,13}/gi)
+            /*!
             'asset_id'          : (url.parse(req.url,true).query.asset_id                       || '1099584547424')
+            */
         }).then(result => {
             res.setHeader('Content-Type', 'application/json');
             res.write(JSON.stringify(result))
@@ -329,6 +335,148 @@ if (cluster.isMaster) {
             'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
             'actor'             : (url.parse(req.url,true).query.actor                          || '435yo.wam'), 
             'asset_id'          : (url.parse(req.url,true).query.asset_id                       || '1099584547424')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+
+    // gx_packedtrx_mine API
+    app.get("/gx_packedtrx_mine", (req, res) => {
+        gx_packedtrx_mine({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), 
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || '435yo.wam'), 
+            'asset_id'          : (url.parse(req.url,true).query.asset_id                       || '1099654395868'), 
+            'img'               : (url.parse(req.url,true).query.img                            || 'QmR9NQTfKRtCrhAyVm4UZtimPABQVnXcJW49VcmLmPqiWv')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/gx_packedtrx_mine", (req, res) => {
+        gx_packedtrx_mine({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), 
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || '435yo.wam'), 
+            'asset_id'          : (url.parse(req.url,true).query.asset_id                       || '1099654395868'), 
+            'img'               : (url.parse(req.url,true).query.img                            || 'QmR9NQTfKRtCrhAyVm4UZtimPABQVnXcJW49VcmLmPqiWv')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+
+    // gx_packedtrx_reco API
+    app.get("/gx_packedtrx_reco", (req, res) => {
+        gx_packedtrx_reco({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), 
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || '435yo.wam'), 
+            'amount'            : (url.parse(req.url,true).query.amount                         || 5)
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/gx_packedtrx_reco", (req, res) => {
+        gx_packedtrx_reco({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), 
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || '435yo.wam'), 
+            'amount'            : (url.parse(req.url,true).query.amount                         || 5)
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    
+    // gx_packedtrx_repa API
+    app.get("/gx_packedtrx_repa", (req, res) => {
+        gx_packedtrx_repa({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), 
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || '435yo.wam'), 
+            'asset_id'          : (url.parse(req.url,true).query.asset_id                       || '1099654395868')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/gx_packedtrx_repa", (req, res) => {
+        gx_packedtrx_repa({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), 
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || '435yo.wam'), 
+            'asset_id'          : (url.parse(req.url,true).query.asset_id                       || '1099654395868')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+
+    // fw_packedtrx_mine API
+    app.get("/bl_packedtrx_mine", (req, res) => {
+        bl_packedtrx_mine({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), 
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || '435yo.wam'), 
+            'slot'              : (url.parse(req.url,true).query.slot                       || 1)
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/bl_packedtrx_mine", (req, res) => {
+        bl_packedtrx_mine({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), 
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || '435yo.wam'), 
+            'slot'              : (url.parse(req.url,true).query.slot                       || 1)
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+
+    // fw_packedtrx_mine API
+    app.get("/bl_packedtrx_heal", (req, res) => {
+        bl_packedtrx_heal({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), 
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || '435yo.wam'), 
+            'brawler'           : (url.parse(req.url,true).query.brawler                        || '1099628296388-1.0000')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/bl_packedtrx_heal", (req, res) => {
+        bl_packedtrx_heal({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), 
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || '435yo.wam'), 
+            'brawler'           : (url.parse(req.url,true).query.brawler                        || '1099628296388-1.0000')
         }).then(result => {
             res.setHeader('Content-Type', 'application/json');
             res.write(JSON.stringify(result))
@@ -671,6 +819,34 @@ if (cluster.isMaster) {
             res.end();
         }); 
     });
+    
+    // packedtrx_cc_login API
+    app.get("/packedtrx_cc_login", (req, res) => {
+        packedtrx_cc_login({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), 
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'w5fes.wam'), 
+            'sign'              : (url.parse(req.url,true).query.sign                           || '5322109341739682068')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_cc_login", (req, res) => {
+        packedtrx_cc_login({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), 
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'w5fes.wam'), 
+            'sign'              : (url.parse(req.url,true).query.sign                           || '5322109341739682068')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
 
 
     app.get("/trace", (req, res) => {
@@ -745,7 +921,8 @@ const signatureProvider     = new JsSignatureProvider(defaultPrivateKey);
 //  const endpoint      = 'https://wax.blokcrafters.io'; 
 //  const endpoint      = 'https://api.wax.alohaeos.com'; 
 //  const endpoint      = 'https://chain.wax.io'; 
-const endpoint      = 'https://wax.pink.gg'; 
+//  const endpoint      = 'https://wax.pink.gg'; 
+const endpoint      = 'https://wax.greymass.com'; 
 const rpc           = new JsonRpc(endpoint, { fetch }); 
 
 //  function buffer2hex (buffer) {
@@ -987,79 +1164,97 @@ async function fw_packedtrx_mbrs_free_trx(DATA){
 
 }; 
 async function fw_packedtrx_crop(DATA){
-
-  console.log(DATA)
-
-  try {
-      const chainId       = DATA['chainId'];
-      //    const abiObj        = await get_rawabi_and_abi('farmersworld');
-      const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
-      //    api.cachedAbis.set('farmersworld', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
-      const transaction   = {
-        "expiration"        : DATA['expiration'],
-        "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
-        "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
-        "actions": [{
-            "account"         : "farmersworld", 
-            "name"            : "cropclaim", 
-            "authorization"   : [{
-                "actor"             : DATA['actor'],
-                "permission"        : "active"
-            }],
-            "data"            : {
-                "owner"             : DATA['actor'],
-                "crop_id"          : DATA['asset_id'],
-            }
-        }]
-      }; 
-      
-      const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
-      const serial        = api.serializeTransaction(transactions);
-      const packed_trx    = arrayToHex(serial); 
-      return new Promise(function(resolve, reject) {
-        resolve({packed_trx, serializedTransaction : serial, transactions}); 
-      }); 
-  } catch (err) {
-      console.log('err is', err);
-  }; 
+    
+    console.log(DATA)
+    
+    try {
+        const chainId       = DATA['chainId'];
+        //    const abiObj        = await get_rawabi_and_abi('farmersworld');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //    api.cachedAbis.set('farmersworld', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions"           : (function makedb(d) {
+                var data = []; 
+                for ( i of d['asset_id'] ){
+            	    data.push({
+                        "account"         : "farmersworld", 
+                        "name"            : "cropclaim", 
+                        "authorization"   : [{
+                            "actor"             : d['actor'],
+                            "permission"        : "active"
+                        }],
+                        "data"            : {
+                            "owner"             : d['actor'],
+                            "crop_id"           : i,
+                        }
+                    })
+            	}; 
+            	return data;
+            })( DATA )
+            //    [{
+            //        "account"         : "farmersworld", 
+            //        "name"            : "cropclaim", 
+            //        "authorization"   : [{
+            //            "actor"             : DATA['actor'],
+            //            "permission"        : "active"
+            //        }],
+            //        "data"            : {
+            //            "owner"             : DATA['actor'],
+            //            "crop_id"           : DATA['asset_id'],
+            //        }
+            //    }]
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions);
+        const packed_trx    = arrayToHex(serial); 
+        return new Promise(function(resolve, reject) {
+          resolve({packed_trx, serializedTransaction : serial, transactions, transaction}); 
+        }); 
+    } catch (err) {
+          console.log('err is', err);
+    }; 
 
 }; 
 async function fw_packedtrx_anim(DATA){
 
-  console.log(DATA)
+    console.log(DATA)
 
-  try {
-      const chainId       = DATA['chainId'];
-      //    const abiObj        = await get_rawabi_and_abi('farmersworld');
-      const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
-      //    api.cachedAbis.set('farmersworld', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
-      const transaction   = {
-        "expiration"        : DATA['expiration'],
-        "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
-        "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
-        "actions": [{
-            "account"         : "farmersworld", 
-            "name"            : "anmclaim", 
-            "authorization"   : [{
-                "actor"             : DATA['actor'],
-                "permission"        : "active"
-            }],
-            "data"            : {
-                "owner"             : DATA['actor'],
-                "animal_id"         : DATA['asset_id'],
-            }
-        }]
-      }; 
-      
-      const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
-      const serial        = api.serializeTransaction(transactions);
-      const packed_trx    = arrayToHex(serial); 
-      return new Promise(function(resolve, reject) {
-        resolve({packed_trx, serializedTransaction : serial, transactions}); 
-      }); 
-  } catch (err) {
-      console.log('err is', err);
-  }; 
+    try {
+        const chainId       = DATA['chainId'];
+        //    const abiObj        = await get_rawabi_and_abi('farmersworld');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //    api.cachedAbis.set('farmersworld', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+          "expiration"        : DATA['expiration'],
+          "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+          "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+          "actions": [{
+                "account"         : "farmersworld", 
+                "name"            : "anmclaim", 
+                "authorization"   : [{
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                "data"            : {
+                    "owner"             : DATA['actor'],
+                    "animal_id"         : DATA['asset_id'],
+                }
+          }]
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions);
+        const packed_trx    = arrayToHex(serial); 
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions, transaction}); 
+        }); 
+    } catch (err) {
+        console.log('err is', err);
+    }; 
 
 }; 
 async function fw_packedtrx_plot(DATA){
@@ -1176,6 +1371,170 @@ async function fw_packedtrx_reco(DATA){
   }; 
 
 }; 
+async function gx_packedtrx_mine(DATA){
+
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        //    const abiObj        = await get_rawabi_and_abi('galaxyminers');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //    api.cachedAbis.set('galaxyminers', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions": [{
+                "account"         : "galaxyminers", 
+                "name"            : "claim", 
+                "authorization"   : [{
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                "data"            : {
+                    "asset_owner"       : DATA['actor'],
+                    "asset_id"          : DATA['asset_id'],
+                    "img"               : DATA['img']
+                }
+            }]
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions);
+        const packed_trx    = arrayToHex(serial); 
+        const freeBandwidth = await gx_packedtrx_mine_free_trx(DATA); 
+    
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions, transaction}); 
+        }); 
+    } catch (err) {
+        console.log('err is', err);
+    }; 
+
+}; 
+async function gx_packedtrx_mine_free_trx(DATA){
+
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        //    const abiObj        = await get_rawabi_and_abi('galaxyminers');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //    api.cachedAbis.set('galaxyminers', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions": [{
+                "account"         : "boost.wax", 
+                "name"            : "noop", 
+                "authorization"   : [{
+                    "actor"             : "galaxyminers",
+                    "permission"        : "paybw"
+                }],
+                "data"            : null
+            }, {
+                "account"         : "galaxyminers", 
+                "name"            : "claim", 
+                "authorization"   : [{
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                "data"            : {
+                    "asset_owner"       : DATA['actor'],
+                    "asset_id"          : DATA['asset_id'],
+                    "img"               : DATA['img']
+                }
+            }]
+        }; 
+    
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions);
+        const packed_trx    = arrayToHex(serial); 
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions, transaction}); 
+        }); 
+    } catch (err) {
+        console.log('err is', err);
+    }; 
+
+}; 
+async function gx_packedtrx_repa(DATA){
+
+  console.log(DATA)
+
+  try {
+      const chainId       = DATA['chainId'];
+      //    const abiObj        = await get_rawabi_and_abi('galaxyminers');
+      const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+      //    api.cachedAbis.set('galaxyminers', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+      const transaction   = {
+        "expiration"        : DATA['expiration'],
+        "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+        "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+        "actions": [{
+            "account"         : "galaxyminers", 
+            "name"            : "repair", 
+            "authorization"   : [{
+                "actor"             : DATA['actor'],
+                "permission"        : "active"
+            }],
+            "data"            : {
+                "asset_owner"       : DATA['actor'],
+                "asset_id"          : DATA['asset_id']
+            }
+        }]
+      }; 
+      
+      const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+      const serial        = api.serializeTransaction(transactions);
+      const packed_trx    = arrayToHex(serial); 
+      return new Promise(function(resolve, reject) {
+        resolve({packed_trx, serializedTransaction : serial, transactions, transaction}); 
+      }); 
+  } catch (err) {
+      console.log('err is', err);
+  }; 
+
+}; 
+async function gx_packedtrx_reco(DATA){
+
+  console.log(DATA)
+
+  try {
+      const chainId       = DATA['chainId'];
+      //    const abiObj        = await get_rawabi_and_abi('galaxyminers');
+      const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+      //    api.cachedAbis.set('galaxyminers', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+      const transaction   = {
+        "expiration"        : DATA['expiration'],
+        "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+        "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+        "actions": [{
+            "account"         : "galaxyminers", 
+            "name"            : "recover", 
+            "authorization"   : [{
+                "actor"             : DATA['actor'],
+                "permission"        : "active"
+            }],
+            "data"            : {
+                "owner"             : DATA['actor'],
+                "energy_recovered"  : parseInt(DATA['amount']),
+            }
+        }]
+      }; 
+      
+      const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+      const serial        = api.serializeTransaction(transactions);
+      const packed_trx    = arrayToHex(serial); 
+      return new Promise(function(resolve, reject) {
+        resolve({packed_trx, serializedTransaction : serial, transactions, transaction}); 
+      }); 
+  } catch (err) {
+      console.log('err is', err);
+  }; 
+
+}; 
 async function packedtrx_free_trx(DATA){
 
     console.log(DATA)
@@ -1224,6 +1583,180 @@ async function packedtrx_free_trx(DATA){
     } catch (err) {
         console.log('err is', err);
     }
+}; 
+async function bl_packedtrx_mine(DATA){
+
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        //    const abiObj        = await get_rawabi_and_abi('galaxyminers');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //    api.cachedAbis.set('galaxyminers', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions": [{
+                "account"         : "bcbrawlers", 
+                "name"            : "brawl", 
+                "authorization"   : [{
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                "data"            : {
+                    "owner"             : DATA['actor'], 
+                    "slot_id"           : parseInt(DATA['slot'])
+                }
+            }]
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions);
+        const packed_trx    = arrayToHex(serial); 
+        const freeBandwidth = await bl_packedtrx_mine_free_trx(DATA); 
+    
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions, transaction, freeBandwidth}); 
+        }); 
+    } catch (err) {
+        console.log('err is', err);
+    }; 
+
+}; 
+async function bl_packedtrx_mine_free_trx(DATA){
+
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        //    const abiObj        = await get_rawabi_and_abi('galaxyminers');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //    api.cachedAbis.set('galaxyminers', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions": [{
+                "account"         : "boost.wax", 
+                "name"            : "noop", 
+                "authorization"   : [{
+                    "actor"             : "boost.wax",
+                    "permission"        : "paybw"
+                }],
+                "data"            : null
+            }, {
+                "account"         : "bcbrawlers", 
+                "name"            : "brawl", 
+                "authorization"   : [{
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                "data"            : {
+                    "owner"             : DATA['actor'], 
+                    "slot_id"           : DATA['slot']
+                }
+            }]
+        }; 
+    
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions);
+        const packed_trx    = arrayToHex(serial); 
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions, transaction}); 
+        }); 
+    } catch (err) {
+        console.log('err is', err);
+    }; 
+
+}; 
+async function bl_packedtrx_heal(DATA){
+
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        //    const abiObj        = await get_rawabi_and_abi('galaxyminers');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //    api.cachedAbis.set('galaxyminers', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions": [{
+                "account"         : "bcbrawlers", 
+                "name"            : "heal", 
+                "authorization"   : [{
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                "data"            : {
+                    "owner"             : DATA['actor'], 
+                    "brawler_id"        : `${ DATA['brawler'].split('-')[0] }`, 
+                    "amount"            : `${ DATA['brawler'].split('-')[1] } BRWL`
+                }
+            }]
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions);
+        const packed_trx    = arrayToHex(serial); 
+        const freeBandwidth = await bl_packedtrx_heal_free_trx(DATA); 
+    
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions, transaction, freeBandwidth}); 
+        }); 
+    } catch (err) {
+        console.log('err is', err);
+    }; 
+
+}; 
+async function bl_packedtrx_heal_free_trx(DATA){
+
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        //    const abiObj        = await get_rawabi_and_abi('galaxyminers');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //    api.cachedAbis.set('galaxyminers', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions": [{
+                "account"         : "boost.wax", 
+                "name"            : "noop", 
+                "authorization"   : [{
+                    "actor"             : "boost.wax",
+                    "permission"        : "paybw"
+                }],
+                "data"            : null
+            }, {
+                "account"         : "bcbrawlers", 
+                "name"            : "brawl", 
+                "authorization"   : [{
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                "data"            : {
+                    "owner"             : DATA['actor'], 
+                    "brawler_id"        : `${ DATA['brawler'].split('-')[0] }`, 
+                    "amount"            : `${ DATA['brawler'].split('-')[1] } BRWL`
+                }
+            }]
+        }; 
+    
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions);
+        const packed_trx    = arrayToHex(serial); 
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions, transaction}); 
+        }); 
+    } catch (err) {
+        console.log('err is', err);
+    }; 
+
 }; 
 async function packedtrx_private_key(DATA){
 
@@ -1842,6 +2375,49 @@ async function packedtrx_ss_launch(DATA){
 
 
 async function packedtrx_kq_login(DATA){
+
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        //    const abiObj        = await get_rawabi_and_abi('yeomenwarder');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //    api.cachedAbis.set('yeomenwarder', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions": [{
+                'account'           : 'orng.wax',
+                'name'              : 'requestrand', 
+                "authorization"     : [{
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                'data'              : {
+                    'assoc_id' 				: DATA['sign'],
+                    'signing_value'         : DATA['sign'],
+                    'caller'                : DATA['actor']
+                },
+            }], 
+            "context_free_actions"      : [],
+            "transaction_extensions"    : [],
+            "delay_sec"                 : 0,
+            "max_cpu_usage_ms"          : 0,
+            "max_net_usage_words"       : 0
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions);
+        const packed_trx    = arrayToHex(serial); 
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions, transaction}); 
+        });
+    } catch (err) {
+        console.log('err is', err); 
+    }
+}; 
+async function packedtrx_cc_login(DATA){
 
     console.log(DATA)
 
