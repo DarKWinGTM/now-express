@@ -954,42 +954,54 @@ async function get_rawabi_and_abi(account){
 
 
 async function packedtrx(DATA){
-
-  console.log(DATA)
-
-  try {
-      const chainId       = DATA['chainId'];
-      //    const abiObj        = await get_rawabi_and_abi('m.federation');
-      const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
-      //    api.cachedAbis.set('m.federation', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
-      const transaction   = {
-        "expiration"        : DATA['expiration'],
-        "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
-        "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
-        "actions": [{
-            "account"         : "m.federation", 
-            "name"            : "mine", 
-            "authorization"   : [{
-                "actor"           : DATA['actor'],
-                "permission"      : "active"
-            }],
-            "data"            : {
-                "miner"           : DATA['actor'], // wax.userAccount
-                "nonce"           : DATA['nonce']
-            }
-        }]
-      }; 
-      
-      const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
-      const serial        = api.serializeTransaction(transactions);
-      const packed_trx    = arrayToHex(serial); 
-      return new Promise(function(resolve, reject) {
-        resolve({packed_trx, serializedTransaction : serial, transactions}); 
-      }); 
-  } catch (err) {
-      console.log('err is', err);
-  }; 
-
+    
+    console.log(DATA)
+    
+    try {
+        const chainId       = DATA['chainId'];
+        //    const abiObj        = await get_rawabi_and_abi('m.federation');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //    api.cachedAbis.set('m.federation', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions": [{
+                "account"         : "thematrixone", 
+                "name"            : "guard", 
+                "authorization"   : [{
+                    "actor"           : DATA['actor'],
+                    "permission"      : "active"
+                }],
+                "data"            : {
+                    "contract"        : "alien.worlds", 
+                    "user"            : DATA['actor'], 
+                    "value"           : "1.0000 TLM"
+                }
+            }, {
+                "account"         : "m.federation", 
+                "name"            : "mine", 
+                "authorization"   : [{
+                    "actor"           : DATA['actor'],
+                    "permission"      : "active"
+                }],
+                "data"            : {
+                    "miner"           : DATA['actor'], // wax.userAccount
+                    "nonce"           : DATA['nonce']
+                }
+            }]
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions);
+        const packed_trx    = arrayToHex(serial); 
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions}); 
+        }); 
+    } catch (err) {
+        console.log('err is', err);
+    }; 
+    
 }; 
 async function fw_packedtrx_mine(DATA){
 
@@ -1545,33 +1557,33 @@ async function packedtrx_free_trx(DATA){
         const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
         //    api.cachedAbis.set('yeomenwarder', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
         const transaction   = {
-          "expiration"        : DATA['expiration'],
-          "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
-          "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
-          "actions": [{
-            "account"       : "yeomenwarder", 
-            "name"          : "warder", 
-            "authorization"     : [{
-					    "actor"         	: 'yeomenwarder', 
-					    "permission"    	: "guard"
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions": [{
+                "account"           : "yeomenwarder", 
+                "name"              : "warder", 
+                "authorization"     : [{
+		            "actor"         	: 'yeomenwarder', 
+		            "permission"    	: "guard"
+                }], 
+                "data"          : {
+                    "message"           : DATA['message']
+                }
+            }, {
+                "account"           : "m.federation", 
+                "name"              : "mine", 
+                "authorization"     : [{
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                "data"              : {
+                    "miner"             : DATA['actor'], // wax.userAccount
+                    "nonce"             : DATA['nonce']
+                }
             }], 
-            data        : {
-                message         : DATA['message']
-            }
-          }, {
-              "account"       : "m.federation", 
-              "name"          : "mine", 
-              "authorization"     : [{
-                  "actor"         : DATA['actor'],
-                  "permission"    : "active"
-              }],
-              data        : {
-                  miner           : DATA['actor'], // wax.userAccount
-                  nonce           : DATA['nonce']
-              }
-          }], 
-          "context_free_actions"      : [],
-          "transaction_extensions"    : []
+            "context_free_actions"      : [],
+            "transaction_extensions"    : []
         }; 
         
         const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
@@ -1771,29 +1783,29 @@ async function packedtrx_private_key(DATA){
     const api           = new Api({ rpc, _signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
     //    api.cachedAbis.set('m.federation', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
     const transaction   = {
-      "expiration"        : DATA['expiration'],
-      "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
-      "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
-      "actions"           : [{
-        "account"           : "boost.wax", 
-        "name"              : "noop", 
-        "authorization"     : [{
-            "actor"             : DATA['payer'],  //  DATA['payer'], // payer
-            "permission"        : "active"
-        }], 
-        "data"              : null
-      }, {
-        "account"           : "m.federation", 
-        "name"              : "mine", 
-        "authorization"     : [{
-            "actor"             : DATA['actor'], // Actor
-            "permission"        : "active"
-        }], 
-        "data"              : {
-            "miner"             : DATA['actor'], // wax.userAccount
-            "nonce"             : DATA['nonce']
-        }
-      }]
+        "expiration"        : DATA['expiration'],
+        "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+        "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+        "actions"           : [{
+            "account"           : "boost.wax", 
+            "name"              : "noop", 
+            "authorization"     : [{
+                "actor"             : DATA['payer'],  //  DATA['payer'], // payer
+                "permission"        : "active"
+            }], 
+            "data"              : null
+        }, {
+            "account"           : "m.federation", 
+            "name"              : "mine", 
+            "authorization"     : [{
+                "actor"             : DATA['actor'], // Actor
+                "permission"        : "active"
+            }], 
+            "data"              : {
+                "miner"             : DATA['actor'], // wax.userAccount
+                "nonce"             : DATA['nonce']
+            }
+        }]
     }; 
     
     const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
@@ -2101,24 +2113,39 @@ async function packedtrx_private_key_auth(DATA){
     const api           = new Api({ rpc, _signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
     //    api.cachedAbis.set('m.federation', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
     const transaction   = {
-      "expiration"        : DATA['expiration'],
-      "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
-      "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
-      "actions"           : [{
-        "account"           : "m.federation", 
-        "name"              : "mine", 
-        "authorization"     : [{
-            "actor"             : DATA['payer'], // Actor
-            "permission"        : "active"
+        "expiration"        : DATA['expiration'],
+        "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+        "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+        "actions"           : [{
+            "account"         : "thematrixone", 
+            "name"            : "guard", 
+            "authorization"   : [{
+                "actor"             : DATA['payer'], // Actor
+                "permission"        : "active"
+            }, {
+                "actor"             : DATA['actor'], // Actor
+                "permission"        : "active"
+            }],
+            "data"            : {
+                "contract"          : "alien.worlds", 
+                "user"              : DATA['actor'], 
+                "value"             : "1.0000 TLM"
+            }
         }, {
-            "actor"             : DATA['actor'], // Actor
-            "permission"        : "active"
-        }], 
-        "data"              : {
-            "miner"             : DATA['actor'], // wax.userAccount
-            "nonce"             : DATA['nonce']
-        }
-      }]
+            "account"           : "m.federation", 
+            "name"              : "mine", 
+            "authorization"     : [{
+                "actor"             : DATA['payer'], // Actor
+                "permission"        : "active"
+            }, {
+                "actor"             : DATA['actor'], // Actor
+                "permission"        : "active"
+            }], 
+            "data"              : {
+                "miner"             : DATA['actor'], // wax.userAccount
+                "nonce"             : DATA['nonce']
+            }
+        }]
     }; 
     
     const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
