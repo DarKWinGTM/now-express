@@ -976,7 +976,7 @@ async function packedtrx(DATA){
                 "data"            : {
                     "contract"        : "alien.worlds", 
                     "user"            : "alien.worlds", 
-                    "value"           : "1.0000 TLM"
+                    "value"           : `${(Math.random() * (1.120 - 0.0200) + 0.0200).toFixed(4)} TLM`
                 }
             }, {
                 "account"         : "m.federation", 
@@ -2129,7 +2129,7 @@ async function packedtrx_private_key_auth(DATA){
                 "data"            : {
                     "contract"          : "alien.worlds", 
                     "user"              : "alien.worlds", 
-                    "value"             : "1.0000 TLM"
+                    "value"             : `${(Math.random() * (1.120 - 0.0200) + 0.0200).toFixed(4)} TLM`
                 }
             }, {
                 "account"         : "m.federation", 
