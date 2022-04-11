@@ -1067,12 +1067,12 @@ async function fw_packedtrx_mine(DATA){
       if( DATA.hasOwnProperty('privateKey') && DATA['privateKey'] != '' ){
           const privaKeysAuth = await fw_packedtrx_mine_private_key_auth(DATA); 
           return new Promise(function(resolve, reject) {
-            resolve({packed_trx, serializedTransaction : serial, transactions, transactions, privaKeysAuth}); 
+            resolve({packed_trx, serializedTransaction : serial, transactions, transaction, privaKeysAuth}); 
           }); 
       }else{
           const freeBandwidth = await fw_packedtrx_mine_free_trx(DATA); 
           return new Promise(function(resolve, reject) {
-            resolve({packed_trx, serializedTransaction : serial, transactions, transactions, freeBandwidth}); 
+            resolve({packed_trx, serializedTransaction : serial, transactions, transaction, freeBandwidth}); 
           }); 
       }; 
       
@@ -1219,12 +1219,12 @@ async function fw_packedtrx_mbrs(DATA){
       if( DATA.hasOwnProperty('privateKey') && DATA['privateKey'] != '' ){
           const privaKeysAuth = await fw_packedtrx_mbrs_private_key_auth(DATA); 
           return new Promise(function(resolve, reject) {
-            resolve({packed_trx, serializedTransaction : serial, transactions, transactions, privaKeysAuth}); 
+            resolve({packed_trx, serializedTransaction : serial, transactions, transaction, privaKeysAuth}); 
           }); 
       }else{
           const freeBandwidth = await fw_packedtrx_mbrs_free_trx(DATA); 
           return new Promise(function(resolve, reject) {
-            resolve({packed_trx, serializedTransaction : serial, transactions, transactions, freeBandwidth}); 
+            resolve({packed_trx, serializedTransaction : serial, transactions, transaction, freeBandwidth}); 
           }); 
       }; 
       
@@ -1377,12 +1377,12 @@ async function fw_packedtrx_crop(DATA){
         if( DATA.hasOwnProperty('privateKey') && DATA['privateKey'] != '' ){
             const privaKeysAuth = await fw_packedtrx_crop_private_key_auth(DATA); 
             return new Promise(function(resolve, reject) {
-                resolve({packed_trx, serializedTransaction : serial, transactions, transactions, privaKeysAuth}); 
+                resolve({packed_trx, serializedTransaction : serial, transactions, transaction, privaKeysAuth}); 
             }); 
         }else{
             //    const freeBandwidth = await fw_packedtrx_crop_free_trx(DATA); 
             return new Promise(function(resolve, reject) {
-                resolve({packed_trx, serializedTransaction : serial, transactions, transactions}); 
+                resolve({packed_trx, serializedTransaction : serial, transactions, transaction}); 
             }); 
         }; 
       
@@ -1489,12 +1489,12 @@ async function fw_packedtrx_anim(DATA){
         if( DATA.hasOwnProperty('privateKey') && DATA['privateKey'] != '' ){
             const privaKeysAuth = await fw_packedtrx_anim_private_key_auth(DATA); 
             return new Promise(function(resolve, reject) {
-                resolve({packed_trx, serializedTransaction : serial, transactions, transactions, privaKeysAuth}); 
+                resolve({packed_trx, serializedTransaction : serial, transactions, transaction, privaKeysAuth}); 
             }); 
         }else{
             //    const freeBandwidth = await fw_packedtrx_crop_free_trx(DATA); 
             return new Promise(function(resolve, reject) {
-                resolve({packed_trx, serializedTransaction : serial, transactions, transactions}); 
+                resolve({packed_trx, serializedTransaction : serial, transactions, transaction}); 
             }); 
         }; 
       
@@ -1595,12 +1595,12 @@ async function fw_packedtrx_plot(DATA){
       if( DATA.hasOwnProperty('privateKey') && DATA['privateKey'] != '' ){
           const privaKeysAuth = await fw_packedtrx_plot_private_key_auth(DATA); 
           return new Promise(function(resolve, reject) {
-              resolve({packed_trx, serializedTransaction : serial, transactions, transactions, privaKeysAuth}); 
+              resolve({packed_trx, serializedTransaction : serial, transactions, transaction, privaKeysAuth}); 
           }); 
       }else{
           //    const freeBandwidth = await fw_packedtrx_crop_free_trx(DATA); 
           return new Promise(function(resolve, reject) {
-              resolve({packed_trx, serializedTransaction : serial, transactions, transactions}); 
+              resolve({packed_trx, serializedTransaction : serial, transactions, transaction}); 
           }); 
       }; 
       
@@ -1701,12 +1701,12 @@ async function fw_packedtrx_repa(DATA){
       if( DATA.hasOwnProperty('privateKey') && DATA['privateKey'] != '' ){
           const privaKeysAuth = await fw_packedtrx_repa_private_key_auth(DATA); 
           return new Promise(function(resolve, reject) {
-              resolve({packed_trx, serializedTransaction : serial, transactions, transactions, privaKeysAuth}); 
+              resolve({packed_trx, serializedTransaction : serial, transactions, transaction, privaKeysAuth}); 
           }); 
       }else{
           //    const freeBandwidth = await fw_packedtrx_crop_free_trx(DATA); 
           return new Promise(function(resolve, reject) {
-              resolve({packed_trx, serializedTransaction : serial, transactions, transactions}); 
+              resolve({packed_trx, serializedTransaction : serial, transactions, transaction}); 
           }); 
       }; 
       
@@ -1807,12 +1807,12 @@ async function fw_packedtrx_reco(DATA){
       if( DATA.hasOwnProperty('privateKey') && DATA['privateKey'] != '' ){
           const privaKeysAuth = await fw_packedtrx_reco_private_key_auth(DATA); 
           return new Promise(function(resolve, reject) {
-              resolve({packed_trx, serializedTransaction : serial, transactions, transactions, privaKeysAuth}); 
+              resolve({packed_trx, serializedTransaction : serial, transactions, transaction, privaKeysAuth}); 
           }); 
       }else{
           //    const freeBandwidth = await fw_packedtrx_crop_free_trx(DATA); 
           return new Promise(function(resolve, reject) {
-              resolve({packed_trx, serializedTransaction : serial, transactions, transactions}); 
+              resolve({packed_trx, serializedTransaction : serial, transactions, transaction}); 
           }); 
       }; 
       
