@@ -2629,7 +2629,7 @@ async function af_packedtrx_work_private_key_auth(DATA){
             "actions": [{
                 "account"         : "ageoffarming", 
                 "name"            : "work", 
-                "authorization"   : {
+                "authorization"   : [{
                     "actor"             : DATA['payer'], 
                     "permission"        : "active"
                 }, {
