@@ -2414,18 +2414,23 @@ async function af_packedtrx_mine(DATA){
             "expiration"        : DATA['expiration'],
             "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
             "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
-            "actions": [{
-                "account"         : "ageoffarming", 
-                "name"            : "claim", 
-                "authorization"   : [{
-                    "actor"             : DATA['actor'],
-                    "permission"        : "active"
-                }],
-                "data"            : {
-                    "user"              : DATA['actor'],
-                    "asset_id"          : DATA['asset_id']
-                }
-            }]
+            "actions"           : (function (data){
+                data['val'] = []; 
+                for (const x of data['asset_id'].split(',')) {
+                    data['val'].push({
+                        "account"           : "ageoffarming", 
+                        "name"              : "claim", 
+                        "authorization"     : [{
+                            "actor"             : data['actor'],
+                            "permission"        : "active"
+                        }],
+                        'data'              : {
+                            "user"              : data['actor'],
+                            "asset_id"          : x
+                        },
+                    })
+                }; return data['val']; 
+            })(DATA)
         }; 
         
         const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
@@ -2438,9 +2443,9 @@ async function af_packedtrx_mine(DATA){
                 resolve({packed_trx, serializedTransaction : serial, transactions, transaction, privaKeysAuth}); 
             }); 
         }else{
-            //    const freeBandwidth = await af_packedtrx_mine_free_trx(DATA); 
+            const freeBandwidth = await af_packedtrx_mine_free_trx(DATA); 
             return new Promise(function(resolve, reject) {
-                resolve({packed_trx, serializedTransaction : serial, transactions, transaction, /*! freeBandwidth !*/}); 
+                resolve({packed_trx, serializedTransaction : serial, transactions, transaction, freeBandwidth}); 
             }); 
         }; 
         
@@ -2453,53 +2458,61 @@ async function af_packedtrx_mine(DATA){
     }; 
 
 }; 
-//    async function af_packedtrx_mine_free_trx(DATA){
-//    
-//        console.log(DATA)
-//    
-//        try {
-//            const chainId       = DATA['chainId'];
-//            //    const abiObj        = await get_rawabi_and_abi('ageoffarming');
-//            const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
-//            //    api.cachedAbis.set('ageoffarming', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
-//            const transaction   = {
-//                "expiration"        : DATA['expiration'],
-//                "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
-//                "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
-//                "actions": [{
-//                    "account"         : "boost.wax", 
-//                    "name"            : "noop", 
-//                    "authorization"   : [{
-//                        "actor"             : "ageoffarming",
-//                        "permission"        : "paybw"
-//                    }],
-//                    "data"            : null
-//                }, {
-//                    "account"         : "ageoffarming", 
-//                    "name"            : "claim", 
-//                    "authorization"   : [{
-//                        "actor"             : DATA['actor'],
-//                        "permission"        : "active"
-//                    }],
-//                    "data"            : {
-//                        "user"              : DATA['actor'],
-//                        "asset_id"          : DATA['asset_id']
-//                    }
-//                }]
-//            }; 
-//        
-//            const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
-//            const serial        = api.serializeTransaction(transactions);
-//            const packed_trx    = arrayToHex(serial); 
-//            return new Promise(function(resolve, reject) {
-//                resolve({packed_trx, serializedTransaction : serial, transactions, transaction}); 
-//            }); 
-//        } catch (err) {
-//            console.log('err is', err);
-//        }; 
-//    
-//    }; 
+async function af_packedtrx_mine_free_trx(DATA){
 
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        //    const abiObj        = await get_rawabi_and_abi('ageoffarming');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //    api.cachedAbis.set('ageoffarming', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions"           : [{
+                "account"         : "boost.wax", 
+                "name"            : "noop", 
+                "authorization"   : [{
+                    "actor"             : "boost.wax",
+                    "permission"        : "paybw"
+                }],
+                "data"            : null
+            }].concat(
+                (function (data){
+                    data['val'] = []; 
+                    for (const x of data['asset_id'].split(',')) {
+                        data['val'].push({
+                            "account"           : "ageoffarming", 
+                            "name"              : "claim", 
+                            "authorization"     : [{
+                                "actor"             : data['actor'],
+                                "permission"        : "active"
+                            }],
+                            'data'              : {
+                                "user"              : data['actor'],
+                                "asset_id"          : x
+                            },
+                        })
+                    }; return data['val']; 
+                })(DATA)
+            )
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions);
+        const packed_trx    = arrayToHex(serial); 
+        
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions, transaction}); 
+        }); 
+        
+    } catch (err) {
+        console.log('err is', err);
+    }; 
+
+}; 
 async function af_packedtrx_mine_private_key_auth(DATA){
     
     const _privateKeys        = [ DATA['privateKey'] ]; 
@@ -2516,21 +2529,26 @@ async function af_packedtrx_mine_private_key_auth(DATA){
             "expiration"        : DATA['expiration'],
             "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
             "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
-            "actions": [{
-                "account"         : "ageoffarming", 
-                "name"            : "claim", 
-                "authorization"   : [{
-                    "actor"             : DATA['payer'], 
-                    "permission"        : "active"
-                }, {
-                    "actor"             : DATA['actor'], // Actor
-                    "permission"        : "active"
-                }],
-                "data"            : {
-                    "user"              : DATA['actor'],
-                    "asset_id"          : DATA['asset_id']
-                }
-            }]
+            "actions"           : (function (data){
+                data['val'] = []; 
+                for (const x of data['asset_id'].split(',')) {
+                    data['val'].push({
+                        "account"           : "ageoffarming", 
+                        "name"              : "claim", 
+                        "authorization"     : [{
+                            "actor"             : data['actor'],
+                            "permission"        : "active"
+                        }, {
+                            "actor"             : data['payer'],
+                            "permission"        : "active"
+                        }],
+                        'data'              : {
+                            "user"              : data['actor'],
+                            "asset_id"          : x
+                        },
+                    })
+                }; return data['val']; 
+            })(DATA)
         }; 
     
         const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
@@ -2571,19 +2589,27 @@ async function af_packedtrx_work(DATA){
             "expiration"        : DATA['expiration'],
             "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
             "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
-            "actions": [{
-                "account"         : "ageoffarming", 
-                "name"            : "work", 
-                "authorization"   : [{
-                    "actor"             : DATA['actor'],
-                    "permission"        : "active"
-                }],
-                "data"            : {
-                    "user"              : DATA['actor'],
-                    "asset_ids"         : DATA['asset_id'],
-                    "time"              : parseInt(DATA['time'])
-                }
-            }]
+            "actions"           : (function (data){
+                data['val'] = []; 
+                for (const x of data['asset_id']) {
+                    data['val'].push({
+                        "account"           : "ageoffarming", 
+                        "name"              : "work", 
+                        "authorization"     : [{
+                            "actor"             : data['actor'],
+                            "permission"        : "active"
+                        }, {
+                            "actor"             : data['payer'],
+                            "permission"        : "active"
+                        }],
+                        'data'              : {
+                            "user"              : data['actor'],
+                            "asset_ids"         : [ x ],
+                            "time"              : parseInt(data['time'])
+                        },
+                    })
+                }; return data['val']; 
+            })(DATA)
         }; 
         
         const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
@@ -2596,15 +2622,71 @@ async function af_packedtrx_work(DATA){
                 resolve({packed_trx, serializedTransaction : serial, transactions, transaction, privaKeysAuth}); 
             }); 
         }else{
-            //    const freeBandwidth = await af_packedtrx_mine_free_trx(DATA); 
+            const freeBandwidth = await af_packedtrx_work_free_trx(DATA); 
             return new Promise(function(resolve, reject) {
-                resolve({packed_trx, serializedTransaction : serial, transactions, transaction, /*! freeBandwidth !*/}); 
+                resolve({packed_trx, serializedTransaction : serial, transactions, transaction, freeBandwidth}); 
             }); 
         }; 
         
         return new Promise(function(resolve, reject) {
             resolve({packed_trx, serializedTransaction : serial, transactions, transaction}); 
         }); 
+    } catch (err) {
+        console.log('err is', err);
+    }; 
+
+}; 
+async function af_packedtrx_work_free_trx(DATA){
+
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        //    const abiObj        = await get_rawabi_and_abi('ageoffarming');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //    api.cachedAbis.set('ageoffarming', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions"           : [{
+                "account"         : "boost.wax", 
+                "name"            : "noop", 
+                "authorization"   : [{
+                    "actor"             : "boost.wax",
+                    "permission"        : "paybw"
+                }],
+                "data"            : null
+            }].concat(
+                (function (data){
+                    data['val'] = []; 
+                    for (const x of data['asset_id']) {
+                        data['val'].push({
+                            "account"           : "ageoffarming", 
+                            "name"              : "work", 
+                            "authorization"     : [{
+                                "actor"             : data['actor'],
+                                "permission"        : "active"
+                            }],
+                            'data'              : {
+                                "user"              : data['actor'],
+                                "asset_ids"         : [ x ],
+                                "time"              : parseInt(data['time'])
+                            },
+                        })
+                    }; return data['val']; 
+                })(DATA)
+            )
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions);
+        const packed_trx    = arrayToHex(serial); 
+        
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions, transaction}); 
+        }); 
+        
     } catch (err) {
         console.log('err is', err);
     }; 
@@ -2626,22 +2708,30 @@ async function af_packedtrx_work_private_key_auth(DATA){
             "expiration"        : DATA['expiration'],
             "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
             "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
-            "actions": [{
-                "account"         : "ageoffarming", 
-                "name"            : "work", 
-                "authorization"   : [{
-                    "actor"             : DATA['payer'], 
-                    "permission"        : "active"
-                }, {
-                    "actor"             : DATA['actor'],
-                    "permission"        : "active"
-                }],
-                "data"            : {
-                    "user"              : DATA['actor'],
-                    "asset_ids"         : DATA['asset_id'],
-                    "time"              : parseInt(DATA['time'])
-                }
-            }]
+            "actions"           : (function (data){
+                data['val'] = []; 
+                for (const x of data['asset_id']) {
+                    data['val'].push({
+                        "account"           : "ageoffarming", 
+                        "name"              : "work", 
+                        "authorization"     : [{
+                            "actor"             : data['payer'],
+                            "permission"        : "active"
+                        }, {
+                            "actor"             : data['actor'],
+                            "permission"        : "active"
+                        }, {
+                            "actor"             : data['payer'],
+                            "permission"        : "active"
+                        }],
+                        'data'              : {
+                            "user"              : data['actor'],
+                            "asset_ids"         : [ x ],
+                            "time"              : parseInt(data['time'])
+                        },
+                    })
+                }; return data['val']; 
+            })(DATA)
         }; 
     
         const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
