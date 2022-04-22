@@ -2536,10 +2536,10 @@ async function af_packedtrx_mine_private_key_auth(DATA){
                         "account"           : "ageoffarming", 
                         "name"              : "claim", 
                         "authorization"     : [{
-                            "actor"             : data['actor'],
+                            "actor"             : data['payer'],
                             "permission"        : "active"
                         }, {
-                            "actor"             : data['payer'],
+                            "actor"             : data['actor'],
                             "permission"        : "active"
                         }],
                         'data'              : {
@@ -2596,10 +2596,10 @@ async function af_packedtrx_work(DATA){
                         "account"           : "ageoffarming", 
                         "name"              : "work", 
                         "authorization"     : [{
-                            "actor"             : data['actor'],
+                            "actor"             : data['payer'],
                             "permission"        : "active"
                         }, {
-                            "actor"             : data['payer'],
+                            "actor"             : data['actor'],
                             "permission"        : "active"
                         }],
                         'data'              : {
@@ -2719,9 +2719,6 @@ async function af_packedtrx_work_private_key_auth(DATA){
                             "permission"        : "active"
                         }, {
                             "actor"             : data['actor'],
-                            "permission"        : "active"
-                        }, {
-                            "actor"             : data['payer'],
                             "permission"        : "active"
                         }],
                         'data'              : {
