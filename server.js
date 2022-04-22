@@ -2596,9 +2596,6 @@ async function af_packedtrx_work(DATA){
                         "account"           : "ageoffarming", 
                         "name"              : "work", 
                         "authorization"     : [{
-                            "actor"             : data['payer'],
-                            "permission"        : "active"
-                        }, {
                             "actor"             : data['actor'],
                             "permission"        : "active"
                         }],
