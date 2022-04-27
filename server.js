@@ -1084,8 +1084,8 @@ const signatureProvider     = new JsSignatureProvider(defaultPrivateKey);
 //  const endpoint      = 'https://wax.blokcrafters.io'; 
 //  const endpoint      = 'https://api.wax.alohaeos.com'; 
 //  const endpoint      = 'https://chain.wax.io'; 
-//  const endpoint      = 'https://wax.pink.gg'; 
-const endpoint      = 'https://wax.greymass.com'; 
+const endpoint      = 'https://wax.pink.gg'; 
+//  const endpoint      = 'https://wax.greymass.com'; 
 const rpc           = new JsonRpc(endpoint, { fetch }); 
 
 //  function buffer2hex (buffer) {
