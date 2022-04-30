@@ -3525,7 +3525,7 @@ async function packedtrx_ss_launch(DATA){
             }); 
         });
     }; 
-
+    
     try {
         const chainId       = DATA['chainId'];
         //    const abiObj        = await get_rawabi_and_abi('yeomenwarder');
@@ -3545,43 +3545,26 @@ async function packedtrx_ss_launch(DATA){
                 'data'              : {
                     'player' 				: DATA['actor'],
                 },
-            }, {
-                'account'           : 'starshipgame',
-                'name'              : 'move2planet', 
-                "authorization"     : [{
-                    "actor"             : DATA['actor'],
-                    "permission"        : "active"
-                }],
-                'data'              : {
-                    'player' 				: DATA['actor'],
-                    'starship'              : DATA['shipid'][0].split('-')[0],
-                    'planet' 				: DATA['shipid'][0].split('-')[1]
-                },
-            }, {
-                'account'           : 'starshipgame',
-                'name'              : 'move2planet', 
-                "authorization"     : [{
-                    "actor"             : DATA['actor'],
-                    "permission"        : "active"
-                }],
-                'data'              : {
-                    'player' 				: DATA['actor'],
-                    'starship'              : DATA['shipid'][1].split('-')[0],
-                    'planet' 				: DATA['shipid'][1].split('-')[1]
-                },
-            }, {
-                'account'           : 'starshipgame',
-                'name'              : 'move2planet', 
-                "authorization"     : [{
-                    "actor"             : DATA['actor'],
-                    "permission"        : "active"
-                }],
-                'data'              : {
-                    'player' 				: DATA['actor'],
-                    'starship'              : DATA['shipid'][2].split('-')[0],
-                    'planet' 				: DATA['shipid'][2].split('-')[1]
-                },
-            }], 
+            }].concat(
+                (function (data){
+                    data['val'] = []; 
+                    for (const x of data['shipid']) {
+                        data['val'].push({
+                            'account'           : 'starshipgame', 
+                            'name'              : 'move2planet', 
+                            "authorization"     : [{
+                                "actor"             : data['actor'],
+                                "permission"        : "active"
+                            }],
+                            'data'              : {
+                                'player'            : data['actor'],
+                                'starship'          : x.split('-')[0],
+                                'planet'            : x.split('-')[1]
+                            },
+                        })
+                    }; return data['val']; 
+                })(DATA)
+            ), 
             "context_free_actions"      : [],
             "transaction_extensions"    : []
         }; 
