@@ -3345,12 +3345,12 @@ async function sr_packedtrx_amul(DATA){
         const packed_trx    = arrayToHex(serial); 
         
         if( DATA.hasOwnProperty('privateKey') && DATA['privateKey'] != '' ){
-            const privaKeysAuth = await sr_packedtrx_mine_private_key_auth(DATA); 
+            const privaKeysAuth = await sr_packedtrx_amul_private_key_auth(DATA); 
             return new Promise(function(resolve, reject) {
                 resolve({packed_trx, serializedTransaction : serial, transactions, transaction, privaKeysAuth}); 
             }); 
         }else{
-            const freeBandwidth = await sr_packedtrx_mine_free_trx(DATA); 
+            const freeBandwidth = await sr_packedtrx_amul_free_trx(DATA); 
             return new Promise(function(resolve, reject) {
                 resolve({packed_trx, serializedTransaction : serial, transactions, transaction, freeBandwidth}); 
             }); 
