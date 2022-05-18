@@ -814,6 +814,81 @@ if (cluster.isMaster) {
 
 
 
+
+
+
+
+
+
+    
+    // dw_packedtrx_mine API
+    app.get("/dw_packedtrx_mine", (req, res) => {
+        dw_packedtrx_mine({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), 
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || '435yo.wam'), 
+            'asset_id'          : (url.parse(req.url,true).query.asset_id                       || '0000000000000-1').match(/\d{13,13}-\d{1,1}/gi), 
+            'time'              : (url.parse(req.url,true).query.time                           || 1), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/dw_packedtrx_mine", (req, res) => {
+        dw_packedtrx_mine({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), 
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || '435yo.wam'), 
+            'asset_id'          : (url.parse(req.url,true).query.asset_id                       || '0000000000000-1').match(/\d{13,13}-\d{1,1}/gi), 
+            'time'              : (url.parse(req.url,true).query.time                           || 1), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    
+    // sr_packedtrx_repa API
+    app.get("/dw_packedtrx_repa", (req, res) => {
+        dw_packedtrx_repa({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), 
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || '435yo.wam'), 
+            'asset_id'          : (url.parse(req.url,true).query.asset_id                       || '0000000000000'), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/dw_packedtrx_repa", (req, res) => {
+        dw_packedtrx_repa({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), 
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || '435yo.wam'), 
+            'asset_id'          : (url.parse(req.url,true).query.asset_id                       || '0000000000000'), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    
+
+
     
     
     // packedtrx_free_trx API
@@ -3841,6 +3916,394 @@ async function sr_packedtrx_land_private_key_auth(DATA){
         console.log('err is', err);
     }; 
 }; 
+
+
+
+
+async function dw_packedtrx_mine(DATA){
+
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        //    const abiObj        = await get_rawabi_and_abi('diggerswgame');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //    api.cachedAbis.set('diggerswgame', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions"           : (function (data){
+                data['val'] = []; 
+                for (const x of data['asset_id']) {
+                    if (
+                        x.split('-')[1] == 1 || x.split('-')[1] == '1'
+                    ){
+                        data['val'].push({
+                            "account"           : "diggerswgame", 
+                            "name"              : "safemine", 
+                            "authorization"     : [{
+                                "actor"             : data['actor'],
+                                "permission"        : "active"
+                            }],
+                            'data'              : {
+                                "asset_owner"       : data['actor'],
+                                "asset_id"          : x.split('-')[0]
+                            },
+                        })
+                    } else if (
+                        x.split('-')[1] == 2 || x.split('-')[1] == '2'
+                    ){
+                        data['val'].push({
+                            "account"           : "diggerswgame", 
+                            "name"              : "unsafemine", 
+                            "authorization"     : [{
+                                "actor"             : data['actor'],
+                                "permission"        : "active"
+                            }],
+                            'data'              : {
+                                "asset_owner"       : data['actor'],
+                                "asset_id"          : x.split('-')[0],
+                                "risky"             : true,
+                                "signing_value"     : 0
+                            },
+                        })
+                    }else{
+                        data['val'].push({
+                            "account"           : "diggerswgame", 
+                            "name"              : "delrandmine", 
+                            "authorization"     : [{
+                                "actor"             : data['actor'],
+                                "permission"        : "active"
+                            }],
+                            'data'              : {
+                                "asset_id"          : x.split('-')[0]
+                            },
+                        })
+                    }
+                }; return data['val']; 
+            })(DATA)
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions);
+        const packed_trx    = arrayToHex(serial); 
+        
+        if( DATA.hasOwnProperty('privateKey') && DATA['privateKey'] != '' ){
+            const privaKeysAuth = await dw_packedtrx_mine_private_key_auth(DATA); 
+            return new Promise(function(resolve, reject) {
+                resolve({packed_trx, serializedTransaction : serial, transactions, transaction, privaKeysAuth}); 
+            }); 
+        }else{
+            const freeBandwidth = await dw_packedtrx_mine_free_trx(DATA); 
+            return new Promise(function(resolve, reject) {
+                resolve({packed_trx, serializedTransaction : serial, transactions, transaction, freeBandwidth}); 
+            }); 
+        }; 
+        
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions, transaction}); 
+        }); 
+    } catch (err) {
+        console.log('err is', err);
+    }; 
+}; 
+async function dw_packedtrx_mine_free_trx(DATA){
+
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        //    const abiObj        = await get_rawabi_and_abi('diggerswgame');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //    api.cachedAbis.set('diggerswgame', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions"           : [{
+                "account"         : "boost.wax", 
+                "name"            : "noop", 
+                "authorization"   : [{
+                    "actor"             : "boost.wax",
+                    "permission"        : "paybw"
+                }],
+                "data"            : null
+            }].concat(
+                (function (data){
+                    data['val'] = []; 
+                    for (const x of data['asset_id']) {
+                        if (
+                            x.split('-')[1] == 1 || x.split('-')[1] == '1'
+                        ){
+                            data['val'].push({
+                                "account"           : "diggerswgame", 
+                                "name"              : "safemine", 
+                                "authorization"     : [{
+                                    "actor"             : data['actor'],
+                                    "permission"        : "active"
+                                }],
+                                'data'              : {
+                                    "asset_owner"       : data['actor'],
+                                    "asset_id"          : x.split('-')[0]
+                                },
+                            })
+                        } else if (
+                            x.split('-')[1] == 2 || x.split('-')[1] == '2'
+                        ){
+                            data['val'].push({
+                                "account"           : "diggerswgame", 
+                                "name"              : "unsafemine", 
+                                "authorization"     : [{
+                                    "actor"             : data['actor'],
+                                    "permission"        : "active"
+                                }],
+                                'data'              : {
+                                    "asset_owner"       : data['actor'],
+                                    "asset_id"          : x.split('-')[0],
+                                    "risky"             : true,
+                                    "signing_value"     : 0
+                                },
+                            })
+                        }else{
+                            data['val'].push({
+                                "account"           : "diggerswgame", 
+                                "name"              : "delrandmine", 
+                                "authorization"     : [{
+                                    "actor"             : data['actor'],
+                                    "permission"        : "active"
+                                }],
+                                'data'              : {
+                                    "asset_id"          : x.split('-')[0]
+                                },
+                            })
+                        }
+                    }; return data['val']; 
+                })(DATA)
+            )
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions);
+        const packed_trx    = arrayToHex(serial); 
+        
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions, transaction}); 
+        }); 
+        
+    } catch (err) {
+        console.log('err is', err);
+    }; 
+}; 
+async function dw_packedtrx_mine_private_key_auth(DATA){
+    
+    const _privateKeys        = [ DATA['privateKey'] ]; 
+    const _signatureProvider  = new JsSignatureProvider(_privateKeys); 
+    
+    console.log(DATA)
+    
+    try {
+        const chainId       = DATA['chainId'];
+        //    const abiObj        = await get_rawabi_and_abi('saarofficial');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //    api.cachedAbis.set('saarofficial', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions"           : (function (data){
+                data['val'] = []; 
+                for (const x of data['asset_id']) {
+                    if (
+                        x.split('-')[1] == 1 || x.split('-')[1] == '1'
+                    ){
+                        data['val'].push({
+                            "account"           : "diggerswgame", 
+                            "name"              : "safemine", 
+                            "authorization"     : [{
+                                "actor"             : data['payer'],
+                                "permission"        : "active"
+                            }, {
+                                "actor"             : data['actor'],
+                                "permission"        : "active"
+                            }],
+                            'data'              : {
+                                "asset_owner"       : data['actor'],
+                                "asset_id"          : x.split('-')[0]
+                            },
+                        })
+                    } else if (
+                        x.split('-')[1] == 2 || x.split('-')[1] == '2'
+                    ){
+                        data['val'].push({
+                            "account"           : "diggerswgame", 
+                            "name"              : "unsafemine", 
+                            "authorization"     : [{
+                                "actor"             : data['payer'],
+                                "permission"        : "active"
+                            }, {
+                                "actor"             : data['actor'],
+                                "permission"        : "active"
+                            }],
+                            'data'              : {
+                                "asset_owner"       : data['actor'],
+                                "asset_id"          : x.split('-')[0],
+                                "risky"             : true,
+                                "signing_value"     : 0
+                            },
+                        })
+                    }else{
+                        data['val'].push({
+                            "account"           : "diggerswgame", 
+                            "name"              : "delrandmine", 
+                            "authorization"     : [{
+                                "actor"             : data['payer'],
+                                "permission"        : "active"
+                            }, {
+                                "actor"             : data['actor'],
+                                "permission"        : "active"
+                            }],
+                            'data'              : {
+                                "asset_id"          : x.split('-')[0]
+                            },
+                        })
+                    }
+                }; return data['val']; 
+            })(DATA)
+        }; 
+    
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions);
+        const packed_trx    = arrayToHex(serial); 
+        
+        const result        = await api.transact(transactions, { broadcast: false, sign: false });
+        const abis          = await api.getTransactionAbis(transaction);
+        
+        const requiredKeys  = _privateKeys.map((privateKey) => PrivateKey.fromString(privateKey).getPublicKey().toString());
+        
+        result.signatures = await _signatureProvider.sign({
+            chainId,
+            requiredKeys,
+            serializedTransaction: result.serializedTransaction,
+            serializedContextFreeData: result.serializedContextFreeData,
+            abis
+        });
+        
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions, signatures : result.signatures}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }; 
+}; 
+
+async function dw_packedtrx_repa(DATA){
+
+    console.log(DATA)
+    
+    try {
+        const chainId       = DATA['chainId'];
+        //    const abiObj        = await get_rawabi_and_abi('diggerswgame');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //    api.cachedAbis.set('diggerswgame', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions": [{
+                "account"         : "diggerswgame", 
+                "name"            : "trepair", 
+                "authorization"   : [{
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                "data"            : {
+                    "asset_owner"       : DATA['actor'],
+                    "asset_id"          : DATA['asset_id']
+                }
+            }]
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions);
+        const packed_trx    = arrayToHex(serial); 
+        
+        if( DATA.hasOwnProperty('privateKey') && DATA['privateKey'] != '' ){
+            const privaKeysAuth = await af_packedtrx_repa_private_key_auth(DATA); 
+            return new Promise(function(resolve, reject) {
+                resolve({packed_trx, serializedTransaction : serial, transactions, transaction, privaKeysAuth}); 
+            }); 
+        }else{
+            //    const freeBandwidth = await dw_packedtrx_mine_free_trx(DATA); 
+            return new Promise(function(resolve, reject) {
+                resolve({packed_trx, serializedTransaction : serial, transactions, transaction, /*! freeBandwidth !*/}); 
+            }); 
+        }; 
+        
+    } catch (err) {
+        console.log('err is', err);
+    }; 
+}; 
+async function dw_packedtrx_repa_private_key_auth(DATA){
+    
+    const _privateKeys        = [ DATA['privateKey'] ]; 
+    const _signatureProvider  = new JsSignatureProvider(_privateKeys); 
+    
+    console.log(DATA)
+    
+    try {
+        const chainId       = DATA['chainId'];
+        //    const abiObj        = await get_rawabi_and_abi('diggerswgame');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //    api.cachedAbis.set('diggerswgame', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions": [{
+                "account"         : "diggerswgame", 
+                "name"            : "trepair", 
+                "authorization"   : [{
+                    "actor"             : DATA['payer'], 
+                    "permission"        : "active"
+                }, {
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                "data"            : {
+                    "asset_owner"       : DATA['actor'],
+                    "asset_id"          : DATA['asset_id']
+                }
+            }]
+        }; 
+    
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions);
+        const packed_trx    = arrayToHex(serial); 
+        
+        const result        = await api.transact(transactions, { broadcast: false, sign: false });
+        const abis          = await api.getTransactionAbis(transaction);
+        
+        const requiredKeys  = _privateKeys.map((privateKey) => PrivateKey.fromString(privateKey).getPublicKey().toString());
+        
+        result.signatures = await _signatureProvider.sign({
+            chainId,
+            requiredKeys,
+            serializedTransaction: result.serializedTransaction,
+            serializedContextFreeData: result.serializedContextFreeData,
+            abis
+        });
+        
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions, signatures : result.signatures}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }; 
+}; 
+
+
+
 async function packedtrx_private_key(DATA){
 
   const _privateKeys        = [ DATA['privateKey'] ]; 
