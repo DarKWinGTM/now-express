@@ -3586,7 +3586,7 @@ async function sr_packedtrx_repa(DATA){
         const packed_trx    = arrayToHex(serial); 
         
         if( DATA.hasOwnProperty('privateKey') && DATA['privateKey'] != '' ){
-            const privaKeysAuth = await af_packedtrx_repa_private_key_auth(DATA); 
+            const privaKeysAuth = await sr_packedtrx_repa_private_key_auth(DATA); 
             return new Promise(function(resolve, reject) {
                 resolve({packed_trx, serializedTransaction : serial, transactions, transaction, privaKeysAuth}); 
             }); 
