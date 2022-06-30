@@ -463,7 +463,7 @@ if (cluster.isMaster) {
             'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), 
             'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
             'actor'             : (url.parse(req.url,true).query.actor                          || '435yo.wam'), 
-            'slot'              : (url.parse(req.url,true).query.slot                       || 1)
+            'slot'              : (url.parse(req.url,true).query.slot                           || 1)
         }).then(result => {
             res.setHeader('Content-Type', 'application/json');
             res.write(JSON.stringify(result))
@@ -476,7 +476,7 @@ if (cluster.isMaster) {
             'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), 
             'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
             'actor'             : (url.parse(req.url,true).query.actor                          || '435yo.wam'), 
-            'slot'              : (url.parse(req.url,true).query.slot                       || 1)
+            'slot'              : (url.parse(req.url,true).query.slot                           || 1)
         }).then(result => {
             res.setHeader('Content-Type', 'application/json');
             res.write(JSON.stringify(result))
