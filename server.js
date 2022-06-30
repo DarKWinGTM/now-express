@@ -580,6 +580,7 @@ if (cluster.isMaster) {
             'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
             'actor'             : (url.parse(req.url,true).query.actor                          || '435yo.wam'), 
             'asset_id'          : (url.parse(req.url,true).query.asset_id                       || '0000000000000').match(/\d{13,13}/gi), 
+            'message'           : (url.parse(req.url,true).query.message                        || '0-0').match(/\d{1,1}-\d{1,1}/gi), 
             'time'              : (url.parse(req.url,true).query.time                           || 1), 
             'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
             'payer'             : (url.parse(req.url,true).query.payer                          || '')
@@ -596,6 +597,7 @@ if (cluster.isMaster) {
             'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
             'actor'             : (url.parse(req.url,true).query.actor                          || '435yo.wam'), 
             'asset_id'          : (url.parse(req.url,true).query.asset_id                       || '0000000000000').match(/\d{13,13}/gi), 
+            'message'           : (url.parse(req.url,true).query.message                        || '0-0').match(/\d{1,1}-\d{1,1}/gi), 
             'time'              : (url.parse(req.url,true).query.time                           || 1), 
             'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
             'payer'             : (url.parse(req.url,true).query.payer                          || '')
@@ -3207,7 +3209,7 @@ async function af_packedtrx_work(DATA){
             "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
             "actions"           : (function (data){
                 data['val'] = []; 
-                for (const x of data['asset_id']) {
+                for (let x = 0; x < data['asset_id'].length; x++) {
                     data['val'].push({
                         "account"           : "ageoffarming", 
                         "name"              : "work", 
@@ -3217,9 +3219,9 @@ async function af_packedtrx_work(DATA){
                         }],
                         'data'              : {
                             "user"              : data['actor'],
-                            "asset_ids"         : [ x ], 
-                            'dog'               : 0, 
-                            'clothing'          : 0, 
+                            "asset_ids"         : [ data['asset_id'][x] ], 
+                            'dog'               : parseInt(data['message'][x].split('-')[0]), 
+                            'clothing'          : parseInt(data['message'][x].split('-')[1]), 
                             "time"              : parseInt(data['time'])
                         },
                     })
@@ -3275,7 +3277,7 @@ async function af_packedtrx_work_free_trx(DATA){
             }].concat(
                 (function (data){
                     data['val'] = []; 
-                    for (const x of data['asset_id']) {
+                    for (let x = 0; x < data['asset_id'].length; x++) {
                         data['val'].push({
                             "account"           : "ageoffarming", 
                             "name"              : "work", 
@@ -3285,9 +3287,9 @@ async function af_packedtrx_work_free_trx(DATA){
                             }],
                             'data'              : {
                                 "user"              : data['actor'],
-                                "asset_ids"         : [ x ],
-                                'dog'               : 0, 
-                                'clothing'          : 0, 
+                                "asset_ids"         : [ data['asset_id'][x] ], 
+                                'dog'               : parseInt(data['message'][x].split('-')[0]), 
+                                'clothing'          : parseInt(data['message'][x].split('-')[1]), 
                                 "time"              : parseInt(data['time'])
                             },
                         })
@@ -3327,7 +3329,7 @@ async function af_packedtrx_work_private_key_auth(DATA){
             "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
             "actions"           : (function (data){
                 data['val'] = []; 
-                for (const x of data['asset_id']) {
+                for (let x = 0; x < data['asset_id'].length; x++) {
                     data['val'].push({
                         "account"           : "ageoffarming", 
                         "name"              : "work", 
@@ -3340,9 +3342,9 @@ async function af_packedtrx_work_private_key_auth(DATA){
                         }],
                         'data'              : {
                             "user"              : data['actor'],
-                            "asset_ids"         : [ x ],
-                            'dog'               : 0, 
-                            'clothing'          : 0, 
+                            "asset_ids"         : [ data['asset_id'][x] ], 
+                            'dog'               : parseInt(data['message'][x].split('-')[0]), 
+                            'clothing'          : parseInt(data['message'][x].split('-')[1]), 
                             "time"              : parseInt(data['time'])
                         },
                     })
