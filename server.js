@@ -3220,8 +3220,12 @@ async function af_packedtrx_work(DATA){
                         'data'              : {
                             "user"              : data['actor'],
                             "asset_ids"         : [ data['asset_id'][x] ], 
-                            'dog'               : parseInt(data['message'][x].split('-')[0]), 
-                            'clothing'          : parseInt(data['message'][x].split('-')[1]), 
+                            'dog'               : (function (d, t){
+                                try{ return parseInt(d[t].split('-')[0])}catch(e){ return 0 }
+                            })( data['message'], x ), 
+                            'clothing'          : (function (d, t){
+                                try{ return parseInt(d[t].split('-')[1])}catch(e){ return 0 }
+                            })( data['message'], x ), 
                             "time"              : parseInt(data['time'])
                         },
                     })
@@ -3288,8 +3292,12 @@ async function af_packedtrx_work_free_trx(DATA){
                             'data'              : {
                                 "user"              : data['actor'],
                                 "asset_ids"         : [ data['asset_id'][x] ], 
-                                'dog'               : parseInt(data['message'][x].split('-')[0]), 
-                                'clothing'          : parseInt(data['message'][x].split('-')[1]), 
+                                'dog'               : (function (d, t){
+                                    try{ return parseInt(d[t].split('-')[0])}catch(e){ return 0 }
+                                })( data['message'], x ), 
+                                'clothing'          : (function (d, t){
+                                    try{ return parseInt(d[t].split('-')[1])}catch(e){ return 0 }
+                                })( data['message'], x ), 
                                 "time"              : parseInt(data['time'])
                             },
                         })
@@ -3343,8 +3351,12 @@ async function af_packedtrx_work_private_key_auth(DATA){
                         'data'              : {
                             "user"              : data['actor'],
                             "asset_ids"         : [ data['asset_id'][x] ], 
-                            'dog'               : parseInt(data['message'][x].split('-')[0]), 
-                            'clothing'          : parseInt(data['message'][x].split('-')[1]), 
+                            'dog'               : (function (d, t){
+                                try{ return parseInt(d[t].split('-')[0])}catch(e){ return 0 }
+                            })( data['message'], x ), 
+                            'clothing'          : (function (d, t){
+                                try{ return parseInt(d[t].split('-')[1])}catch(e){ return 0 }
+                            })( data['message'], x ), 
                             "time"              : parseInt(data['time'])
                         },
                     })
