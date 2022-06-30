@@ -2939,7 +2939,7 @@ async function bl_packedtrx_swap(DATA){
         const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
         const serial        = api.serializeTransaction(transactions);
         const packed_trx    = arrayToHex(serial); 
-        const freeBandwidth = await bl_packedtrx_heal_free_trx(DATA); 
+        const freeBandwidth = await bl_packedtrx_swap_free_trx(DATA); 
     
         return new Promise(function(resolve, reject) {
             resolve({packed_trx, serializedTransaction : serial, transactions, transaction, freeBandwidth}); 
