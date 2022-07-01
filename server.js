@@ -580,7 +580,7 @@ if (cluster.isMaster) {
             'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
             'actor'             : (url.parse(req.url,true).query.actor                          || '435yo.wam'), 
             'asset_id'          : (url.parse(req.url,true).query.asset_id                       || '0000000000000').match(/\d{13,13}/gi), 
-            'message'           : (url.parse(req.url,true).query.message                        || '0-0').match(/\d{1,1}-\d{1,1}/gi), 
+            'message'           : (url.parse(req.url,true).query.message                        || '0-0').match(/\d{1,1}-\d{1,13}/gi), 
             'time'              : (url.parse(req.url,true).query.time                           || 1), 
             'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
             'payer'             : (url.parse(req.url,true).query.payer                          || '')
@@ -597,7 +597,7 @@ if (cluster.isMaster) {
             'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
             'actor'             : (url.parse(req.url,true).query.actor                          || '435yo.wam'), 
             'asset_id'          : (url.parse(req.url,true).query.asset_id                       || '0000000000000').match(/\d{13,13}/gi), 
-            'message'           : (url.parse(req.url,true).query.message                        || '0-0').match(/\d{1,1}-\d{1,1}/gi), 
+            'message'           : (url.parse(req.url,true).query.message                        || '0-0').match(/\d{1,1}-\d{1,13}/gi), 
             'time'              : (url.parse(req.url,true).query.time                           || 1), 
             'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
             'payer'             : (url.parse(req.url,true).query.payer                          || '')
