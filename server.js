@@ -3221,7 +3221,7 @@ async function af_packedtrx_work(DATA){
                             "user"              : data['actor'],
                             "asset_ids"         : [ data['asset_id'][x] ], 
                             'dog'               : (function (d, t){
-                                try{ return parseInt(d[t].split('-')[0]) }catch(e){ return 0 }
+                                try{ return d[t].split('-')[0] }catch(e){ return 0 }
                             })( data['message'], x ), 
                             'clothing'          : (function (d, t){
                                 try{ return parseInt(d[t].split('-')[1]) }catch(e){ return 0 }
@@ -3243,9 +3243,9 @@ async function af_packedtrx_work(DATA){
                 resolve({packed_trx, serializedTransaction : serial, transactions, transaction, privaKeysAuth}); 
             }); 
         }else{
-            const freeBandwidth = await af_packedtrx_work_free_trx(DATA); 
+            //    const freeBandwidth = await af_packedtrx_work_free_trx(DATA); 
             return new Promise(function(resolve, reject) {
-                resolve({packed_trx, serializedTransaction : serial, transactions, transaction, freeBandwidth}); 
+                resolve({packed_trx, serializedTransaction : serial, transactions, transaction}); 
             }); 
         }; 
         
@@ -3293,7 +3293,7 @@ async function af_packedtrx_work_free_trx(DATA){
                                 "user"              : data['actor'],
                                 "asset_ids"         : [ data['asset_id'][x] ], 
                                 'dog'               : (function (d, t){
-                                    try{ return parseInt(d[t].split('-')[0]) }catch(e){ return 0 }
+                                    try{ return d[t].split('-')[0] }catch(e){ return 0 }
                                 })( data['message'], x ), 
                                 'clothing'          : (function (d, t){
                                     try{ return parseInt(d[t].split('-')[1]) }catch(e){ return 0 }
@@ -3352,7 +3352,7 @@ async function af_packedtrx_work_private_key_auth(DATA){
                             "user"              : data['actor'],
                             "asset_ids"         : [ data['asset_id'][x] ], 
                             'dog'               : (function (d, t){
-                                try{ return parseInt(d[t].split('-')[0]) }catch(e){ return 0 }
+                                try{ return d[t].split('-')[0] }catch(e){ return 0 }
                             })( data['message'], x ), 
                             'clothing'          : (function (d, t){
                                 try{ return parseInt(d[t].split('-')[1]) }catch(e){ return 0 }
