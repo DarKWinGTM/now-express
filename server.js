@@ -4389,18 +4389,6 @@ async function dw_packedtrx_mine(DATA){
                                 "signing_value"     : 0
                             },
                         }); 
-                        data['val'].push({
-                            "account"           : "diggerswgame", 
-                            "name"              : "revealresult", 
-                            "authorization"     : [{
-                                "actor"             : data['actor'],
-                                "permission"        : "active"
-                            }],
-                            'data'              : {
-                                "asset_owner"       : data['actor'],
-                                "asset_id"          : x.split('-')[0]
-                            },
-                        }); 
                     }else{
                         data['val'].push({
                             "account"           : "diggerswgame", 
@@ -4414,18 +4402,6 @@ async function dw_packedtrx_mine(DATA){
                                 "asset_id"          : x.split('-')[0],
                                 "risky"             : false,
                                 "signing_value"     : 0
-                            },
-                        }); 
-                        data['val'].push({
-                            "account"           : "diggerswgame", 
-                            "name"              : "revealresult", 
-                            "authorization"     : [{
-                                "actor"             : data['actor'],
-                                "permission"        : "active"
-                            }],
-                            'data'              : {
-                                "asset_owner"       : data['actor'],
-                                "asset_id"          : x.split('-')[0]
                             },
                         }); 
                     }
@@ -4513,18 +4489,6 @@ async function dw_packedtrx_mine_free_trx(DATA){
                                     "signing_value"     : 0
                                 },
                             }); 
-                            data['val'].push({
-                                "account"           : "diggerswgame", 
-                                "name"              : "revealresult", 
-                                "authorization"     : [{
-                                    "actor"             : data['actor'],
-                                    "permission"        : "active"
-                                }],
-                                'data'              : {
-                                    "asset_owner"       : data['actor'],
-                                    "asset_id"          : x.split('-')[0]
-                                },
-                            }); 
                         }else{
                             data['val'].push({
                                 "account"           : "diggerswgame", 
@@ -4538,18 +4502,6 @@ async function dw_packedtrx_mine_free_trx(DATA){
                                     "asset_id"          : x.split('-')[0],
                                     "risky"             : false,
                                     "signing_value"     : 0
-                                },
-                            }); 
-                            data['val'].push({
-                                "account"           : "diggerswgame", 
-                                "name"              : "revealresult", 
-                                "authorization"     : [{
-                                    "actor"             : data['actor'],
-                                    "permission"        : "active"
-                                }],
-                                'data'              : {
-                                    "asset_owner"       : data['actor'],
-                                    "asset_id"          : x.split('-')[0]
                                 },
                             }); 
                         }
@@ -4627,21 +4579,6 @@ async function dw_packedtrx_mine_private_key_auth(DATA){
                                 "signing_value"     : 0
                             },
                         }); 
-                        data['val'].push({
-                            "account"           : "diggerswgame", 
-                            "name"              : "revealresult", 
-                            "authorization"     : [{
-                                "actor"             : data['payer'],
-                                "permission"        : "active"
-                            }, {
-                                "actor"             : data['actor'],
-                                "permission"        : "active"
-                            }],
-                            'data'              : {
-                                "asset_owner"       : data['actor'],
-                                "asset_id"          : x.split('-')[0]
-                            },
-                        }); 
                     }else{
                         data['val'].push({
                             "account"           : "diggerswgame", 
@@ -4658,21 +4595,6 @@ async function dw_packedtrx_mine_private_key_auth(DATA){
                                 "asset_id"          : x.split('-')[0],
                                 "risky"             : false,
                                 "signing_value"     : 0
-                            },
-                        }); 
-                        data['val'].push({
-                            "account"           : "diggerswgame", 
-                            "name"              : "revealresult", 
-                            "authorization"     : [{
-                                "actor"             : data['payer'],
-                                "permission"        : "active"
-                            }, {
-                                "actor"             : data['actor'],
-                                "permission"        : "active"
-                            }],
-                            'data'              : {
-                                "asset_owner"       : data['actor'],
-                                "asset_id"          : x.split('-')[0]
                             },
                         }); 
                     }
