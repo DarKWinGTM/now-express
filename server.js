@@ -947,7 +947,7 @@ if (cluster.isMaster) {
             'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), 
             'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
             'actor'             : (url.parse(req.url,true).query.actor                          || '435yo.wam'), 
-            'asset_id'          : (url.parse(req.url,true).query.asset_id                       || '1099784856472-1099749456304-0').match(/\d{13,13}-\d{13,13}-\d{1,1}/gi), 
+            'asset_id'          : (url.parse(req.url,true).query.asset_id                       || '1099784856472-1099749456304-0').match(/\d{13,13}-\d{13,13}-\d{1,13}/gi), 
             'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
             'payer'             : (url.parse(req.url,true).query.payer                          || '')
         }).then(result => {
@@ -979,7 +979,7 @@ if (cluster.isMaster) {
             'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), 
             'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
             'actor'             : (url.parse(req.url,true).query.actor                          || '435yo.wam'), 
-            'asset_id'          : (url.parse(req.url,true).query.asset_id                       || '1099784856472-1099749456304-0').match(/\d{13,13}-\d{13,13}-\d{1,1}/gi), 
+            'asset_id'          : (url.parse(req.url,true).query.asset_id                       || '1099784856472-1099749456304-0').match(/\d{13,13}-\d{13,13}-\d{1,13}/gi), 
             'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
             'payer'             : (url.parse(req.url,true).query.payer                          || '')
         }).then(result => {
