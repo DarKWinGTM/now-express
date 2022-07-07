@@ -4404,15 +4404,30 @@ async function dw_packedtrx_mine(DATA){
                     }else{
                         data['val'].push({
                             "account"           : "diggerswgame", 
-                            "name"              : "delrandmine", 
+                            "name"              : "unsafemine", 
                             "authorization"     : [{
                                 "actor"             : data['actor'],
                                 "permission"        : "active"
                             }],
                             'data'              : {
+                                "asset_owner"       : data['actor'],
+                                "asset_id"          : x.split('-')[0],
+                                "risky"             : false,
+                                "signing_value"     : 0
+                            },
+                        }); 
+                        data['val'].push({
+                            "account"           : "diggerswgame", 
+                            "name"              : "revealresult", 
+                            "authorization"     : [{
+                                "actor"             : data['actor'],
+                                "permission"        : "active"
+                            }],
+                            'data'              : {
+                                "asset_owner"       : data['actor'],
                                 "asset_id"          : x.split('-')[0]
                             },
-                        })
+                        }); 
                     }
                 }; return data['val']; 
             })(DATA)
@@ -4513,15 +4528,30 @@ async function dw_packedtrx_mine_free_trx(DATA){
                         }else{
                             data['val'].push({
                                 "account"           : "diggerswgame", 
-                                "name"              : "delrandmine", 
+                                "name"              : "unsafemine", 
                                 "authorization"     : [{
                                     "actor"             : data['actor'],
                                     "permission"        : "active"
                                 }],
                                 'data'              : {
+                                    "asset_owner"       : data['actor'],
+                                    "asset_id"          : x.split('-')[0],
+                                    "risky"             : false,
+                                    "signing_value"     : 0
+                                },
+                            }); 
+                            data['val'].push({
+                                "account"           : "diggerswgame", 
+                                "name"              : "revealresult", 
+                                "authorization"     : [{
+                                    "actor"             : data['actor'],
+                                    "permission"        : "active"
+                                }],
+                                'data'              : {
+                                    "asset_owner"       : data['actor'],
                                     "asset_id"          : x.split('-')[0]
                                 },
-                            })
+                            }); 
                         }
                     }; return data['val']; 
                 })(DATA)
@@ -4615,7 +4645,7 @@ async function dw_packedtrx_mine_private_key_auth(DATA){
                     }else{
                         data['val'].push({
                             "account"           : "diggerswgame", 
-                            "name"              : "delrandmine", 
+                            "name"              : "unsafemine", 
                             "authorization"     : [{
                                 "actor"             : data['payer'],
                                 "permission"        : "active"
@@ -4624,9 +4654,27 @@ async function dw_packedtrx_mine_private_key_auth(DATA){
                                 "permission"        : "active"
                             }],
                             'data'              : {
+                                "asset_owner"       : data['actor'],
+                                "asset_id"          : x.split('-')[0],
+                                "risky"             : false,
+                                "signing_value"     : 0
+                            },
+                        }); 
+                        data['val'].push({
+                            "account"           : "diggerswgame", 
+                            "name"              : "revealresult", 
+                            "authorization"     : [{
+                                "actor"             : data['payer'],
+                                "permission"        : "active"
+                            }, {
+                                "actor"             : data['actor'],
+                                "permission"        : "active"
+                            }],
+                            'data'              : {
+                                "asset_owner"       : data['actor'],
                                 "asset_id"          : x.split('-')[0]
                             },
-                        })
+                        }); 
                     }
                 }; return data['val']; 
             })(DATA)
