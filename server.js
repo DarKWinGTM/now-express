@@ -18,6 +18,44 @@ const nodeType                              = (cluster.isMaster) ? 'Master' : 'W
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
+function genName(){
+    var name = ""; 
+    var list = [
+      'Time','Past','Future','Dev',
+      'Fly','Flying','Soar','Soaring','Power','Falling',
+      'Fall','Jump','Cliff','Mountain','Rend','Red','Blue',
+      'Green','Yellow','Gold','Demon','Demonic','Panda','Cat',
+      'Kitty','Kitten','Zero','Memory','Trooper','XX','Bandit',
+      'Fear','Light','Glow','Tread','Deep','Deeper','Deepest',
+      'Mine','Your','Worst','Enemy','Hostile','Force','Video',
+      'Game','Donkey','Mule','Colt','Cult','Cultist','Magnum',
+      'Gun','Assault','Recon','Trap','Trapper','Redeem','Code',
+      'Script','Writer','Near','Close','Open','Cube','Circle',
+      'Geo','Genome','Germ','Spaz','Shot','Echo','Beta','Alpha',
+      'Gamma','Omega','Seal','Squid','Money','Cash','Lord','King',
+      'Duke','Rest','Fire','Flame','Morrow','Break','Breaker','Numb',
+      'Ice','Cold','Rotten','Sick','Sickly','Janitor','Camel','Rooster',
+      'Sand','Desert','Dessert','Hurdle','Racer','Eraser','Erase','Big',
+      'Small','Short','Tall','Sith','Bounty','Hunter','Cracked','Broken',
+      'Sad','Happy','Joy','Joyful','Crimson','Destiny','Deceit','Lies',
+      'Lie','Honest','Destined','Bloxxer','Hawk','Eagle','Hawker','Walker',
+      'Zombie','Sarge','Capt','Captain','Punch','One','Two','Uno','Slice',
+      'Slash','Melt','Melted','Melting','Fell','Wolf','Hound',
+      'Legacy','Sharp','Dead','Mew','Chuckle','Bubba','Bubble',
+      'Sandwich','Smasher','Extreme','Multi','Universe','Ultimate',
+      'Death','Ready','Monkey','Elevator','Wrench','Grease','Head',
+      'Theme','Grand','Cool','Kid','Boy','Girl','Vortex','Paradox'
+    ]; 
+	name = 		list[Math.floor( Math.random() * list.length )];
+	name += 	list[Math.floor( Math.random() * list.length )];
+	if ( Math.random() > 0.5 ) {
+		name += 	list[Math.floor( Math.random() * list.length )];
+	}; 
+	return name;
+}; 
+
+
+
 
 if (cluster.isMaster) {
     
@@ -139,6 +177,5411 @@ if (cluster.isMaster) {
             res.end();
         }); 
     });
+
+
+
+    // packedtrx swap API
+    app.get("/packedtrx_swap", (req, res) => {
+        packedtrx_swap({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'amount'            : (parseFloat(url.parse(req.url,true).query.amount)             || parseFloat('0.0001')).toFixed(4), 
+            'quantity'          : (parseFloat(url.parse(req.url,true).query.quantity)           || parseFloat('0.00000000')).toFixed(8), 
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_swap", (req, res) => {
+        packedtrx_swap({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'amount'            : (parseFloat(url.parse(req.url,true).query.amount)             || parseFloat('0.0001')).toFixed(4), 
+            'quantity'          : (parseFloat(url.parse(req.url,true).query.quantity)           || parseFloat('0.00000000')).toFixed(8), 
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+
+    // packedtrx swap API
+    app.get("/packedtrx_swap_prv", (req, res) => {
+        packedtrx_swap_prv({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'amount'            : (parseFloat(url.parse(req.url,true).query.amount)             || parseFloat('0.0001')).toFixed(4), 
+            'quantity'          : (parseFloat(url.parse(req.url,true).query.quantity)           || parseFloat('0.00000000')).toFixed(8), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || '5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3'), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || 'stakebymywax')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+          res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_swap_prv", (req, res) => {
+        packedtrx_swap_prv({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'amount'            : (parseFloat(url.parse(req.url,true).query.amount)             || parseFloat('0.0001')).toFixed(4), 
+            'quantity'          : (parseFloat(url.parse(req.url,true).query.quantity)           || parseFloat('0.00000000')).toFixed(8), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || '5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3'), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || 'stakebymywax')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+
+    // packedtrx_swapdex API
+    app.get("/packedtrx_swapdex", (req, res) => {
+        packedtrx_swapdex({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'amount'            : (parseFloat(url.parse(req.url,true).query.amount)             || parseFloat('0.0001')).toFixed(4), 
+            'quantity'          : (parseFloat(url.parse(req.url,true).query.quantity)           || parseFloat('0.00000000')).toFixed(8)
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_swapdex", (req, res) => {
+        packedtrx_swapdex({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'amount'            : (parseFloat(url.parse(req.url,true).query.amount)             || parseFloat('0.0001')).toFixed(4), 
+            'quantity'          : (parseFloat(url.parse(req.url,true).query.quantity)           || parseFloat('0.00000000')).toFixed(8)
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+
+    // packedtrx_swapdex_prv API
+    app.get("/packedtrx_swapdex_prv", (req, res) => {
+        packedtrx_swapdex_prv({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'amount'            : (parseFloat(url.parse(req.url,true).query.amount)             || parseFloat('0.0001')).toFixed(4), 
+            'quantity'          : (parseFloat(url.parse(req.url,true).query.quantity)           || parseFloat('0.00000000')).toFixed(8), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+          res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_swapdex_prv", (req, res) => {
+        packedtrx_swapdex_prv({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'amount'            : (parseFloat(url.parse(req.url,true).query.amount)             || parseFloat('0.0001')).toFixed(4), 
+            'quantity'          : (parseFloat(url.parse(req.url,true).query.quantity)           || parseFloat('0.00000000')).toFixed(8), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+
+    // packedtrx_cancledex API
+    app.get("/packedtrx_cancledex", (req, res) => {
+        packedtrx_cancledex({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'message'           : (url.parse(req.url,true).query.message                        || '10000-100,20000-200').match(/\d{1,5}-\d{1,5}/gi)
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_cancledex", (req, res) => {
+        packedtrx_cancledex({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'message'           : (url.parse(req.url,true).query.message                        || '10000-100,20000-200').match(/\d{1,5}-\d{1,5}/gi)
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+
+    // packedtrx_cancledex_prv API
+    app.get("/packedtrx_cancledex_prv", (req, res) => {
+        packedtrx_cancledex_prv({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'message'           : (url.parse(req.url,true).query.message                        || '10000-100,20000-200').match(/\d{1,5}-\d{1,5}/gi), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+          res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_cancledex_prv", (req, res) => {
+        packedtrx_cancledex_prv({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'message'           : (url.parse(req.url,true).query.message                        || '10000-100,20000-200').match(/\d{1,5}-\d{1,5}/gi), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+
+    // packedtrx transfer API
+    app.get("/packedtrx_transfer", (req, res) => {
+        packedtrx_transfer({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'quantity'          : (function (){
+                if (
+                    url.parse(req.url,true).query.symbol && (
+                        url.parse(req.url,true).query.symbol.match('WAX-')
+                    )
+                ){
+                    return parseFloat((url.parse(req.url,true).query.quantity) || 0.00000001).toFixed(8)
+                }else{
+                    return parseFloat((url.parse(req.url,true).query.quantity) || 0.00010000).toFixed(4)
+                }; 
+            })(), 
+            'to'                : (url.parse(req.url,true).query.to                             || 'xxxxx.wam'), 
+            'memo'              : (url.parse(req.url,true).query.memo                           || ''), 
+            'symbol'            : (url.parse(req.url,true).query.symbol                         || 'WAX-eosio.token')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_transfer", (req, res) => {
+        packedtrx_transfer({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'quantity'          : (function (){
+                if (
+                    url.parse(req.url,true).query.symbol && (
+                        url.parse(req.url,true).query.symbol.match('WAX-')
+                    )
+                ){
+                    return parseFloat((url.parse(req.url,true).query.quantity) || 0.00000001).toFixed(8)
+                }else{
+                    return parseFloat((url.parse(req.url,true).query.quantity) || 0.00010000).toFixed(4)
+                }; 
+            })(), 
+            'to'                : (url.parse(req.url,true).query.to                             || 'xxxxx.wam'), 
+            'memo'              : (url.parse(req.url,true).query.memo                           || ''), 
+            'symbol'            : (url.parse(req.url,true).query.symbol                         || 'WAX-eosio.token')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+
+    // packedtrx_transfer_prv API
+    app.get("/packedtrx_transfer_prv", (req, res) => {
+        packedtrx_transfer_prv({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'quantity'          : (function (){
+                if (
+                    url.parse(req.url,true).query.symbol && (
+                        url.parse(req.url,true).query.symbol.match('WAX-')
+                    )
+                ){
+                    return parseFloat((url.parse(req.url,true).query.quantity) || 0.00000001).toFixed(8)
+                }else{
+                    return parseFloat((url.parse(req.url,true).query.quantity) || 0.00010000).toFixed(4)
+                }; 
+            })(), 
+            'to'                : (url.parse(req.url,true).query.to                             || 'xxxxx.wam'), 
+            'memo'              : (url.parse(req.url,true).query.memo                           || ''), 
+            'symbol'            : (url.parse(req.url,true).query.symbol                         || 'WAX-eosio.token'), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_transfer_prv", (req, res) => {
+        packedtrx_transfer_prv({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'quantity'          : (function (){
+                if (
+                    url.parse(req.url,true).query.symbol && (
+                        url.parse(req.url,true).query.symbol.match('WAX-')
+                    )
+                ){
+                    return parseFloat((url.parse(req.url,true).query.quantity) || 0.00000001).toFixed(8)
+                }else{
+                    return parseFloat((url.parse(req.url,true).query.quantity) || 0.00010000).toFixed(4)
+                }; 
+            })(), 
+            'to'                : (url.parse(req.url,true).query.to                             || 'xxxxx.wam'), 
+            'memo'              : (url.parse(req.url,true).query.memo                           || ''), 
+            'symbol'            : (url.parse(req.url,true).query.symbol                         || 'WAX-eosio.token'), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    
+    // packedtrx transfer API
+    app.get("/packedtrx_allocate", (req, res) => {
+        packedtrx_allocate({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'quantity'          : (function (){
+                if (
+                    url.parse(req.url,true).query.symbol && (
+                        url.parse(req.url,true).query.symbol.match('WAX-')
+                    )
+                ){
+                    return parseFloat((url.parse(req.url,true).query.quantity) || 0.00000001).toFixed(8)
+                }else{
+                    return parseFloat((url.parse(req.url,true).query.quantity) || 0.00010000).toFixed(4)
+                }; 
+            })(), 
+            'to'                : (url.parse(req.url,true).query.to                             || 'axxxx.wam,bxxxx.wam,cxxxx.wam'), 
+            'memo'              : (url.parse(req.url,true).query.memo                           || ''), 
+            'symbol'            : (url.parse(req.url,true).query.symbol                         || 'WAX-eosio.token')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_allocate", (req, res) => {
+        packedtrx_allocate({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'quantity'          : (function (){
+                if (
+                    url.parse(req.url,true).query.symbol && (
+                        url.parse(req.url,true).query.symbol.match('WAX-')
+                    )
+                ){
+                    return parseFloat((url.parse(req.url,true).query.quantity) || 0.00000001).toFixed(8)
+                }else{
+                    return parseFloat((url.parse(req.url,true).query.quantity) || 0.00010000).toFixed(4)
+                }; 
+            })(), 
+            'to'                : (url.parse(req.url,true).query.to                             || 'axxxx.wam,bxxxx.wam,cxxxx.wam'), 
+            'memo'              : (url.parse(req.url,true).query.memo                           || ''), 
+            'symbol'            : (url.parse(req.url,true).query.symbol                         || 'WAX-eosio.token')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+
+    // packedtrx_allocate_prv API
+    app.get("/packedtrx_allocate_prv", (req, res) => {
+        packedtrx_allocate_prv({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'quantity'          : (function (){
+                if (
+                    url.parse(req.url,true).query.symbol && (
+                        url.parse(req.url,true).query.symbol.match('WAX-')
+                    )
+                ){
+                    return parseFloat((url.parse(req.url,true).query.quantity) || 0.00000001).toFixed(8)
+                }else{
+                    return parseFloat((url.parse(req.url,true).query.quantity) || 0.00010000).toFixed(4)
+                }; 
+            })(), 
+            'to'                : (url.parse(req.url,true).query.to                             || 'axxxx.wam,bxxxx.wam,cxxxx.wam'), 
+            'memo'              : (url.parse(req.url,true).query.memo                           || ''), 
+            'symbol'            : (url.parse(req.url,true).query.symbol                         || 'WAX-eosio.token'), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_allocate_prv", (req, res) => {
+        packedtrx_allocate_prv({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'quantity'          : (function (){
+                if (
+                    url.parse(req.url,true).query.symbol && (
+                        url.parse(req.url,true).query.symbol.match('WAX-')
+                    )
+                ){
+                    return parseFloat((url.parse(req.url,true).query.quantity) || 0.00000001).toFixed(8)
+                }else{
+                    return parseFloat((url.parse(req.url,true).query.quantity) || 0.00010000).toFixed(4)
+                }; 
+            })(), 
+            'to'                : (url.parse(req.url,true).query.to                             || 'axxxx.wam,bxxxx.wam,cxxxx.wam'), 
+            'memo'              : (url.parse(req.url,true).query.memo                           || ''), 
+            'symbol'            : (url.parse(req.url,true).query.symbol                         || 'WAX-eosio.token'), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    
+    // packedtrx_fw_depo API
+    app.get("/packedtrx_fw_depo", (req, res) => {
+        packedtrx_fw_depo({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'quantity'          : (function (){
+                var ar = []; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] } FWF`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 FWF`)
+                };
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] } FWG`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 FWG`)
+                }; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] } FWW`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 FWW`)
+                }; 
+                return ar
+            })(), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_fw_depo", (req, res) => {
+        packedtrx_fw_depo({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'quantity'          : (function (){
+                var ar = []; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] } FWF`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 FWF`)
+                };
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] } FWG`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 FWG`)
+                }; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] } FWW`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 FWW`)
+                }; 
+                return ar
+            })(), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    
+    // packedtrx_fw_depo_private_key_auth API
+    app.get("/packedtrx_fw_depo_private_key_auth", (req, res) => {
+        packedtrx_fw_depo_private_key_auth({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'quantity'          : (function (){
+                var ar = []; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] } FWF`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 FWF`)
+                };
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] } FWG`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 FWG`)
+                }; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] } FWW`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 FWW`)
+                }; 
+                return ar
+            })(), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_fw_depo_private_key_auth", (req, res) => {
+        packedtrx_fw_depo_private_key_auth({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'quantity'          : (function (){
+                var ar = []; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] } FWF`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 FWF`)
+                };
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] } FWG`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 FWG`)
+                }; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] } FWW`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 FWW`)
+                }; 
+                return ar
+            })(), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    
+    // packedtrx_fw_with API
+    app.get("/packedtrx_fw_with", (req, res) => {
+        packedtrx_fw_with({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'amount'            : (url.parse(req.url,true).query.amount                         || 5), 
+            'quantity'          : (function (){
+                var ar = []; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] } FOOD`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 FOOD`)
+                };
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] } GOLD`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 GOLD`)
+                }; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] } WOOD`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 WOOD`)
+                }; 
+                return ar
+            })(), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_fw_with", (req, res) => {
+        packedtrx_fw_with({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'amount'            : (url.parse(req.url,true).query.amount                         || 5), 
+            'quantity'          : (function (){
+                var ar = []; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] } FOOD`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 FOOD`)
+                };
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] } GOLD`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 GOLD`)
+                }; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] } WOOD`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 WOOD`)
+                }; 
+                return ar
+            })(), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    
+    // packedtrx_fw_with_private_key_auth API
+    app.get("/packedtrx_fw_with_private_key_auth", (req, res) => {
+        packedtrx_fw_with_private_key_auth({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'amount'            : (url.parse(req.url,true).query.amount                         || 5), 
+            'quantity'          : (function (){
+                var ar = []; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] } FOOD`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 FOOD`)
+                };
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] } GOLD`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 GOLD`)
+                }; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] } WOOD`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 WOOD`)
+                }; 
+                return ar
+            })(), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_fw_with_private_key_auth", (req, res) => {
+        packedtrx_fw_with_private_key_auth({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'amount'            : (url.parse(req.url,true).query.amount                         || 5), 
+            'quantity'          : (function (){
+                var ar = []; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] } FOOD`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 FOOD`)
+                };
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] } GOLD`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 GOLD`)
+                }; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] } WOOD`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 WOOD`)
+                }; 
+                return ar
+            })(), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    // packedtrx_fw_with_farmer_coin API
+    app.get("/packedtrx_fw_with_farmer_coin", (req, res) => {
+        packedtrx_fw_with_farmer_coin({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'amount'            : parseInt(url.parse(req.url,true).query.amount                 || 5), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_fw_with_farmer_coin", (req, res) => {
+        packedtrx_fw_with_farmer_coin({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'amount'            : parseInt(url.parse(req.url,true).query.amount                 || 5), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    
+    // packedtrx_fw_with_farmer_coin_private_key_auth API
+    app.get("/packedtrx_fw_with_farmer_coin_private_key_auth", (req, res) => {
+        packedtrx_fw_with_farmer_coin_private_key_auth({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'amount'            : parseInt(url.parse(req.url,true).query.amount                 || 5), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_fw_with_farmer_coin_private_key_auth", (req, res) => {
+        packedtrx_fw_with_farmer_coin_private_key_auth({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'amount'            : parseInt(url.parse(req.url,true).query.amount                 || 5), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    
+    // packedtrx_sendnft API
+    app.get("/packedtrx_fw_send_fmc_in_game", (req, res) => {
+        packedtrx_fw_send_fmc_in_game({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'to'                : (function (to){
+                if (to == '' || to == null || to == 'None'){
+                    return (url.parse(req.url,true).query.actor || 'xxxxx.wam')
+                }else{
+                    return to
+                }; 
+            })(url.parse(req.url,true).query.to), 
+            'amount'            : parseInt(url.parse(req.url,true).query.amount                 || 5), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_fw_send_fmc_in_game", (req, res) => {
+        packedtrx_fw_send_fmc_in_game({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'to'                : (function (to){
+                if (to == '' || to == null || to == 'None'){
+                    return (url.parse(req.url,true).query.actor || 'xxxxx.wam')
+                }else{
+                    return to
+                }; 
+            })(url.parse(req.url,true).query.to), 
+            'amount'            : parseInt(url.parse(req.url,true).query.amount                 || 5), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    }); 
+    
+    // packedtrx_fw_send_fmc_in_game_private_key_auth API
+    app.get("/packedtrx_fw_send_fmc_in_game_private_key_auth", (req, res) => {
+        packedtrx_fw_send_fmc_in_game_private_key_auth({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'to'                : (function (to){
+                if (to == '' || to == null || to == 'None'){
+                    return (url.parse(req.url,true).query.actor || 'xxxxx.wam')
+                }else{
+                    return to
+                }; 
+            })(url.parse(req.url,true).query.to), 
+            'amount'            : parseInt(url.parse(req.url,true).query.amount                 || 5), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_fw_send_fmc_in_game_private_key_auth", (req, res) => {
+        packedtrx_fw_send_fmc_in_game_private_key_auth({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'to'                : (function (to){
+                if (to == '' || to == null || to == 'None'){
+                    return (url.parse(req.url,true).query.actor || 'xxxxx.wam')
+                }else{
+                    return to
+                }; 
+            })(url.parse(req.url,true).query.to), 
+            'amount'            : parseInt(url.parse(req.url,true).query.amount                 || 5), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    }); 
+    
+    // packedtrx_fw_mktbuy API
+    app.get("/packedtrx_fw_mktbuy", (req, res) => {
+        packedtrx_fw_mktbuy({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'toolid'            : (url.parse(req.url,true).query.toolid                         || 100000), 
+            'quantity'          : (url.parse(req.url,true).query.quantity                       || 1), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_fw_mktbuy", (req, res) => {
+        packedtrx_fw_mktbuy({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'toolid'            : (url.parse(req.url,true).query.toolid                         || 100000), 
+            'quantity'          : (url.parse(req.url,true).query.quantity                       || 1), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    
+    // packedtrx_fw_mktbuy_private_key_auth API
+    app.get("/packedtrx_fw_mktbuy_private_key_auth", (req, res) => {
+        packedtrx_fw_mktbuy_private_key_auth({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'toolid'            : (url.parse(req.url,true).query.toolid                         || 100000), 
+            'quantity'          : (url.parse(req.url,true).query.quantity                       || 1), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_fw_mktbuy_private_key_auth", (req, res) => {
+        packedtrx_fw_mktbuy_private_key_auth({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'toolid'            : (url.parse(req.url,true).query.toolid                         || 100000), 
+            'quantity'          : (url.parse(req.url,true).query.quantity                       || 1), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    
+    // packedtrx_fw_craftnft API
+    app.get("/packedtrx_fw_craftnft", (req, res) => {
+        packedtrx_fw_craftnft({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'toolid'            : (url.parse(req.url,true).query.toolid                         || 'Mining Excavator'), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_fw_craftnft", (req, res) => {
+        packedtrx_fw_craftnft({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'toolid'            : (url.parse(req.url,true).query.toolid                         || 'Mining Excavator'), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    
+    // packedtrx_fw_craftnft_private_key_auth API
+    app.get("/packedtrx_fw_craftnft_private_key_auth", (req, res) => {
+        packedtrx_fw_craftnft_private_key_auth({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'toolid'            : (url.parse(req.url,true).query.toolid                         || 'Mining Excavator'), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_fw_craftnft_private_key_auth", (req, res) => {
+        packedtrx_fw_craftnft_private_key_auth({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'toolid'            : (url.parse(req.url,true).query.toolid                         || 'Mining Excavator'), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    
+    // packedtrx_fw_craftmbs API
+    app.get("/packedtrx_fw_craftmbs", (req, res) => {
+        packedtrx_fw_craftmbs({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'toolid'            : (url.parse(req.url,true).query.toolid                         || '\
+0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000|\
+0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,\
+0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000|Silver Member\
+').split('|').map(x => x.match(/\d{13,13}|Silver Member|Bronze Member/gi))
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_fw_craftmbs", (req, res) => {
+        packedtrx_fw_craftmbs({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'toolid'            : (url.parse(req.url,true).query.toolid                         || '\
+0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000|\
+0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,\
+0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000|Silver Member\
+').split('|').map(x => x.match(/\d{13,13}|Silver Member|Bronze Member/gi))
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    
+    // packedtrx_fw_craftmbs_private_key_auth API
+    app.get("/packedtrx_fw_craftmbs_private_key_auth", (req, res) => {
+        packedtrx_fw_craftmbs_private_key_auth({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'toolid'            : (url.parse(req.url,true).query.toolid                         || '\
+0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000|\
+0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,\
+0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000|Silver Member\
+').split('|').map(x => x.match(/\d{13,13}|Silver Member|Bronze Member/gi)), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_fw_craftmbs_private_key_auth", (req, res) => {
+        packedtrx_fw_craftmbs_private_key_auth({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'toolid'            : (url.parse(req.url,true).query.toolid                         || '\
+0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000|\
+0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,\
+0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000|Silver Member\
+').split('|').map(x => x.match(/\d{13,13}|Silver Member|Bronze Member/gi)), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    
+    // packedtrx_fw_craftmbs_in_game API
+    app.get("/packedtrx_fw_craftmbs_in_game", (req, res) => {
+        packedtrx_fw_craftmbs_in_game({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'toolid'            : (url.parse(req.url,true).query.toolid                         || 'Silver Member')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_fw_craftmbs_in_game", (req, res) => {
+        packedtrx_fw_craftmbs_in_game({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'toolid'            : (url.parse(req.url,true).query.toolid                         || 'Silver Member')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    
+    // packedtrx_fw_craftmbs_in_game_private_key_auth API
+    app.get("/packedtrx_fw_craftmbs_in_game_private_key_auth", (req, res) => {
+        packedtrx_fw_craftmbs_in_game_private_key_auth({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'toolid'            : (url.parse(req.url,true).query.toolid                         || 'Silver Member'), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_fw_craftmbs_in_game_private_key_auth", (req, res) => {
+        packedtrx_fw_craftmbs_in_game_private_key_auth({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'toolid'            : (url.parse(req.url,true).query.toolid                         || 'Silver Member'), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    
+    // packedtrx_fw_craftmbs_limitlesswax_auth API
+    app.get("/packedtrx_fw_craftmbs_limitlesswax_auth", (req, res) => {
+        packedtrx_fw_craftmbs_limitlesswax_auth({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'gj1xc.wam'), 
+            'toolid'            : (url.parse(req.url,true).query.toolid                         || '\
+0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000|\
+0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,\
+0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000|Silver Member\
+').split('|').map(x => x.match(/\d{13,13}|Silver Member|Bronze Member/gi)),
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_fw_craftmbs_limitlesswax_auth", (req, res) => {
+        packedtrx_fw_craftmbs_limitlesswax_auth({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'gj1xc.wam'), 
+            'toolid'            : (url.parse(req.url,true).query.toolid                         || '\
+0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000|\
+0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,\
+0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000,0000000000000|Silver Member\
+').split('|').map(x => x.match(/\d{13,13}|Silver Member|Bronze Member/gi))
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    
+    // packedtrx_bl_craft_ring API
+    app.get("/packedtrx_bl_craft_ring", (req, res) => {
+        packedtrx_bl_craft_ring({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'toolid'            : (url.parse(req.url,true).query.toolid                         || '1'), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_bl_craft_ring", (req, res) => {
+        packedtrx_bl_craft_ring({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'toolid'            : (url.parse(req.url,true).query.toolid                         || '1'), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    
+    // packedtrx_bl_craft_ring_private_key_auth API
+    app.get("/packedtrx_bl_craft_ring_private_key_auth", (req, res) => {
+        packedtrx_bl_craft_ring_private_key_auth({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'toolid'            : (url.parse(req.url,true).query.toolid                         || '1'), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_bl_craft_ring_private_key_auth", (req, res) => {
+        packedtrx_bl_craft_ring_private_key_auth({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'toolid'            : (url.parse(req.url,true).query.toolid                         || '1'), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    
+    // packedtrx_bl_claim_ring API
+    app.get("/packedtrx_bl_claim_ring", (req, res) => {
+        packedtrx_bl_claim_ring({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'toolid'            : (url.parse(req.url,true).query.toolid                         || '210358'), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_bl_claim_ring", (req, res) => {
+        packedtrx_bl_claim_ring({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'toolid'            : (url.parse(req.url,true).query.toolid                         || '210358'), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    
+    // packedtrx_bl_claim_ring_private_key_auth API
+    app.get("/packedtrx_bl_claim_ring_private_key_auth", (req, res) => {
+        packedtrx_bl_craft_ring_private_key_auth({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'toolid'            : (url.parse(req.url,true).query.toolid                         || '210358'), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_bl_claim_ring_private_key_auth", (req, res) => {
+        packedtrx_bl_claim_ring_private_key_auth({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'toolid'            : (url.parse(req.url,true).query.toolid                         || '210358'), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    
+    // packedtrx_bl_export_braw API
+    app.get("/packedtrx_bl_export_braw", (req, res) => {
+        packedtrx_bl_export_braw({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'toolid'            : (url.parse(req.url,true).query.toolid                         || '1099778134120').match(/\d{13,13}/gi), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_bl_export_braw", (req, res) => {
+        packedtrx_bl_export_braw({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'toolid'            : (url.parse(req.url,true).query.toolid                         || '1099778134120').match(/\d{13,13}/gi), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    
+    // packedtrx_bl_claim_ring_private_key_auth API
+    app.get("/packedtrx_bl_export_braw_private_key_auth", (req, res) => {
+        packedtrx_bl_export_braw_private_key_auth({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'toolid'            : (url.parse(req.url,true).query.toolid                         || '1099778134120').match(/\d{13,13}/gi), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_bl_export_braw_private_key_auth", (req, res) => {
+        packedtrx_bl_export_braw_private_key_auth({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'toolid'            : (url.parse(req.url,true).query.toolid                         || '1099778134120').match(/\d{13,13}/gi), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    
+    // packedtrx_fw_mktbuy API
+    app.get("/packedtrx_dw_mktbuy", (req, res) => {
+        packedtrx_dw_mktbuy({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'toolid'            : (url.parse(req.url,true).query.toolid                         || 100000), 
+            'quantity'          : (url.parse(req.url,true).query.quantity                       || 1), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_dw_mktbuy", (req, res) => {
+        packedtrx_dw_mktbuy({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'toolid'            : (url.parse(req.url,true).query.toolid                         || 100000), 
+            'quantity'          : (url.parse(req.url,true).query.quantity                       || 1), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    
+    // packedtrx_dw_mktbuy_private_key_auth API
+    app.get("/packedtrx_dw_mktbuy_private_key_auth", (req, res) => {
+        packedtrx_dw_mktbuy_private_key_auth({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'toolid'            : (url.parse(req.url,true).query.toolid                         || 100000), 
+            'quantity'          : (url.parse(req.url,true).query.quantity                       || 1), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_dw_mktbuy_private_key_auth", (req, res) => {
+        packedtrx_dw_mktbuy_private_key_auth({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'toolid'            : (url.parse(req.url,true).query.toolid                         || 100000), 
+            'quantity'          : (url.parse(req.url,true).query.quantity                       || 1), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+  
+    // packedtrx_ss_depo API
+    app.get("/packedtrx_ss_depo", (req, res) => {
+        packedtrx_ss_depo({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'quantity'          : (function (){
+                var ar = []; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] } KYANITE`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 KYANITE`)
+                };
+                return ar
+            })(), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_ss_depo", (req, res) => {
+        packedtrx_ss_depo({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'quantity'          : (function (){
+                var ar = []; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] } KYANITE`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 KYANITE`)
+                };
+                return ar
+            })(), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    
+    // packedtrx_ss_depo_private_key_auth API
+    app.get("/packedtrx_ss_depo_private_key_auth", (req, res) => {
+        packedtrx_ss_depo_private_key_auth({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'quantity'          : (function (){
+                var ar = []; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] } KYANITE`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 KYANITE`)
+                };
+                return ar
+            })(), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_ss_depo_private_key_auth", (req, res) => {
+        packedtrx_ss_depo_private_key_auth({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'quantity'          : (function (){
+                var ar = []; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] } KYANITE`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 KYANITE`)
+                };
+                return ar
+            })(), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    
+    // packedtrx_ss_with API
+    app.get("/packedtrx_ss_with", (req, res) => {
+        packedtrx_ss_with({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'amount'            : (url.parse(req.url,true).query.amount                         || 10), 
+            'quantity'          : (function (){
+                var ar = []; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,16}/gi)[0]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,16}/gi)[0] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,16}/gi)[0] }`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1`)
+                };
+                return ar
+            })(), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_ss_with", (req, res) => {
+        packedtrx_ss_with({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'amount'            : (url.parse(req.url,true).query.amount                         || 10), 
+            'quantity'          : (function (){
+                var ar = []; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,16}/gi)[0]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,16}/gi)[0] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,16}/gi)[0] }`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1`)
+                };
+                return ar
+            })(), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    
+    // packedtrx_ss_with_private_key_auth API
+    app.get("/packedtrx_ss_with_private_key_auth", (req, res) => {
+        packedtrx_ss_with_private_key_auth({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'amount'            : (url.parse(req.url,true).query.amount                         || 10), 
+            'quantity'          : (function (){
+                var ar = []; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,16}/gi)[0]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,16}/gi)[0] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,16}/gi)[0] }`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1`)
+                };
+                return ar
+            })(), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_ss_with_private_key_auth", (req, res) => {
+        packedtrx_ss_with_private_key_auth({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'amount'            : (url.parse(req.url,true).query.amount                         || 10), 
+            'quantity'          : (function (){
+                var ar = []; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,16}/gi)[0]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,16}/gi)[0] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,16}/gi)[0] }`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1`)
+                };
+                return ar
+            })(), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+
+    // packedtrx_ss_claimrewards API
+    app.get("/packedtrx_ss_claimrewards", (req, res) => {
+        packedtrx_ss_claimrewards({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_ss_claimrewards", (req, res) => {
+        packedtrx_ss_claimrewards({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+
+    // packedtrx_ss_claimrewards_private_key_auth API
+    app.get("/packedtrx_ss_claimrewards_private_key_auth", (req, res) => {
+        packedtrx_ss_claimrewards_private_key_auth({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_ss_claimrewards_private_key_auth", (req, res) => {
+        packedtrx_ss_claimrewards_private_key_auth({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+    // packedtrx_af_depo API
+    app.get("/packedtrx_af_depo", (req, res) => {
+        packedtrx_af_depo({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'quantity'          : (function (){
+                var ar = []; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] } AOFF`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 AOFF`)
+                };
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] } AOFS`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 AOFS`)
+                }; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] } AOFW`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 AOFW`)
+                }; 
+                return ar
+            })(), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_af_depo", (req, res) => {
+        packedtrx_af_depo({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'quantity'          : (function (){
+                var ar = []; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] } AOFF`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 AOFF`)
+                };
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] } AOFS`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 AOFS`)
+                }; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] } AOFW`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 AOFW`)
+                }; 
+                return ar
+            })(), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    
+    // packedtrx_af_depo_private_key_auth API
+    app.get("/packedtrx_af_depo_private_key_auth", (req, res) => {
+        packedtrx_af_depo_private_key_auth({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'quantity'          : (function (){
+                var ar = []; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] } AOFF`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 AOFF`)
+                };
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] } AOFS`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 AOFS`)
+                }; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] } AOFW`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 AOFW`)
+                }; 
+                return ar
+            })(), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_af_depo_private_key_auth", (req, res) => {
+        packedtrx_af_depo_private_key_auth({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'quantity'          : (function (){
+                var ar = []; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] } AOFF`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 AOFF`)
+                };
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] } AOFS`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 AOFS`)
+                }; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] } AOFW`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 AOFW`)
+                }; 
+                return ar
+            })(), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    
+    // packedtrx_af_with API
+    app.get("/packedtrx_af_with", (req, res) => {
+        packedtrx_af_with({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'amount'            : (url.parse(req.url,true).query.amount                         || 5), 
+            'quantity'          : (function (){
+                var ar = []; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] } AOFF`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 AOFF`)
+                };
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] } AOFS`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 AOFS`)
+                }; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] } AOFW`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 AOFW`)
+                }; 
+                return ar
+            })(), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_af_with", (req, res) => {
+        packedtrx_af_with({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'amount'            : (url.parse(req.url,true).query.amount                         || 5), 
+            'quantity'          : (function (){
+                var ar = []; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] } AOFF`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 AOFF`)
+                };
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] } AOFS`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 AOFS`)
+                }; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] } AOFW`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 AOFW`)
+                }; 
+                return ar
+            })(), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    
+    // packedtrx_af_with_private_key_auth API
+    app.get("/packedtrx_af_with_private_key_auth", (req, res) => {
+        packedtrx_af_with_private_key_auth({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'amount'            : (url.parse(req.url,true).query.amount                         || 5), 
+            'quantity'          : (function (){
+                var ar = []; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] } AOFF`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 AOFF`)
+                };
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] } AOFS`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 AOFS`)
+                }; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] } AOFW`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 AOFW`)
+                }; 
+                return ar
+            })(), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_af_with_private_key_auth", (req, res) => {
+        packedtrx_af_with_private_key_auth({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'amount'            : (url.parse(req.url,true).query.amount                         || 5), 
+            'quantity'          : (function (){
+                var ar = [];
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] } AOFF`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 AOFF`)
+                };
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] } AOFS`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 AOFS`)
+                }; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] } AOFW`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 AOFW`)
+                }; 
+                return ar
+            })(), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    
+    // packedtrx_sr_depo API
+    app.get("/packedtrx_sr_depo", (req, res) => {
+        packedtrx_sr_depo({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'quantity'          : (function (){
+                var ar = []; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] } SRE`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 SRE`)
+                };
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] } SRM`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 SRM`)
+                }; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] } SRW`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 SRW`)
+                }; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[3]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[3] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[3] } SRS`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 SRS`)
+                }; 
+                return ar
+            })(), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_sr_depo", (req, res) => {
+        packedtrx_sr_depo({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'quantity'          : (function (){
+                var ar = []; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] } SRE`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 SRE`)
+                };
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] } SRM`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 SRM`)
+                }; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] } SRW`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 SRW`)
+                }; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[3]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[3] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[3] } SRS`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 SRS`)
+                }; 
+                return ar
+            })(), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    
+    // packedtrx_sr_depo_private_key_auth API
+    app.get("/packedtrx_sr_depo_private_key_auth", (req, res) => {
+        packedtrx_sr_depo_private_key_auth({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'quantity'          : (function (){
+                var ar = []; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] } SRE`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 SRE`)
+                };
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] } SRM`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 SRM`)
+                }; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] } SRW`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 SRW`)
+                }; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[3]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[3] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[3] } SRS`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 SRS`)
+                }; 
+                return ar
+            })(), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_sr_depo_private_key_auth", (req, res) => {
+        packedtrx_sr_depo_private_key_auth({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'quantity'          : (function (){
+                var ar = []; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] } SRE`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 SRE`)
+                };
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] } SRM`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 SRM`)
+                }; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] } SRW`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 SRW`)
+                }; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[3]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[3] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[3] } SRS`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 SRS`)
+                }; 
+                return ar
+            })(), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    
+    // packedtrx_sr_with API
+    app.get("/packedtrx_sr_with", (req, res) => {
+        packedtrx_sr_with({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'amount'            : (url.parse(req.url,true).query.amount                         || 5), 
+            'quantity'          : (function (){
+                var ar = []; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] } E`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 E`)
+                };
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] } M`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 M`)
+                }; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] } W`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 W`)
+                }; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[3]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[3] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[3] } S`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 S`)
+                }; 
+                return ar
+            })(), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_sr_with", (req, res) => {
+        packedtrx_sr_with({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'amount'            : (url.parse(req.url,true).query.amount                         || 5), 
+            'quantity'          : (function (){
+                var ar = []; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] } E`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 E`)
+                };
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] } M`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 M`)
+                }; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] } W`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 W`)
+                }; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[3]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[3] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[3] } S`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 S`)
+                }; 
+                return ar
+            })(), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    
+    // packedtrx_sr_with_private_key_auth API
+    app.get("/packedtrx_sr_with_private_key_auth", (req, res) => {
+        packedtrx_sr_with_private_key_auth({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'amount'            : (url.parse(req.url,true).query.amount                         || 5), 
+            'quantity'          : (function (){
+                var ar = []; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] } E`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 E`)
+                };
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] } M`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 M`)
+                }; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] } W`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 W`)
+                }; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[3]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[3] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[3] } S`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 S`)
+                }; 
+                return ar
+            })(), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_sr_with_private_key_auth", (req, res) => {
+        packedtrx_sr_with_private_key_auth({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'amount'            : (url.parse(req.url,true).query.amount                         || 5), 
+            'quantity'          : (function (){
+                var ar = []; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] } E`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 E`)
+                };
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] } M`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 M`)
+                }; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] } W`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 W`)
+                }; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[3]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[3] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[3] } S`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 S`)
+                }; 
+                return ar
+            })(), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    
+    // packedtrx_dw_depo API
+    app.get("/packedtrx_dw_depo", (req, res) => {
+        packedtrx_dw_depo({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'quantity'          : (function (){
+                var ar = []; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] } DWI`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 DWI`)
+                };
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] } DWS`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 DWS`)
+                }; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] } DWD`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 DWD`)
+                }; 
+                return ar
+            })(), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_dw_depo", (req, res) => {
+        packedtrx_dw_depo({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'quantity'          : (function (){
+                var ar = []; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] } DWI`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 DWI`)
+                };
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] } DWS`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 DWS`)
+                }; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] } DWD`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 DWD`)
+                }; 
+                return ar
+            })(), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    
+    // packedtrx_dw_depo_private_key_auth API
+    app.get("/packedtrx_dw_depo_private_key_auth", (req, res) => {
+        packedtrx_dw_depo_private_key_auth({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'quantity'          : (function (){
+                var ar = []; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] } DWI`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 DWI`)
+                };
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] } DWS`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 DWS`)
+                }; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] } DWD`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 DWD`)
+                }; 
+                return ar
+            })(), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_dw_depo_private_key_auth", (req, res) => {
+        packedtrx_dw_depo_private_key_auth({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'quantity'          : (function (){
+                var ar = []; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] } DWI`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 DWI`)
+                };
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] } DWS`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 DWS`)
+                }; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] } DWD`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 DWD`)
+                }; 
+                return ar
+            })(), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    
+    // packedtrx_dw_with API
+    app.get("/packedtrx_dw_with", (req, res) => {
+        packedtrx_dw_with({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'amount'            : (url.parse(req.url,true).query.amount                         || 5), 
+            'quantity'          : (function (){
+                var ar = []; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] } DWI`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 DWI`)
+                };
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] } DWS`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 DWS`)
+                }; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] } DWD`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 DWD`)
+                }; 
+                return ar
+            })(), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_dw_with", (req, res) => {
+        packedtrx_dw_with({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'amount'            : (url.parse(req.url,true).query.amount                         || 5), 
+            'quantity'          : (function (){
+                var ar = []; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] } DWI`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 DWI`)
+                };
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] } DWS`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 DWS`)
+                }; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] } DWD`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 DWD`)
+                }; 
+                return ar
+            })(), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    
+    // packedtrx_dw_with_private_key_auth API
+    app.get("/packedtrx_dw_with_private_key_auth", (req, res) => {
+        packedtrx_dw_with_private_key_auth({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'amount'            : (url.parse(req.url,true).query.amount                         || 5), 
+            'quantity'          : (function (){
+                var ar = []; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] } DWI`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 DWI`)
+                };
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] } DWS`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 DWS`)
+                }; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] } DWD`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 DWD`)
+                }; 
+                return ar
+            })(), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_dw_with_private_key_auth", (req, res) => {
+        packedtrx_dw_with_private_key_auth({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'amount'            : (url.parse(req.url,true).query.amount                         || 5), 
+            'quantity'          : (function (){
+                var ar = [];
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] } DWI`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 DWI`)
+                };
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] } DWS`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 DWS`)
+                }; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] } DWD`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 DWD`)
+                }; 
+                return ar
+            })(), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+
+    // packedtrx_fl_depo API
+    app.get("/packedtrx_fl_depo", (req, res) => {
+        packedtrx_fl_depo({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'quantity'          : (function (){
+                var ar = []; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] } FSLF`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 FSLF`)
+                };
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] } FSLS`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 FSLS`)
+                }; 
+                return ar
+            })(), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_fl_depo", (req, res) => {
+        packedtrx_fl_depo({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'quantity'          : (function (){
+                var ar = []; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] } FSLF`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 FSLF`)
+                };
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] } FSLS`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 FSLS`)
+                }; 
+                return ar
+            })(), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    
+    // packedtrx_dw_depo_private_key_auth API
+    app.get("/packedtrx_fl_depo_private_key_auth", (req, res) => {
+        packedtrx_fl_depo_private_key_auth({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'quantity'          : (function (){
+                var ar = []; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] } FSLF`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 FSLF`)
+                };
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] } FSLS`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 FSLS`)
+                }; 
+                return ar
+            })(), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_fl_depo_private_key_auth", (req, res) => {
+        packedtrx_fl_depo_private_key_auth({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'quantity'          : (function (){
+                var ar = []; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] } FSLF`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 FSLF`)
+                };
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] } FSLS`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 FSLS`)
+                }; 
+                return ar
+            })(), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    
+    // packedtrx_fl_with API
+    app.get("/packedtrx_fl_with", (req, res) => {
+        packedtrx_fl_with({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'amount'            : (url.parse(req.url,true).query.amount                         || 5), 
+            'quantity'          : (function (){
+                var ar = []; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] } FSLF`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 FSLF`)
+                };
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] } FSLS`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 FSLS`)
+                }; 
+                return ar
+            })(), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_fl_with", (req, res) => {
+        packedtrx_fl_with({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'amount'            : (url.parse(req.url,true).query.amount                         || 5), 
+            'quantity'          : (function (){
+                var ar = []; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] } FSLF`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 FSLF`)
+                };
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] } FSLS`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 FSLS`)
+                }; 
+                return ar
+            })(), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    
+    // packedtrx_fl_with_private_key_auth API
+    app.get("/packedtrx_fl_with_private_key_auth", (req, res) => {
+        packedtrx_fl_with_private_key_auth({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'amount'            : (url.parse(req.url,true).query.amount                         || 5), 
+            'quantity'          : (function (){
+                var ar = []; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] } FSLF`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 FSLF`)
+                };
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] } FSLS`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 FSLS`)
+                }; 
+                return ar
+            })(), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_fl_with_private_key_auth", (req, res) => {
+        packedtrx_fl_with_private_key_auth({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'amount'            : (url.parse(req.url,true).query.amount                         || 5), 
+            'quantity'          : (function (){
+                var ar = [];
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] } FSLF`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 FSLF`)
+                };
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] } FSLF`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 FSLF`)
+                }; 
+                return ar
+            })(), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+
+    // packedtrx_vl_depo API
+    app.get("/packedtrx_vl_depo", (req, res) => {
+        packedtrx_vl_depo({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'quantity'          : (function (){
+                var ar = []; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] } VLW`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 VLW`)
+                };
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] } VLF`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 VLF`)
+                }; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] } VLS`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 VLS`)
+                }; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[3]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[3] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[3] } VLG`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 VLG`)
+                }; 
+                return ar
+            })(), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_vl_depo", (req, res) => {
+        packedtrx_vl_depo({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'quantity'          : (function (){
+                var ar = []; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] } VLW`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 VLW`)
+                };
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] } VLF`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 VLF`)
+                }; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] } VLS`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 VLS`)
+                }; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[3]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[3] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[3] } VLG`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 VLG`)
+                }; 
+                return ar
+            })(), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    
+    // packedtrx_vl_depo_private_key_auth API
+    app.get("/packedtrx_vl_depo_private_key_auth", (req, res) => {
+        packedtrx_vl_depo_private_key_auth({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'quantity'          : (function (){
+                var ar = []; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] } VLW`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 VLW`)
+                };
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] } VLF`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 VLF`)
+                }; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] } VLS`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 VLS`)
+                }; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[3]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[3] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[3] } VLG`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 VLG`)
+                }; 
+                return ar
+            })(), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_vl_depo_private_key_auth", (req, res) => {
+        packedtrx_vl_depo_private_key_auth({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'quantity'          : (function (){
+                var ar = []; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] } VLW`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 VLW`)
+                };
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] } VLF`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 VLF`)
+                }; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] } VLS`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 VLS`)
+                }; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[3]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[3] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[3] } VLG`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 VLG`)
+                }; 
+                return ar
+            })(), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    
+    // packedtrx_vl_with API
+    app.get("/packedtrx_vl_with", (req, res) => {
+        packedtrx_vl_with({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'amount'            : (url.parse(req.url,true).query.amount                         || 5), 
+            'quantity'          : (function (){
+                var ar = []; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] } VLW`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 VLW`)
+                };
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] } VLF`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 VLF`)
+                }; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] } VLS`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 VLS`)
+                }; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[3]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[3] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[3] } VLG`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 VLG`)
+                }; 
+                return ar
+            })(), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_vl_with", (req, res) => {
+        packedtrx_vl_with({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'amount'            : (url.parse(req.url,true).query.amount                         || 5), 
+            'quantity'          : (function (){
+                var ar = []; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] } VLW`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 VLW`)
+                };
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] } VLF`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 VLF`)
+                }; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] } VLS`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 VLS`)
+                }; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[3]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[3] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[3] } VLG`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 VLG`)
+                }; 
+                return ar
+            })(), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    
+    // packedtrx_vl_with_private_key_auth API
+    app.get("/packedtrx_vl_with_private_key_auth", (req, res) => {
+        packedtrx_vl_with_private_key_auth({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'amount'            : (url.parse(req.url,true).query.amount                         || 5), 
+            'quantity'          : (function (){
+                var ar = []; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] } VLW`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 VLW`)
+                };
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] } VLF`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 VLF`)
+                }; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] } VLS`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 VLS`)
+                }; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[3]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[3] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[3] } VLG`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 VLG`)
+                }; 
+                return ar
+            })(), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_vl_with_private_key_auth", (req, res) => {
+        packedtrx_vl_with_private_key_auth({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'amount'            : (url.parse(req.url,true).query.amount                         || 5), 
+            'quantity'          : (function (){
+                var ar = [];
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] } VLW`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 VLW`)
+                };
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] } VLF`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 VLF`)
+                }; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] } VLS`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 VLS`)
+                }; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[3]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[3] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[3] } VLG`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 VLG`)
+                }; 
+                return ar
+            })(), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+
+    // packedtrx_df_depo API
+    app.get("/packedtrx_df_depo", (req, res) => {
+        packedtrx_df_depo({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'quantity'          : (function (){
+                var ar = []; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] } DFE`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 DFE`)
+                };
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] } DFW`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 DFW`)
+                }; 
+                return ar
+            })(), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_df_depo", (req, res) => {
+        packedtrx_df_depo({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'quantity'          : (function (){
+                var ar = []; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] } DFE`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 DFE`)
+                };
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] } DFW`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 DFW`)
+                }; 
+                return ar
+            })(), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    
+    // packedtrx_df_depo_private_key_auth API
+    app.get("/packedtrx_df_depo_private_key_auth", (req, res) => {
+        packedtrx_df_depo_private_key_auth({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'quantity'          : (function (){
+                var ar = []; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] } DFE`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 DFE`)
+                };
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] } DFW`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 DFW`)
+                }; 
+                return ar
+            })(), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_df_depo_private_key_auth", (req, res) => {
+        packedtrx_df_depo_private_key_auth({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'quantity'          : (function (){
+                var ar = []; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] } DFE`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 DFE`)
+                };
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] } DFW`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 DFW`)
+                }; 
+                return ar
+            })(), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    
+    // packedtrx_df_with API
+    app.get("/packedtrx_df_with", (req, res) => {
+        packedtrx_df_with({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'amount'            : (url.parse(req.url,true).query.amount                         || 5), 
+            'quantity'          : (function (){
+                var ar = []; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] } DFE`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 DFE`)
+                };
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] } DFW`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 DFW`)
+                }; 
+                return ar
+            })(), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_df_with", (req, res) => {
+        packedtrx_df_with({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'amount'            : (url.parse(req.url,true).query.amount                         || 5), 
+            'quantity'          : (function (){
+                var ar = []; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] } DFE`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 DFE`)
+                };
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] } DFW`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 DFW`)
+                }; 
+                return ar
+            })(), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    
+    // packedtrx_df_with_private_key_auth API
+    app.get("/packedtrx_df_with_private_key_auth", (req, res) => {
+        packedtrx_df_with_private_key_auth({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'amount'            : (url.parse(req.url,true).query.amount                         || 5), 
+            'quantity'          : (function (){
+                var ar = []; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] } DFE`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 DFE`)
+                };
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] } DFW`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 DFW`)
+                }; 
+                return ar
+            })(), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_df_with_private_key_auth", (req, res) => {
+        packedtrx_df_with_private_key_auth({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'amount'            : (url.parse(req.url,true).query.amount                         || 5), 
+            'quantity'          : (function (){
+                var ar = [];
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] } DFE`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 DFE`)
+                };
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] } DFW`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 DFW`)
+                }; 
+                return ar
+            })(), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+
+
+
+
+    
+  
+    // packedtrx setland API
+    app.get("/packedtrx_setland", (req, res) => {
+        packedtrx_setland({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'landid'            : (url.parse(req.url,true).query.landid                         || '0000000000000').match(/\d{13,13}/gi).join()
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_setland", (req, res) => {
+        packedtrx_setland({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'landid'            : (url.parse(req.url,true).query.landid                         || '0000000000000').match(/\d{13,13}/gi).join()
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    
+    // packedtrx_reg_setland API
+    app.get("/packedtrx_reg_setland", (req, res) => {
+        packedtrx_reg_setland({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'landid'            : (url.parse(req.url,true).query.landid                         || '0000000000000').match(/\d{13,13}/gi).join(), 
+            'message'           : (url.parse(req.url,true).query.message                        || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_reg_setland", (req, res) => {
+        packedtrx_reg_setland({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'landid'            : (url.parse(req.url,true).query.landid                         || '0000000000000').match(/\d{13,13}/gi).join(), 
+            'message'           : (url.parse(req.url,true).query.message                        || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    
+    // packedtrx_reg_setland_yeomenwarder API
+    app.get("/packedtrx_reg_setland_yeomenwarder", (req, res) => {
+        packedtrx_reg_setland_yeomenwarder({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'landid'            : (url.parse(req.url,true).query.landid                         || '0000000000000').match(/\d{13,13}/gi).join(), 
+            'message'           : (url.parse(req.url,true).query.message                        || ''), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_reg_setland_yeomenwarder", (req, res) => {
+        packedtrx_reg_setland_yeomenwarder({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'landid'            : (url.parse(req.url,true).query.landid                         || '0000000000000').match(/\d{13,13}/gi).join(), 
+            'message'           : (url.parse(req.url,true).query.message                        || ''), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    
+    // packedtrx_reg_setland_yeomenwarder_BuyRam API
+    app.get("/packedtrx_reg_setland_yeomenwarder_BuyRam", (req, res) => {
+        packedtrx_reg_setland_yeomenwarder_BuyRam({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'landid'            : (url.parse(req.url,true).query.landid                         || '0000000000000').match(/\d{13,13}/gi).join(), 
+            'message'           : (url.parse(req.url,true).query.message                        || ''), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_reg_setland_yeomenwarder_BuyRam", (req, res) => {
+        packedtrx_reg_setland_yeomenwarder_BuyRam({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'landid'            : (url.parse(req.url,true).query.landid                         || '0000000000000').match(/\d{13,13}/gi).join(), 
+            'message'           : (url.parse(req.url,true).query.message                        || ''), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    
+    // packedtrx_reg_setland_yeomenwarder_SelfBuy API
+    app.get("/packedtrx_reg_setland_yeomenwarder_SelfBuy", (req, res) => {
+        packedtrx_reg_setland_yeomenwarder_SelfBuy({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'landid'            : (url.parse(req.url,true).query.landid                         || '0000000000000').match(/\d{13,13}/gi).join(), 
+            'message'           : (url.parse(req.url,true).query.message                        || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result)); 
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_reg_setland_yeomenwarder_SelfBuy", (req, res) => {
+        packedtrx_reg_setland_yeomenwarder_SelfBuy({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'landid'            : (url.parse(req.url,true).query.landid                         || '0000000000000').match(/\d{13,13}/gi).join(), 
+            'message'           : (url.parse(req.url,true).query.message                        || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    
+    // packedtrx_reg_setland_yeomenwarder_FreeRam API
+    app.get("/packedtrx_reg_setland_yeomenwarder_FreeRam", (req, res) => {
+        packedtrx_reg_setland_yeomenwarder_FreeRam({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'landid'            : (url.parse(req.url,true).query.landid                         || '0000000000000').match(/\d{13,13}/gi).join(), 
+            'message'           : (url.parse(req.url,true).query.message                        || '3u23197lkuht6o83')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    }); 
+    app.post("/packedtrx_reg_setland_yeomenwarder_FreeRam", (req, res) => {
+        packedtrx_reg_setland_yeomenwarder_FreeRam({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'landid'            : (url.parse(req.url,true).query.landid                         || '0000000000000').match(/\d{13,13}/gi).join(), 
+            'message'           : (url.parse(req.url,true).query.message                        || '3u23197lkuht6o83')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    
+    // packedtrx_setland_prv API
+    app.get("/packedtrx_setland_prv", (req, res) => {
+        packedtrx_setland_prv({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'landid'            : (url.parse(req.url,true).query.landid                         || '0000000000000').match(/\d{13,13}/gi).join(), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_setland_prv", (req, res) => {
+        packedtrx_setland_prv({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'landid'            : (url.parse(req.url,true).query.landid                         || '0000000000000').match(/\d{13,13}/gi).join(), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+
+    // packedtrx settool API
+    app.get("/packedtrx_settool", (req, res) => {
+        packedtrx_settool({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'toolid'            : (url.parse(req.url,true).query.toolid                         || '0000000000000,0000000000000,0000000000000').match(/\d{13,13}/gi)
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_settool", (req, res) => {
+        packedtrx_settool({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'toolid'            : (url.parse(req.url,true).query.toolid                         || '0000000000000,0000000000000,0000000000000').match(/\d{13,13}/gi)
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    
+    // packedtrx_reg_settool_yeomenwarder API
+    app.get("/packedtrx_reg_settool_yeomenwarder", (req, res) => {
+        packedtrx_reg_settool_yeomenwarder({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'toolid'            : (url.parse(req.url,true).query.toolid                         || '0000000000000,0000000000000,0000000000000').match(/\d{13,13}/gi), 
+            'message'           : (url.parse(req.url,true).query.message                        || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_reg_settool_yeomenwarder", (req, res) => {
+        packedtrx_reg_settool_yeomenwarder({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'toolid'            : (url.parse(req.url,true).query.toolid                         || '0000000000000,0000000000000,0000000000000').match(/\d{13,13}/gi), 
+            'message'           : (url.parse(req.url,true).query.message                        || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+
+    // packedtrx_settool_prv API
+    app.get("/packedtrx_settool_prv", (req, res) => {
+        packedtrx_settool_prv({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'toolid'            : (url.parse(req.url,true).query.toolid                         || '0000000000000,0000000000000,0000000000000').match(/\d{13,13}/gi), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_settool_prv", (req, res) => {
+        packedtrx_settool_prv({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'toolid'            : (url.parse(req.url,true).query.toolid                         || '0000000000000,0000000000000,0000000000000').match(/\d{13,13}/gi), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+
+    // packedtrx stake cpu API
+    app.get("/packedtrx_stakecpu", (req, res) => {
+        packedtrx_stakecpu({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'quantity'       : parseFloat((url.parse(req.url,true).query.quantity)              || 0.00000000).toFixed(8)
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_stakecpu", (req, res) => {
+        packedtrx_stakecpu({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'quantity'          : parseFloat((url.parse(req.url,true).query.quantity)           || 0.00000000).toFixed(8)
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+
+    // packedtrx stake net API
+    app.get("/packedtrx_stakenet", (req, res) => {
+        packedtrx_stakenet({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'quantity'          : parseFloat((url.parse(req.url,true).query.quantity)           || 0.00000000).toFixed(8)
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_stakenet", (req, res) => {
+        packedtrx_stakenet({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'quantity'          : parseFloat((url.parse(req.url,true).query.quantity)              || 0.00000000).toFixed(8)
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+
+    // packedtrx buy ram API
+    app.get("/packedtrx_buyram", (req, res) => {
+        packedtrx_buyram({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'quantity'          : parseFloat((url.parse(req.url,true).query.quantity)           || 0.00000000).toFixed(8)
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_buyram", (req, res) => {
+        packedtrx_buyram({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'quantity'          : parseFloat((url.parse(req.url,true).query.quantity)           || 0.00000000).toFixed(8)
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+
+    // packedtrx unstake API
+    app.get("/packedtrx_unstakecpu", (req, res) => {
+        packedtrx_unstakecpu({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'quantity'          : parseFloat((url.parse(req.url,true).query.quantity)           || 0.00000000).toFixed(8)
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_unstakecpu", (req, res) => {
+        packedtrx_unstakecpu({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'quantity'          : parseFloat((url.parse(req.url,true).query.quantity)           || 0.00000000).toFixed(8)
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+
+    // packedtrx unstake API
+    app.get("/packedtrx_unstakecpu_prv", (req, res) => {
+        packedtrx_unstakecpu_prv({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'quantity'          : parseFloat((url.parse(req.url,true).query.quantity)           || 0.00000000).toFixed(8), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_unstakecpu_prv", (req, res) => {
+        packedtrx_unstakecpu_prv({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'quantity'          : parseFloat((url.parse(req.url,true).query.quantity)           || 0.00000000).toFixed(8), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    
+    // packedtrx unstake API
+    app.get("/packedtrx_sellram", (req, res) => {
+        packedtrx_sellram({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'quantity'          : parseInt(url.parse(req.url,true).query.quantity               || '1').toString()
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_sellram", (req, res) => {
+        packedtrx_sellram({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'quantity'          : parseInt(url.parse(req.url,true).query.quantity               || '1').toString()
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+
+    // packedtrx unstake API
+    app.get("/packedtrx_sellram_prv", (req, res) => {
+        packedtrx_sellram_prv({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'quantity'          : parseInt(url.parse(req.url,true).query.quantity               || '1').toString(), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_sellram_prv", (req, res) => {
+        packedtrx_sellram_prv({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'quantity'          : parseInt(url.parse(req.url,true).query.quantity               || '1').toString(), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+
+    // packedtrx rent stake cpu API
+    app.get("/packedtrx_rentstakecpu", (req, res) => {
+        packedtrx_rentstakecpu({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'amount'            : parseFloat((url.parse(req.url,true).query.amount)             || 50.0000).toFixed(4), 
+            'quantity'          : (
+								  parseFloat((url.parse(req.url,true).query.amount) 			|| 50.0000).toFixed(4) / 100
+            ).toFixed(8), 
+            'to'                : (function (to){
+                if (to == '' || to == null || to == 'None'){
+                    return 'resourceless'
+                }else{
+                    return to
+                }; 
+            })(url.parse(req.url,true).query.to), 
+            'memo'              : (function (memo){
+                if (memo == '' || memo == null || memo == 'None'){
+                    return `CPU loan ${ parseFloat((url.parse(req.url,true).query.amount) || 50.0000).toFixed(0) } WAX`
+                }else{
+                    return url.parse(req.url,true).query.memo
+                }; 
+            })(url.parse(req.url,true).query.memo)
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_rentstakecpu", (req, res) => {
+        packedtrx_rentstakecpu({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'amount'            : parseFloat((url.parse(req.url,true).query.amount)             || 50.0000).toFixed(4), 
+            'quantity'          : (
+								  parseFloat((url.parse(req.url,true).query.amount) 			|| 50.0000).toFixed(4) / 100
+            ).toFixed(8), 
+            'to'                : (function (to){
+                if (to == '' || to == null || to == 'None'){
+                    return 'resourceless'
+                }else{
+                    return to
+                }; 
+            })(url.parse(req.url,true).query.to), 
+            'memo'              : (function (memo){
+                if (memo == '' || memo == null || memo == 'None'){
+                    return `CPU loan ${ parseFloat((url.parse(req.url,true).query.amount) || 50.0000).toFixed(0) } WAX`
+                }else{
+                    return url.parse(req.url,true).query.memo
+                }; 
+            })(url.parse(req.url,true).query.memo)
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+
+    // packedtrx rent unstake cpu API
+    app.get("/packedtrx_rentunstakecpu", (req, res) => {
+        packedtrx_rentunstakecpu({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'amount'            : parseFloat((url.parse(req.url,true).query.amount)             || 50.0000).toFixed(4), 
+			'quantity'          : (
+								  parseFloat((url.parse(req.url,true).query.amount) 			|| 50.0000).toFixed(4) / 100
+			).toFixed(8), 
+            'to'                : (function (to){
+                if (to == '' || to == null || to == 'None'){
+                    return 'resourceless'
+                }else{
+                    return to
+                }; 
+            })(url.parse(req.url,true).query.to), 
+            'memo'              : (function (memo){
+                if (memo == '' || memo == null || memo == 'None'){
+                    return `CPU loan ${ parseFloat((url.parse(req.url,true).query.amount) || 50.0000).toFixed(0) } WAX`
+                }else{
+                    return url.parse(req.url,true).query.memo
+                }; 
+            })(url.parse(req.url,true).query.memo)
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_rentunstakecpu", (req, res) => {
+        packedtrx_rentunstakecpu({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'amount'            : parseFloat((url.parse(req.url,true).query.amount)             || 50.0000).toFixed(4), 
+			'quantity'          : (
+								  parseFloat((url.parse(req.url,true).query.amount) 			|| 50.0000).toFixed(4) / 100
+			).toFixed(8), 
+            'to'                : (function (to){
+                if (to == '' || to == null || to == 'None'){
+                    return 'resourceless'
+                }else{
+                    return to
+                }; 
+            })(url.parse(req.url,true).query.to), 
+            'memo'              : (function (memo){
+                if (memo == '' || memo == null || memo == 'None'){
+                    return `CPU loan ${ parseFloat((url.parse(req.url,true).query.amount) || 50.0000).toFixed(0) } WAX`
+                }else{
+                    return url.parse(req.url,true).query.memo
+                }; 
+            })(url.parse(req.url,true).query.memo)
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+
+    // packedtrx rent charge API
+    app.get("/packedtrx_rentcharge", (req, res) => {
+        packedtrx_rentcharge({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'amount'            : parseFloat((url.parse(req.url,true).query.amount)             || 50.0000).toFixed(4), 
+			'quantity'          : (
+								  parseFloat((url.parse(req.url,true).query.amount) 			|| 50.0000).toFixed(4) / 100
+			).toFixed(8), 
+            'to'                : (function (to){
+                if (to == '' || to == null || to == 'None'){
+                    return 'resourceless'
+                }else{
+                    return to
+                }; 
+            })(url.parse(req.url,true).query.to), 
+            'memo'              : (function (memo){
+                if (memo == '' || memo == null || memo == 'None'){
+                    return `CPU loan ${ parseFloat((url.parse(req.url,true).query.amount) || 50.0000).toFixed(0) } WAX`
+                }else{
+                    return url.parse(req.url,true).query.memo
+                }; 
+            })(url.parse(req.url,true).query.memo)
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_rentcharge", (req, res) => {
+        packedtrx_rentcharge({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'amount'            : parseFloat((url.parse(req.url,true).query.amount)             || 50.0000).toFixed(4), 
+			'quantity'          : (
+								  parseFloat((url.parse(req.url,true).query.amount) 			|| 50.0000).toFixed(4) / 100
+			).toFixed(8), 
+            'to'                : (function (to){
+                if (to == '' || to == null || to == 'None'){
+                    return 'resourceless'
+                }else{
+                    return to
+                }; 
+            })(url.parse(req.url,true).query.to), 
+            'memo'              : (function (memo){
+                if (memo == '' || memo == null || memo == 'None'){
+                    return `CPU loan ${ parseFloat((url.parse(req.url,true).query.amount) || 50.0000).toFixed(0) } WAX`
+                }else{
+                    return url.parse(req.url,true).query.memo
+                }; 
+            })(url.parse(req.url,true).query.memo)
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    }); 
+
+    // packedtrx_freestake API
+    app.get("/packedtrx_claimnft", (req, res) => {
+        packedtrx_claimnft({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'amount'            : parseFloat((url.parse(req.url,true).query.amount)             || 50.0000).toFixed(4), 
+			'quantity'          : (
+								  parseFloat((url.parse(req.url,true).query.amount) 			|| 50.0000).toFixed(4) / 100
+			).toFixed(8), 
+            'to'                : (function (to){
+                if (to == '' || to == null || to == 'None'){
+                    return 'resourceless'
+                }else{
+                    return to
+                }; 
+            })(url.parse(req.url,true).query.to), 
+            'memo'              : (function (memo){
+                if (memo == '' || memo == null || memo == 'None'){
+                    return `CPU loan ${ parseFloat((url.parse(req.url,true).query.amount) || 50.0000).toFixed(0) } WAX`
+                }else{
+                    return url.parse(req.url,true).query.memo
+                }; 
+            })(url.parse(req.url,true).query.memo)
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_claimnft", (req, res) => {
+        packedtrx_claimnft({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'amount'            : parseFloat((url.parse(req.url,true).query.amount)             || 50.0000).toFixed(4), 
+			'quantity'          : (
+								  parseFloat((url.parse(req.url,true).query.amount) 			|| 50.0000).toFixed(4) / 100
+			).toFixed(8), 
+            'to'                : (function (to){
+                if (to == '' || to == null || to == 'None'){
+                    return 'resourceless'
+                }else{
+                    return to
+                }; 
+            })(url.parse(req.url,true).query.to), 
+            'memo'              : (function (memo){
+                if (memo == '' || memo == null || memo == 'None'){
+                    return `CPU loan ${ parseFloat((url.parse(req.url,true).query.amount) || 50.0000).toFixed(0) } WAX`
+                }else{
+                    return url.parse(req.url,true).query.memo
+                }; 
+            })(url.parse(req.url,true).query.memo)
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    }); 
+
+    // packedtrx_sendnft API
+    app.get("/packedtrx_sendnft", (req, res) => {
+        packedtrx_sendnft({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'to'                : (function (to){
+                if (to == '' || to == null || to == 'None'){
+                    return (url.parse(req.url,true).query.actor || 'xxxxx.wam')
+                }else{
+                    return to
+                }; 
+            })(url.parse(req.url,true).query.to), 
+            'toolid'            : (url.parse(req.url,true).query.toolid                         || '0000000000000,0000000000000,0000000000000').match(/\d{13,13}/gi), 
+            'memo'              : (url.parse(req.url,true).query.memo                           || ''), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_sendnft", (req, res) => {
+        packedtrx_sendnft({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'to'                : (function (to){
+                if (to == '' || to == null || to == 'None'){
+                    return (url.parse(req.url,true).query.actor || 'xxxxx.wam')
+                }else{
+                    return to
+                }; 
+            })(url.parse(req.url,true).query.to), 
+            'toolid'            : (url.parse(req.url,true).query.toolid                         || '0000000000000,0000000000000,0000000000000').match(/\d{13,13}/gi), 
+            'memo'              : (url.parse(req.url,true).query.memo                           || ''), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    }); 
+	
+    // packedtrx_freestake API
+    app.get("/packedtrx_freestake", (req, res) => {
+        packedtrx_freestake({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'to'                : (function (to){
+                if (to == '' || to == null || to == 'None'){
+                    return (url.parse(req.url,true).query.actor || 'xxxxx.wam')
+                }else{
+                    return to
+                }; 
+            })(url.parse(req.url,true).query.to)
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_freestake", (req, res) => {
+        packedtrx_freestake({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'to'                : (function (to){
+                if (to == '' || to == null || to == 'None'){
+                    return (url.parse(req.url,true).query.actor || 'xxxxx.wam')
+                }else{
+                    return to
+                }; 
+            })(url.parse(req.url,true).query.to)
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    }); 
+	
+    // packedtrx refund stake API
+    app.get("/packedtrx_refund", (req, res) => {
+        packedtrx_refund({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_refund", (req, res) => {
+        packedtrx_refund({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    }); 
+	
+    // packedtrx refund_prv stake API
+    app.get("/packedtrx_refund_prv", (req, res) => {
+        packedtrx_refund_prv({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '') 
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_refund_prv", (req, res) => {
+        packedtrx_refund_prv({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    }); 
+
+    // packedtrx rent stake planet nft API
+    app.get("/packedtrx_stakeplanet", (req, res) => {
+        packedtrx_stakeplanet({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_stakeplanet", (req, res) => {
+        packedtrx_stakeplanet({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    }); 
+
+    // packedtrx_stakeplanet_prv API
+    app.get("/packedtrx_stakeplanet_prv", (req, res) => {
+        packedtrx_stakeplanet_prv({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_stakeplanet_prv", (req, res) => {
+        packedtrx_stakeplanet_prv({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    }); 
+
+    // packedtrx_reg_sell_push API
+    app.get("/packedtrx_reg_sell_push", (req, res) => {
+        packedtrx_reg_sell_push({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'toolid'            : (url.parse(req.url,true).query.toolid                         || '0000000000000,0000000000000,0000000000000').match(/\d{13,13}/gi), 
+            'quantity'          : parseFloat((url.parse(req.url,true).query.quantity)           || 1.00000000).toFixed(8)
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_reg_sell_push", (req, res) => {
+        packedtrx_reg_sell_push({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'toolid'            : (url.parse(req.url,true).query.toolid                         || '0000000000000,0000000000000').match(/\d{13,13}/gi), 
+            'quantity'          : parseFloat((url.parse(req.url,true).query.quantity)           || 1.00000000).toFixed(8)
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    }); 
 
     // fw_packedtrx_mine API
     app.get("/fw_packedtrx_mine", (req, res) => {
@@ -6734,13 +12177,14 @@ async function vl_packedtrx_mine(DATA){
                 for (const x of [data['actor']]) {
                     data['val'].push({
                         "account"           : "varialandsio", 
-                        "name"              : "mine", 
+                        "name"              : "mine2", 
                         "authorization"     : [{
                             "actor"             : data['actor'],
                             "permission"        : "active"
                         }],
                         'data'              : {
-                            "miner"             : data['actor']
+                            "miner"             : data['actor'], 
+                            "r1"                : 2
                         },
                     }); 
                 }; return data['val']; 
@@ -6797,13 +12241,14 @@ async function vl_packedtrx_mine_free_trx(DATA){
                     for (const x of [data['actor']]) {
                         data['val'].push({
                             "account"           : "varialandsio", 
-                            "name"              : "mine", 
+                            "name"              : "mine2", 
                             "authorization"     : [{
                                 "actor"             : data['actor'],
                                 "permission"        : "active"
                             }],
                             'data'              : {
-                                "miner"             : data['actor']
+                                "miner"             : data['actor'], 
+                                "r1"                : 2
                             },
                         }); 
                     }; return data['val']; 
@@ -6844,7 +12289,7 @@ async function vl_packedtrx_mine_private_key_auth(DATA){
                 for (const x of [data['actor']]) {
                     data['val'].push({
                         "account"           : "varialandsio", 
-                        "name"              : "mine", 
+                        "name"              : "mine2", 
                         "authorization"     : [{
                             "actor"             : data['payer'],
                             "permission"        : "active"
@@ -6853,7 +12298,8 @@ async function vl_packedtrx_mine_private_key_auth(DATA){
                             "permission"        : "active"
                         }],
                         'data'              : {
-                            "miner"             : data['actor']
+                            "miner"             : data['actor'], 
+                            "r1"                : 2
                         },
                     }); 
                 }; return data['val']; 
@@ -8198,5 +13644,7770 @@ async function packedtrx_cc_login(DATA){
         });
     } catch (err) {
         console.log('err is', err); 
+    }
+}; 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+async function packedtrx_swap(DATA){
+
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('m.federation');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('m.federation', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions": [
+                {
+                    "account": "alien.worlds",
+                    "name": "transfer",
+                    "authorization": [
+                        {
+                            "actor": DATA['actor'],
+                            "permission": "active"
+                        }
+                    ],
+                    'data': {
+                        "from"      : DATA['actor'],
+                        "to"        : "alcorammswap",
+                        "quantity"  : `${ DATA['amount'] } TLM`,
+                        "memo"      : `${ DATA['quantity'] } WAX@eosio.token`
+                    },
+                }, 
+            ]
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions); 
+        const packed_trx    = arrayToHex(serial); 
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions, transaction}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }
+}; 
+async function packedtrx_swap_prv(DATA){
+
+    const _privateKeys        = [ DATA['privateKey'] ]; 
+    const _signatureProvider  = new JsSignatureProvider(_privateKeys); 
+
+    console.log(DATA); 
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('m.federation');
+        const api           = new Api({ rpc, _signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('m.federation', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions"           : [{
+                "account"           : "alien.worlds",
+                "name"              : "transfer",
+                "authorization"     : [{
+                    "actor"             : DATA['payer'],
+                    "permission"        : "active"
+                }, {
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                'data'              : {
+                    "from"              : DATA['actor'],
+                    "to"                : "alcorammswap",
+                    "quantity"          : `${ DATA['amount'] } TLM`,
+                    "memo"              : `${ DATA['quantity'] } WAX@eosio.token`
+                },
+            }]
+        }; 
+
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions);
+        const packed_trx    = arrayToHex(serial); 
+        const result        = await api.transact(transactions, { broadcast: false, sign: false });
+        const abis          = await api.getTransactionAbis(transaction);
+        const requiredKeys  = _privateKeys.map((privateKey) => PrivateKey.fromString(privateKey).getPublicKey().toString());
+
+        result.signatures = await _signatureProvider.sign({
+            chainId,
+            requiredKeys,
+            serializedTransaction: result.serializedTransaction,
+            serializedContextFreeData: result.serializedContextFreeData,
+            abis
+        });
+
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions, transaction, signatures : result.signatures}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }; 
+  
+}; 
+async function packedtrx_swapdex(DATA){
+
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('m.federation');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('m.federation', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions": [{
+                "account": "alien.worlds",
+                "name": "transfer",
+                "authorization": [
+                    {
+                        "actor": DATA['actor'],
+                        "permission": "active"
+                    }
+                ],
+                'data': {
+                    "from"      : DATA['actor'],
+                    "to"        : "alcordexmain",
+                    "quantity"  : `${ DATA['amount'] } TLM`,
+                    "memo"      : `${ DATA['quantity'] } WAX@eosio.token`
+                },
+            }]
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions); 
+        const packed_trx    = arrayToHex(serial); 
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions, transaction}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }
+}; 
+async function packedtrx_swapdex_prv(DATA){
+
+    const _privateKeys        = [ DATA['privateKey'] ]; 
+    const _signatureProvider  = new JsSignatureProvider(_privateKeys); 
+
+    console.log(DATA); 
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('m.federation');
+        const api           = new Api({ rpc, _signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('m.federation', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions"           : [{
+                "account"           : "alien.worlds",
+                "name"              : "transfer",
+                "authorization"     : [{
+                    "actor"             : DATA['payer'],
+                    "permission"        : "active"
+                }, {
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                'data'              : {
+                    "from"              : DATA['actor'],
+                    "to"                : "alcorammswap",
+                    "quantity"          : `${ DATA['amount'] } TLM`,
+                    "memo"              : `${ DATA['quantity'] } WAX@eosio.token`
+                },
+            }]
+        }; 
+
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions);
+        const packed_trx    = arrayToHex(serial); 
+        const result        = await api.transact(transactions, { broadcast: false, sign: false });
+        const abis          = await api.getTransactionAbis(transaction);
+        const requiredKeys  = _privateKeys.map((privateKey) => PrivateKey.fromString(privateKey).getPublicKey().toString());
+
+        result.signatures = await _signatureProvider.sign({
+            chainId,
+            requiredKeys,
+            serializedTransaction: result.serializedTransaction,
+            serializedContextFreeData: result.serializedContextFreeData,
+            abis
+        });
+
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions, transaction, signatures : result.signatures}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }; 
+  
+}; 
+
+
+
+async function packedtrx_cancledex(DATA){
+
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('alcordexmain');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('alcordexmain', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions"           : (function (data){
+                data['val'] = []; 
+                for (const x of data['message']) {
+                    data['val'].push({
+                        "account"           : 'alcordexmain',
+                        "name"              : "cancelsell",
+                        "authorization"     : [{
+                            "actor"             : data['actor'],
+                            "permission"        : "active"
+                        }],
+                        'data'              : {
+                            "executor"          : data['actor'],
+                            "order_id"          : x.split('-')[0],
+                            "market_id"         : x.split('-')[1]
+                        },
+                    })
+                }; return data['val']; 
+            })(DATA)
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions); 
+        const packed_trx    = arrayToHex(serial); 
+        const freeBandwidth = await packedtrx_cancledex_freeBandwidth(DATA); 
+
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transaction, transactions, freeBandwidth}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }
+}; 
+async function packedtrx_cancledex_prv(DATA){
+
+    const _privateKeys        = [ DATA['privateKey'] ]; 
+    const _signatureProvider  = new JsSignatureProvider(_privateKeys); 
+
+    console.log(DATA); 
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('alcordexmain');
+        const api           = new Api({ rpc, _signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('alcordexmain', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions"           : (function (data){
+                data['val'] = []; 
+                for (const x of data['message']) {
+                    data['val'].push({
+                        "account"           : 'alcordexmain',
+                        "name"              : "cancelsell",
+                        "authorization"     : [{
+                            "actor"             : data['payer'],
+                            "permission"        : "active"
+                        }, {
+                            "actor"             : data['actor'],
+                            "permission"        : "active"
+                        }],
+                        'data'              : {
+                            "executor"          : data['actor'],
+                            "order_id"          : x.split('-')[0],
+                            "market_id"         : x.split('-')[1]
+                        },
+                    })
+                }; return data['val']; 
+            })(DATA)
+        }; 
+
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions);
+        const packed_trx    = arrayToHex(serial); 
+        const result        = await api.transact(transactions, { broadcast: false, sign: false });
+        const abis          = await api.getTransactionAbis(transaction);
+        const requiredKeys  = _privateKeys.map((privateKey) => PrivateKey.fromString(privateKey).getPublicKey().toString());
+
+        result.signatures = await _signatureProvider.sign({
+            chainId,
+            requiredKeys,
+            serializedTransaction: result.serializedTransaction,
+            serializedContextFreeData: result.serializedContextFreeData,
+            abis
+        });
+
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions, signatures : result.signatures}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }; 
+  
+}; 
+async function packedtrx_cancledex_freeBandwidth(DATA){
+
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('alcordexmain');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('alcordexmain', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions": (function (data){
+                data['val'] = [{
+                    'account'           : 'boost.wax',
+                    'name'              : 'noop', 
+                    "authorization"     : [{
+                        "actor"             : 'alcordexmain',
+                        "permission"        : "paybw"
+                    }],
+                    "data"              : null
+                }]; 
+                for (const x of data['message']) {
+                    data['val'].push({
+                        "account"           : 'alcordexmain',
+                        "name"              : "cancelsell",
+                        "authorization"     : [{
+                            "actor"             : data['actor'],
+                            "permission"        : "active"
+                        }],
+                        'data'              : {
+                            "executor"          : data['actor'],
+                            "order_id"          : x.split('-')[0],
+                            "market_id"         : x.split('-')[1]
+                        },
+                    })
+                }; return data['val']; 
+            })(DATA)
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions); 
+        const packed_trx    = arrayToHex(serial); 
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }
+}; 
+
+
+
+async function packedtrx_transfer(DATA){
+
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('m.federation');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('m.federation', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions": [{
+                "account"           : `${ DATA['symbol'].split('-')[1] }`,
+                "name"              : "transfer",
+                "authorization"     : [
+                    {
+                        "actor"             : DATA['actor'],
+                        "permission"        : "active"
+                    }
+                ],
+                'data'              : {
+                    "from"              : DATA['actor'],
+                    "to"                : DATA['to'],
+                    "quantity"          : `${ DATA['quantity'] } ${ DATA['symbol'].split('-')[0] }`,
+                    "memo"              : `${ DATA['memo'] }`
+                },
+            }]
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions); 
+        const packed_trx    = arrayToHex(serial); 
+        const freeBandwidth = await packedtrx_transfer_freeBandwidth(DATA); 
+        const freeRam       = await packedtrx_transfer_freeRam(DATA); 
+
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transaction, transactions, freeBandwidth, freeRam}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }
+}; 
+async function packedtrx_transfer_prv(DATA){
+
+    const _privateKeys        = [ DATA['privateKey'] ]; 
+    const _signatureProvider  = new JsSignatureProvider(_privateKeys); 
+
+    console.log(DATA); 
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('m.federation');
+        const api           = new Api({ rpc, _signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('m.federation', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions"           : [{
+                "account"           : `${ DATA['symbol'].split('-')[1] }`,
+                "name"              : "transfer",
+                "authorization"     : [{
+                    "actor"             : DATA['payer'],
+                    "permission"        : "active"
+                }, {
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                'data'              : {
+                    "from"              : DATA['actor'],
+                    "to"                : DATA['to'],
+                    "quantity"          : `${ DATA['quantity'] } ${ DATA['symbol'].split('-')[0] }`,
+                    "memo"              : `${ DATA['memo'] }`
+                },
+            }]
+        }; 
+
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions);
+        const packed_trx    = arrayToHex(serial); 
+        const result        = await api.transact(transactions, { broadcast: false, sign: false });
+        const abis          = await api.getTransactionAbis(transaction);
+        const requiredKeys  = _privateKeys.map((privateKey) => PrivateKey.fromString(privateKey).getPublicKey().toString());
+
+        result.signatures = await _signatureProvider.sign({
+            chainId,
+            requiredKeys,
+            serializedTransaction: result.serializedTransaction,
+            serializedContextFreeData: result.serializedContextFreeData,
+            abis
+        });
+
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions, signatures : result.signatures}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }; 
+  
+}; 
+async function packedtrx_transfer_freeBandwidth(DATA){
+
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('m.federation');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('m.federation', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions": [{
+                'account'           : 'boost.wax',
+                'name'              : 'noop', 
+                "authorization"     : [{
+                    "actor"             : (function (d){
+                        if( DATA['to'] == "alcordexmain" ){
+                            return "alcordexmain"
+                        }else{
+                            return "boost.wax"
+                        }
+                    })(DATA),
+                    "permission"        : "paybw"
+                }],
+                "data"              : null
+            }, {
+                "account"           : `${ DATA['symbol'].split('-')[1] }`,
+                "name"              : "transfer",
+                "authorization"     : [{
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                'data'              : {
+                    "from"              : DATA['actor'],
+                    "to"                : DATA['to'],
+                    "quantity"          : `${ DATA['quantity'] } ${ DATA['symbol'].split('-')[0] }`,
+                    "memo"              : `${ DATA['memo'] }`
+                },
+            }]
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions); 
+        const packed_trx    = arrayToHex(serial); 
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }
+}; 
+async function packedtrx_transfer_freeRam(DATA){
+
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('m.federation');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('m.federation', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+
+//  fetch("https://wax.greymass.com/v1/chain/get_table_rows", {
+//    "headers": {
+//      "accept": "*/*",
+//      "accept-language": "en-US,en;q=0.9",
+//      "cache-control": "no-cache",
+//      "content-type": "text/plain;charset=UTF-8",
+//      "pragma": "no-cache",
+//      "sec-fetch-dest": "empty",
+//      "sec-fetch-mode": "cors",
+//      "sec-fetch-site": "cross-site",
+//      "sec-gpc": "1"
+//    },
+//    "referrer": "https://wax.bloks.io/",
+//    "referrerPolicy": "strict-origin-when-cross-origin",
+//    "body": "{\"json\":true,\"code\":\"eosio\",\"scope\":\"eosio\",\"table\":\"rammarket\",\"lower_bound\":\"\",\"upper_bound\":\"\",\"index_position\":1,\"key_type\":\"\",\"limit\":10,\"reverse\":false,\"show_payer\":false}",
+//    "method": "POST",
+//    "mode": "cors",
+//    "credentials": "omit"
+//  }); --> {
+//      "rows": [
+//          {
+//              "supply": "10000000000.0000 RAMCORE",
+//              "base": {
+//                  "balance": "36576322197 RAM",
+//                  "weight": "0.50000000000000000"
+//              },
+//              "quote": {
+//                  "balance": "15198462.75494764 WAX",
+//                  "weight": "0.50000000000000000"
+//              }
+//          }
+//      ],
+//      "more": false,
+//      "next_key": ""
+//  } == ( (1 x 36576322197*** / 15198462.75494764) x 0.9765 ) x 0.08175 ::: 192.114603937
+
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions": [{
+                'account'           : 'boost.wax',
+                'name'              : 'noop', 
+                "authorization"     : [{
+                    "actor"             : 'boost.wax',
+                    "permission"        : "paybw"
+                }],
+                "data"              : null
+            }, {
+                "account"           : 'eosio',
+                "name"              : "buyrambytes",
+                "authorization"     : [{
+                    "actor"             : 'wam',
+                    "permission"        : "newaccount"
+                }],
+                'data'              : {
+                    "bytes"             : 129, // RAM RATE
+                    "payer"             : 'wam',
+                    "receiver"          : DATA['actor']
+                },
+            }, {
+                "account"           : `${ DATA['symbol'].split('-')[1] }`,
+                "name"              : "transfer",
+                "authorization"     : [{
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                'data'              : {
+                    "from"              : DATA['actor'],
+                    "to"                : DATA['to'],
+                    "quantity"          : `${ DATA['quantity'] } ${ DATA['symbol'].split('-')[0] }`,
+                    "memo"              : `${ DATA['memo'] }`
+                },
+            }]
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions); 
+        const packed_trx    = arrayToHex(serial); 
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }
+}; 
+
+
+
+async function packedtrx_allocate(DATA){
+
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('m.federation');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('m.federation', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions"           : (function (data){
+                data['val'] = []; 
+                for (const x of data['to'].split(',')) {
+                    data['val'].push({
+                        "account"           : `${ data['symbol'].split('-')[1] }`,
+                        "name"              : "transfer",
+                        "authorization"     : [{
+                            "actor"             : data['actor'],
+                            "permission"        : "active"
+                        }],
+                        'data'              : {
+                            "from"              : data['actor'],
+                            "to"                : x,
+                            "quantity"          : `${ data['quantity'] } ${ data['symbol'].split('-')[0] }`,
+                            "memo"              : `${ data['memo'] }`
+                        },
+                    })
+                }; return data['val']; 
+            })(DATA)
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions); 
+        const packed_trx    = arrayToHex(serial); 
+        const freeBandwidth = await packedtrx_allocate_freeBandwidth(DATA); 
+
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transaction, transactions, freeBandwidth}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }
+}; 
+async function packedtrx_allocate_prv(DATA){
+
+    const _privateKeys        = [ DATA['privateKey'] ]; 
+    const _signatureProvider  = new JsSignatureProvider(_privateKeys); 
+
+    console.log(DATA); 
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('m.federation');
+        const api           = new Api({ rpc, _signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('m.federation', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions"           : (function (data){
+                data['val'] = []; 
+                for (const x of data['to'].split(',')) {
+                    data['val'].push({
+                        "account"           : `${ data['symbol'].split('-')[1] }`,
+                        "name"              : "transfer",
+                        "authorization"     : [{
+                            "actor"             : data['payer'],
+                            "permission"        : "active"
+                        }, {
+                            "actor"             : data['actor'],
+                            "permission"        : "active"
+                        }],
+                        'data'              : {
+                            "from"              : data['actor'],
+                            "to"                : x,
+                            "quantity"          : `${ data['quantity'] } ${ data['symbol'].split('-')[0] }`,
+                            "memo"              : `${ data['memo'] }`
+                        },
+                    })
+                }; return data['val']; 
+            })(DATA)
+        }; 
+
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions);
+        const packed_trx    = arrayToHex(serial); 
+        const result        = await api.transact(transactions, { broadcast: false, sign: false });
+        const abis          = await api.getTransactionAbis(transaction);
+        const requiredKeys  = _privateKeys.map((privateKey) => PrivateKey.fromString(privateKey).getPublicKey().toString());
+
+        result.signatures = await _signatureProvider.sign({
+            chainId,
+            requiredKeys,
+            serializedTransaction: result.serializedTransaction,
+            serializedContextFreeData: result.serializedContextFreeData,
+            abis
+        });
+
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions, signatures : result.signatures}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }; 
+  
+}; 
+async function packedtrx_allocate_freeBandwidth(DATA){
+
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('m.federation');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('m.federation', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions": (function (data){
+                data['val'] = [{
+                    'account'           : 'boost.wax',
+                    'name'              : 'noop', 
+                    "authorization"     : [{
+                        "actor"             : 'boost.wax',
+                        "permission"        : "paybw"
+                    }],
+                    "data"              : null
+                }]; 
+                for (const x of data['to'].split(',')) {
+                    data['val'].push({
+                        "account"           : `${ data['symbol'].split('-')[1] }`,
+                        "name"              : "transfer",
+                        "authorization"     : [{
+                            "actor"             : data['actor'],
+                            "permission"        : "active"
+                        }],
+                        'data'              : {
+                            "from"              : data['actor'],
+                            "to"                : x,
+                            "quantity"          : `${ data['quantity'] } ${ data['symbol'].split('-')[0] }`,
+                            "memo"              : `${ data['memo'] }`
+                        },
+                    })
+                }; return data['val']; 
+            })(DATA)
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions); 
+        const packed_trx    = arrayToHex(serial); 
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }
+}; 
+
+
+
+async function packedtrx_fw_depo(DATA){
+
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('m.federation');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('m.federation', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions": [{
+                "account"           : `farmerstoken`,
+                "name"              : "transfers",
+                "authorization"     : [{
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                "data": {
+                    'from'              : DATA['actor'], 
+                    'to'                : 'farmersworld', 
+                    'quantities'        : DATA['quantity'], 
+                    'memo'              : "deposit"
+                }
+            }]
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions); 
+        const packed_trx    = arrayToHex(serial); 
+      
+        if( DATA.hasOwnProperty('privateKey') && DATA['privateKey'] != '' ){
+            const privaKeysAuth = await packedtrx_fw_depo_private_key_auth(DATA); 
+            return new Promise(function(resolve, reject) {
+                resolve({packed_trx, serializedTransaction : serial, transactions, transaction, privaKeysAuth}); 
+            }); 
+        }else{
+            //    const freeBandwidth = await fw_packedtrx_crop_free_trx(DATA); 
+            return new Promise(function(resolve, reject) {
+                resolve({packed_trx, serializedTransaction : serial, transactions, transaction}); 
+            }); 
+        }; 
+        
+    } catch (err) {
+        console.log('err is', err);
+    }
+}; 
+async function packedtrx_fw_depo_freeBandwidth(DATA){
+
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('m.federation');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('m.federation', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions": [{
+                'account'           : 'boost.wax',
+                'name'              : 'noop', 
+                "authorization"     : [{
+                    "actor"             : 'boost.wax',
+                    "permission"        : "paybw"
+                }],
+                "data"              : null
+            }, {
+                "account"           : `farmerstoken`,
+                "name"              : "transfers",
+                "authorization"     : [{
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                "data": {
+                    'from'              : DATA['actor'], 
+                    'to'                : 'farmersworld', 
+                    'quantities'        : DATA['quantity'], 
+                    'memo'              : "deposit"
+                }
+            }]
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions); 
+        const packed_trx    = arrayToHex(serial); 
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }
+}; 
+async function packedtrx_fw_depo_private_key_auth(DATA){
+    
+    const _privateKeys        = [ DATA['privateKey'] ]; 
+    const _signatureProvider  = new JsSignatureProvider(_privateKeys); 
+    
+    console.log(DATA)
+    
+    try {
+        const chainId       = DATA['chainId'];
+        //    const abiObj        = await get_rawabi_and_abi('farmersworld');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //    api.cachedAbis.set('farmersworld', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions": [{
+                "account"           : `farmerstoken`,
+                "name"              : "transfers",
+                "authorization"     : [{
+                    "actor"             : DATA['payer'],
+                    "permission"        : "active"
+                }, {
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                "data": {
+                    'from'              : DATA['actor'], 
+                    'to'                : 'farmersworld', 
+                    'quantities'        : DATA['quantity'], 
+                    'memo'              : "deposit"
+                }
+            }]
+        }; 
+    
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions);
+        const packed_trx    = arrayToHex(serial); 
+        
+        const result        = await api.transact(transactions, { broadcast: false, sign: false });
+        const abis          = await api.getTransactionAbis(transaction);
+        
+        const requiredKeys  = _privateKeys.map((privateKey) => PrivateKey.fromString(privateKey).getPublicKey().toString());
+        
+        result.signatures = await _signatureProvider.sign({
+            chainId,
+            requiredKeys,
+            serializedTransaction: result.serializedTransaction,
+            serializedContextFreeData: result.serializedContextFreeData,
+            abis
+        });
+        
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions, signatures : result.signatures}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }; 
+
+}; 
+async function packedtrx_fw_with(DATA){
+
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('m.federation');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('m.federation', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions": [{
+                "account"           : `farmersworld`,
+                "name"              : "withdraw",
+                "authorization"     : [{
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                "data": {
+                    "owner"             : DATA['actor'],
+                    "quantities"        : DATA['quantity'],
+                    "fee"               : parseInt(DATA['amount']),
+                }
+            }]
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions); 
+        const packed_trx    = arrayToHex(serial); 
+      
+        if( DATA.hasOwnProperty('privateKey') && DATA['privateKey'] != '' ){
+            const privaKeysAuth = await packedtrx_fw_with_private_key_auth(DATA); 
+            return new Promise(function(resolve, reject) {
+                resolve({packed_trx, serializedTransaction : serial, transactions, transaction, privaKeysAuth}); 
+            }); 
+        }else{
+            //    const freeBandwidth = await fw_packedtrx_crop_free_trx(DATA); 
+            return new Promise(function(resolve, reject) {
+                resolve({packed_trx, serializedTransaction : serial, transactions, transaction}); 
+            }); 
+        }; 
+      
+    } catch (err) {
+        console.log('err is', err);
+    }
+}; 
+async function packedtrx_fw_with_freeBandwidth(DATA){
+
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('m.federation');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('m.federation', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions": [{
+                'account'           : 'boost.wax',
+                'name'              : 'noop', 
+                "authorization"     : [{
+                    "actor"             : 'boost.wax',
+                    "permission"        : "paybw"
+                }],
+                "data"              : null
+            }, {
+                "account"           : `farmersworld`,
+                "name"              : "withdraw",
+                "authorization"     : [{
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                "data": {
+                    "owner"             : DATA['actor'],
+                    "quantities"        : DATA['quantity'],
+                    "fee"               : parseInt(DATA['amount']),
+                }
+            }]
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions); 
+        const packed_trx    = arrayToHex(serial); 
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }
+}; 
+async function packedtrx_fw_with_private_key_auth(DATA){
+    
+    const _privateKeys        = [ DATA['privateKey'] ]; 
+    const _signatureProvider  = new JsSignatureProvider(_privateKeys); 
+    
+    console.log(DATA)
+    
+    try {
+        const chainId       = DATA['chainId'];
+        //    const abiObj        = await get_rawabi_and_abi('farmersworld');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //    api.cachedAbis.set('farmersworld', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions": [{
+                "account"           : `farmersworld`,
+                "name"              : "withdraw",
+                "authorization"     : [{
+                    "actor"             : DATA['payer'],
+                    "permission"        : "active"
+                }, {
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                "data": {
+                    "owner"             : DATA['actor'],
+                    "quantities"        : DATA['quantity'],
+                    "fee"               : parseInt(DATA['amount']),
+                }
+            }]
+        }; 
+    
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions);
+        const packed_trx    = arrayToHex(serial); 
+        
+        const result        = await api.transact(transactions, { broadcast: false, sign: false });
+        const abis          = await api.getTransactionAbis(transaction);
+        
+        const requiredKeys  = _privateKeys.map((privateKey) => PrivateKey.fromString(privateKey).getPublicKey().toString());
+        
+        result.signatures = await _signatureProvider.sign({
+            chainId,
+            requiredKeys,
+            serializedTransaction: result.serializedTransaction,
+            serializedContextFreeData: result.serializedContextFreeData,
+            abis
+        });
+        
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions, signatures : result.signatures}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }; 
+
+}; 
+async function packedtrx_fw_with_farmer_coin(DATA){
+
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('m.federation');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('m.federation', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions": [{
+                "account"           : `farmersworld`,
+                "name"              : "withdrawcoin",
+                "authorization"     : [{
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                "data": {
+                    "new_owner"         : DATA['actor'],
+                    "amount"            : DATA['amount'],
+                }
+            }]
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions); 
+        const packed_trx    = arrayToHex(serial); 
+      
+        if( DATA.hasOwnProperty('privateKey') && DATA['privateKey'] != '' ){
+            const privaKeysAuth = await packedtrx_fw_with_farmer_coin_private_key_auth(DATA); 
+            return new Promise(function(resolve, reject) {
+                resolve({packed_trx, serializedTransaction : serial, transactions, transaction, privaKeysAuth}); 
+            }); 
+        }else{
+            //    const freeBandwidth = await packedtrx_fw_with_farmer_coin_freeBandwidth(DATA); 
+            return new Promise(function(resolve, reject) {
+                resolve({packed_trx, serializedTransaction : serial, transactions, transaction}); 
+            }); 
+        }; 
+      
+    } catch (err) {
+        console.log('err is', err);
+    }
+}; 
+async function packedtrx_fw_with_farmer_coin_freeBandwidth(DATA){
+
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('m.federation');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('m.federation', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions": [{
+                'account'           : 'boost.wax',
+                'name'              : 'noop', 
+                "authorization"     : [{
+                    "actor"             : 'boost.wax',
+                    "permission"        : "paybw"
+                }],
+                "data"              : null
+            }, {
+                "account"           : `farmersworld`,
+                "name"              : "withdrawcoin",
+                "authorization"     : [{
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                "data": {
+                    "new_owner"         : DATA['actor'],
+                    "amount"            : DATA['amount'],
+                }
+            }]
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions); 
+        const packed_trx    = arrayToHex(serial); 
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }
+}; 
+async function packedtrx_fw_with_farmer_coin_private_key_auth(DATA){
+    
+    const _privateKeys        = [ DATA['privateKey'] ]; 
+    const _signatureProvider  = new JsSignatureProvider(_privateKeys); 
+    
+    console.log(DATA)
+    
+    try {
+        const chainId       = DATA['chainId'];
+        //    const abiObj        = await get_rawabi_and_abi('farmersworld');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //    api.cachedAbis.set('farmersworld', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions": [{
+                "account"           : `farmersworld`,
+                "name"              : "withdrawcoin",
+                "authorization"     : [{
+                    "actor"             : DATA['payer'],
+                    "permission"        : "active"
+                }, {
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                "data": {
+                    "new_owner"         : DATA['actor'],
+                    "amount"            : DATA['amount'],
+                }
+            }]
+        }; 
+    
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions);
+        const packed_trx    = arrayToHex(serial); 
+        
+        const result        = await api.transact(transactions, { broadcast: false, sign: false });
+        const abis          = await api.getTransactionAbis(transaction);
+        
+        const requiredKeys  = _privateKeys.map((privateKey) => PrivateKey.fromString(privateKey).getPublicKey().toString());
+        
+        result.signatures = await _signatureProvider.sign({
+            chainId,
+            requiredKeys,
+            serializedTransaction: result.serializedTransaction,
+            serializedContextFreeData: result.serializedContextFreeData,
+            abis
+        });
+        
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions, signatures : result.signatures}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }; 
+
+}; 
+async function packedtrx_fw_send_fmc_in_game(DATA){
+
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('m.federation');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('m.federation', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions": [{
+                "account"           : `farmersworld`,
+                "name"              : "sendcoin",
+                "authorization"     : [{
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                "data": {
+                    "from"              : DATA['actor'],
+                    "to"                : DATA['to'],
+                    "amount"            : DATA['amount']
+                }
+            }]
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions); 
+        const packed_trx    = arrayToHex(serial); 
+      
+        if( DATA.hasOwnProperty('privateKey') && DATA['privateKey'] != '' ){
+            const privaKeysAuth = await packedtrx_fw_send_fmc_in_game_private_key_auth(DATA); 
+            return new Promise(function(resolve, reject) {
+                resolve({packed_trx, serializedTransaction : serial, transactions, transaction, privaKeysAuth}); 
+            }); 
+        }else{
+            const freeBandwidth = await packedtrx_fw_send_fmc_in_game_freeBandwidth(DATA); 
+            return new Promise(function(resolve, reject) {
+                resolve({packed_trx, serializedTransaction : serial, transactions, transaction, freeBandwidth}); 
+            }); 
+        }; 
+      
+    } catch (err) {
+        console.log('err is', err);
+    }
+}; 
+async function packedtrx_fw_send_fmc_in_game_freeBandwidth(DATA){
+
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('m.federation');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('m.federation', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions": [{
+                'account'           : 'boost.wax',
+                'name'              : 'noop', 
+                "authorization"     : [{
+                    "actor"             : 'boost.wax',
+                    "permission"        : "paybw"
+                }],
+                "data"              : null
+            }, {
+                "account"           : `farmersworld`,
+                "name"              : "sendcoin",
+                "authorization"     : [{
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                "data": {
+                    "from"              : DATA['actor'],
+                    "to"                : DATA['to'],
+                    "amount"            : DATA['amount']
+                }
+            }]
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions); 
+        const packed_trx    = arrayToHex(serial); 
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }
+}; 
+async function packedtrx_fw_send_fmc_in_game_private_key_auth(DATA){
+    
+    const _privateKeys        = [ DATA['privateKey'] ]; 
+    const _signatureProvider  = new JsSignatureProvider(_privateKeys); 
+    
+    console.log(DATA)
+    
+    try {
+        const chainId       = DATA['chainId'];
+        //    const abiObj        = await get_rawabi_and_abi('farmersworld');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //    api.cachedAbis.set('farmersworld', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions": [{
+                "account"           : `farmersworld`,
+                "name"              : "sendcoin",
+                "authorization"     : [{
+                    "actor"             : DATA['payer'],
+                    "permission"        : "active"
+                }, {
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                "data": {
+                    "from"              : DATA['actor'],
+                    "to"                : DATA['to'],
+                    "amount"            : DATA['amount']
+                }
+            }]
+        }; 
+    
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions);
+        const packed_trx    = arrayToHex(serial); 
+        
+        const result        = await api.transact(transactions, { broadcast: false, sign: false });
+        const abis          = await api.getTransactionAbis(transaction);
+        
+        const requiredKeys  = _privateKeys.map((privateKey) => PrivateKey.fromString(privateKey).getPublicKey().toString());
+        
+        result.signatures = await _signatureProvider.sign({
+            chainId,
+            requiredKeys,
+            serializedTransaction: result.serializedTransaction,
+            serializedContextFreeData: result.serializedContextFreeData,
+            abis
+        });
+        
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions, transaction, signatures : result.signatures}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }; 
+
+}; 
+async function packedtrx_fw_mktbuy(DATA){
+
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('m.federation');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('m.federation', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions"           : [{
+                "account"           : `farmersworld`,
+                "name"              : "mktbuy",
+                "authorization"     : [{
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                "data"          : {
+                    "owner"             : DATA['actor'],
+                    "quantity"          : parseInt(DATA['quantity']),
+                    "template_id"       : parseInt(DATA['toolid']),
+                }
+            }]
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions); 
+        const packed_trx    = arrayToHex(serial); 
+      
+        if( DATA.hasOwnProperty('privateKey') && DATA['privateKey'] != '' ){
+            const privaKeysAuth = await packedtrx_fw_mktbuy_private_key_auth(DATA); 
+            return new Promise(function(resolve, reject) {
+                resolve({packed_trx, serializedTransaction : serial, transactions, transaction, privaKeysAuth}); 
+            }); 
+        }else{
+            //    const freeBandwidth = await fw_packedtrx_crop_free_trx(DATA); 
+            return new Promise(function(resolve, reject) {
+                resolve({packed_trx, serializedTransaction : serial, transactions, transaction}); 
+            }); 
+        }; 
+      
+    } catch (err) {
+        console.log('err is', err);
+    }
+}; 
+async function packedtrx_fw_mktbuy_private_key_auth(DATA){
+    
+    const _privateKeys        = [ DATA['privateKey'] ]; 
+    const _signatureProvider  = new JsSignatureProvider(_privateKeys); 
+    
+    console.log(DATA)
+    
+    try {
+        const chainId       = DATA['chainId'];
+        //    const abiObj        = await get_rawabi_and_abi('farmersworld');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //    api.cachedAbis.set('farmersworld', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions"           : [{
+                "account"           : `farmersworld`,
+                "name"              : "mktbuy",
+                "authorization"     : [{
+                    "actor"             : DATA['payer'],
+                    "permission"        : "active"
+                }, {
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                "data"          : {
+                    "owner"             : DATA['actor'],
+                    "quantity"          : parseInt(DATA['quantity']),
+                    "template_id"       : parseInt(DATA['toolid']),
+                }
+            }]
+        }; 
+    
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions);
+        const packed_trx    = arrayToHex(serial); 
+        
+        const result        = await api.transact(transactions, { broadcast: false, sign: false });
+        const abis          = await api.getTransactionAbis(transaction);
+        
+        const requiredKeys  = _privateKeys.map((privateKey) => PrivateKey.fromString(privateKey).getPublicKey().toString());
+        
+        result.signatures = await _signatureProvider.sign({
+            chainId,
+            requiredKeys,
+            serializedTransaction: result.serializedTransaction,
+            serializedContextFreeData: result.serializedContextFreeData,
+            abis
+        });
+        
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions, signatures : result.signatures}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }; 
+
+}; 
+async function packedtrx_fw_craftnft(DATA){
+
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('m.federation');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('m.federation', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions"           : [{
+                "account"           : `farmersworld`,
+                "name"              : "mintasset",
+                "authorization"     : [{
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                "data"          : {
+                    "owner"             : DATA['actor'],
+                    "memo"              : DATA['toolid']
+                }
+            }]
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions); 
+        const packed_trx    = arrayToHex(serial); 
+      
+        if( DATA.hasOwnProperty('privateKey') && DATA['privateKey'] != '' ){
+            const privaKeysAuth = await packedtrx_fw_craftnft_private_key_auth(DATA); 
+            return new Promise(function(resolve, reject) {
+                resolve({packed_trx, serializedTransaction : serial, transactions, transaction, privaKeysAuth}); 
+            }); 
+        }else{
+            //    const freeBandwidth = await fw_packedtrx_crop_free_trx(DATA); 
+            return new Promise(function(resolve, reject) {
+                resolve({packed_trx, serializedTransaction : serial, transactions, transaction}); 
+            }); 
+        }; 
+      
+    } catch (err) {
+        console.log('err is', err);
+    }
+}; 
+async function packedtrx_fw_craftnft_private_key_auth(DATA){
+    
+    const _privateKeys        = [ DATA['privateKey'] ]; 
+    const _signatureProvider  = new JsSignatureProvider(_privateKeys); 
+    
+    console.log(DATA)
+    
+    try {
+        const chainId       = DATA['chainId'];
+        //    const abiObj        = await get_rawabi_and_abi('farmersworld');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //    api.cachedAbis.set('farmersworld', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions"           : [{
+                "account"           : `farmersworld`,
+                "name"              : "mintasset",
+                "authorization"     : [{
+                    "actor"             : DATA['payer'],
+                    "permission"        : "active"
+                }, {
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                "data"          : {
+                    "owner"             : DATA['actor'],
+                    "memo"              : DATA['toolid']
+                }
+            }]
+        }; 
+    
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions);
+        const packed_trx    = arrayToHex(serial); 
+        
+        const result        = await api.transact(transactions, { broadcast: false, sign: false });
+        const abis          = await api.getTransactionAbis(transaction);
+        
+        const requiredKeys  = _privateKeys.map((privateKey) => PrivateKey.fromString(privateKey).getPublicKey().toString());
+        
+        result.signatures = await _signatureProvider.sign({
+            chainId,
+            requiredKeys,
+            serializedTransaction: result.serializedTransaction,
+            serializedContextFreeData: result.serializedContextFreeData,
+            abis
+        });
+        
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions, signatures : result.signatures}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }; 
+
+}; 
+async function packedtrx_fw_craftmbs(DATA){
+
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('m.federation');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('m.federation', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions"           : [{
+                "account"           : `atomicassets`,
+                "name"              : "transfer",
+                "authorization"     : [{
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                "data"          : {
+                    "asset_ids"         : DATA['toolid'][1],
+                    "from"              : DATA['actor'],
+                    "memo"              : 'burn_coins',
+                    "to"                : 'farmersworld'
+                }
+            }, {
+                "account"           : `farmersworld`,
+                "name"              : "mintmbs",
+                "authorization"     : [{
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                "data"          : {
+                    "mname"             : DATA['toolid'][2].join(),
+                    "user"              : DATA['actor']
+                }
+            }].concat((function (data){
+                data['val'] = []; 
+                for (const x of data['toolid'][0]) {
+                    data['val'].push({
+                        "account"           : 'atomicassets',
+                        "name"              : "burnasset",
+                        "authorization"     : [{
+                            "actor"             : data['actor'],
+                            "permission"        : "active"
+                        }],
+                        'data'              : {
+                            "asset_id"          : x,
+                            "asset_owner"       : data['actor']
+                        },
+                    })
+                }; return data['val']; 
+            })(DATA))
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions); 
+        const packed_trx    = arrayToHex(serial); 
+      
+        if( DATA.hasOwnProperty('privateKey') && DATA['privateKey'] != '' ){
+            const privaKeysAuth = await packedtrx_fw_craftmbs_private_key_auth(DATA); 
+            return new Promise(function(resolve, reject) {
+                resolve({packed_trx, serializedTransaction : serial, transactions, transaction, privaKeysAuth}); 
+            }); 
+        }else{
+            //    const freeBandwidth = await fw_packedtrx_crop_free_trx(DATA); 
+            return new Promise(function(resolve, reject) {
+                resolve({packed_trx, serializedTransaction : serial, transactions, transaction}); 
+            }); 
+        }; 
+      
+    } catch (err) {
+        console.log('err is', err);
+    }
+}; 
+async function packedtrx_fw_craftmbs_private_key_auth(DATA){
+    
+    const _privateKeys        = [ DATA['privateKey'] ]; 
+    const _signatureProvider  = new JsSignatureProvider(_privateKeys); 
+    
+    console.log(DATA)
+    
+    try {
+        const chainId       = DATA['chainId'];
+        //    const abiObj        = await get_rawabi_and_abi('farmersworld');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //    api.cachedAbis.set('farmersworld', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions"           : [{
+                "account"           : `atomicassets`,
+                "name"              : "transfer",
+                "authorization"     : [{
+                    "actor"             : DATA['payer'],
+                    "permission"        : "active"
+                }, {
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                "data"          : {
+                    "asset_ids"         : DATA['toolid'][1],
+                    "from"              : DATA['actor'],
+                    "memo"              : 'burn_coins',
+                    "to"                : 'farmersworld'
+                }
+            }, {
+                "account"           : `farmersworld`,
+                "name"              : "mintmbs",
+                "authorization"     : [{
+                    "actor"             : DATA['payer'],
+                    "permission"        : "active"
+                }, {
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                "data"          : {
+                    "mname"             : DATA['toolid'][2].join(),
+                    "user"              : DATA['actor']
+                }
+            }].concat((function (data){
+                data['val'] = []; 
+                for (const x of data['toolid'][0]) {
+                    data['val'].push({
+                        "account"           : 'atomicassets',
+                        "name"              : "burnasset",
+                        "authorization"     : [{
+                            "actor"             : data['payer'],
+                            "permission"        : "active"
+                        }, {
+                            "actor"             : data['actor'],
+                            "permission"        : "active"
+                        }],
+                        'data'              : {
+                            "asset_id"          : x,
+                            "asset_owner"       : data['actor']
+                        },
+                    })
+                }; return data['val']; 
+            })(DATA))
+        }; 
+    
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions);
+        const packed_trx    = arrayToHex(serial); 
+        
+        const result        = await api.transact(transactions, { broadcast: false, sign: false });
+        const abis          = await api.getTransactionAbis(transaction);
+        
+        const requiredKeys  = _privateKeys.map((privateKey) => PrivateKey.fromString(privateKey).getPublicKey().toString());
+        
+        result.signatures = await _signatureProvider.sign({
+            chainId,
+            requiredKeys,
+            serializedTransaction: result.serializedTransaction,
+            serializedContextFreeData: result.serializedContextFreeData,
+            abis
+        });
+        
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions, signatures : result.signatures}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }; 
+
+}; 
+async function packedtrx_fw_craftmbs_in_game(DATA){
+
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('m.federation');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('m.federation', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions"           : [{
+                "account"             : `farmersworld`,
+                "name"                : "mintmbs",
+                "authorization"       : [{
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                "data"          : {
+                    "mname"             : DATA['toolid'],
+                    "user"              : DATA['actor']
+                }
+            }]
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions); 
+        const packed_trx    = arrayToHex(serial); 
+      
+        if( DATA.hasOwnProperty('privateKey') && DATA['privateKey'] != '' ){
+            const privaKeysAuth = await packedtrx_fw_craftmbs_in_game_private_key_auth(DATA); 
+            return new Promise(function(resolve, reject) {
+                resolve({packed_trx, serializedTransaction : serial, transactions, transaction, privaKeysAuth}); 
+            }); 
+        }else{
+            //    const freeBandwidth = await fw_packedtrx_crop_free_trx(DATA); 
+            return new Promise(function(resolve, reject) {
+                resolve({packed_trx, serializedTransaction : serial, transactions, transaction, transaction}); 
+            }); 
+        }; 
+      
+    } catch (err) {
+        console.log('err is', err);
+    }
+}; 
+async function packedtrx_fw_craftmbs_in_game_private_key_auth(DATA){
+    
+    const _privateKeys        = [ DATA['privateKey'] ]; 
+    const _signatureProvider  = new JsSignatureProvider(_privateKeys); 
+    
+    console.log(DATA)
+    
+    try {
+        const chainId       = DATA['chainId'];
+        //    const abiObj        = await get_rawabi_and_abi('farmersworld');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //    api.cachedAbis.set('farmersworld', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions"           : [{
+                "account"           : `farmersworld`,
+                "name"              : "mintmbs",
+                "authorization"     : [{
+                    "actor"             : DATA['payer'],
+                    "permission"        : "active"
+                }, {
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                "data"          : {
+                    "mname"             : DATA['toolid'],
+                    "user"              : DATA['actor']
+                }
+            }]
+        }; 
+    
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions);
+        const packed_trx    = arrayToHex(serial); 
+        
+        const result        = await api.transact(transactions, { broadcast: false, sign: false });
+        const abis          = await api.getTransactionAbis(transaction);
+        
+        const requiredKeys  = _privateKeys.map((privateKey) => PrivateKey.fromString(privateKey).getPublicKey().toString());
+        
+        result.signatures = await _signatureProvider.sign({
+            chainId,
+            requiredKeys,
+            serializedTransaction: result.serializedTransaction,
+            serializedContextFreeData: result.serializedContextFreeData,
+            abis
+        });
+        
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions, transaction, signatures : result.signatures}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }; 
+
+}; 
+async function packedtrx_fw_craftmbs_limitlesswax_auth(DATA){
+
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('m.federation');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('m.federation', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"            : DATA['expiration'],
+            "ref_block_num"         : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"      : Number(DATA['block_num_or_id'].split('-')[1]),
+            "max_cpu_usage_ms"      : 18,
+            "max_net_usage_words"   : 18000,
+            "delay_sec"             : 0, 
+            "actions"               : [{
+                "account"             : `atomicassets`,
+                "name"                : "transfer",
+                "authorization"       : [{
+                    "actor"             : 'limitlesswax',
+                    "permission"        : "cosign"
+                }, {
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                "data"          : {
+                    "asset_ids"         : DATA['toolid'][1],
+                    "from"              : DATA['actor'],
+                    "memo"              : 'burn_coins',
+                    "to"                : 'farmersworld'
+                }
+            }, {
+                "account"             : `farmersworld`,
+                "name"                : "mintmbs",
+                "authorization"       : [{
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                "data"                : {
+                    "mname"             : DATA['toolid'][2].join(),
+                    "user"              : DATA['actor']
+                }
+            }].concat((function (data){
+                data['val'] = []; 
+                for (const x of data['toolid'][0]) {
+                    data['val'].push({
+                        "account"             : 'atomicassets',
+                        "name"                : "burnasset",
+                        "authorization"       : [{
+                            "actor"             : data['actor'],
+                            "permission"        : "active"
+                        }],
+                        'data'                : {
+                            "asset_id"          : x,
+                            "asset_owner"       : data['actor']
+                        },
+                    })
+                }; return data['val']; 
+            })(DATA)).concat([{
+                "account"             : 'limitlesswax',
+                "name"                : "paycpu",
+                "authorization"       : [{
+                    "actor"             : 'limitlesswax',
+                    "permission"        : "cosign"
+                }],
+                'data'                : {
+                    "user"              : DATA['actor'],
+                    "info"              : '18 ms max'
+                },
+            }, {
+                "account"             : 'eosio.token',
+                "name"                : "transfer",
+                "authorization"       : [{
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                'data'                : {
+                    "from"              : DATA['actor'],
+                    "to"                : 'limitlesscpu',
+                    "quantity"          : `0.36000000 WAX`,
+                    "memo"              : `18 ms`
+                },
+            }, {
+                "account"             : 'eosio.token',
+                "name"                : "transfer",
+                "authorization"       : [{
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                'data'                : {
+                    "from"              : DATA['actor'],
+                    "to"                : 'stakebymywax',
+                    "quantity"          : `0.04000000 WAX`,
+                    "memo"              : `18 ms`
+                },
+            }])
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions); 
+        const packed_trx    = arrayToHex(serial); 
+        const fetchSigner   = await fetch("https://api.limitlesswax.co/cpu-rent", {
+            "headers"   : {
+                "accept"               : "application/json",
+                "accept-language"      : "en-US,en;q=0.9",
+                "cache-control"        : "no-cache",
+                "content-type"         : "application/json",
+                "pragma"               : "no-cache",
+                "sec-ch-ua"            : "\" Not A;Brand\";v=\"99\", \"Chromium\";v=\"98\", \"Opera\";v=\"84\"",
+                "sec-ch-ua-mobile"     : "?0",
+                "sec-ch-ua-platform"   : "\"Linux\"",
+                "sec-fetch-dest"       : "empty",
+                "sec-fetch-mode"       : "cors",
+                "sec-fetch-site"       : "same-site"
+            },
+            "referrer"   : "https://limitlesswax.co/",
+            "body"       : JSON.stringify({
+                'transaction' : Object.keys(serial).map(a => serial[a])
+            }),
+            "method": "POST"
+        }); 
+        //  .then(
+        //      result => result.json()
+        //  ).then(result => { return result })
+        const signer        = await fetchSigner.json()
+      
+        return new Promise(function(resolve, reject) {
+            resolve({ packed_trx, serializedTransaction : serial, transactions, transaction, 'signatures' : {'signatures' : signer['signature'], 'data' : signer} }); 
+        }); 
+      
+    } catch (err) {
+        console.log('err is', err);
+    }
+}; 
+async function packedtrx_bl_craft_ring(DATA){
+
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('bcbrawlers');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('bcbrawlers', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions"           : [{
+                "account"           : `bcbrawlers`,
+                "name"              : "craft",
+                "authorization"     : [{
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                "data"          : {
+                    "asset_ids"         : [], 
+                    "owner"             : DATA['actor'],
+                    "category"          : 'rings', 
+                    "recipe_id"         : DATA['toolid']
+                }
+            }]
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions); 
+        const packed_trx    = arrayToHex(serial); 
+      
+        if( DATA.hasOwnProperty('privateKey') && DATA['privateKey'] != '' ){
+            const privaKeysAuth = await packedtrx_bl_craft_ring_private_key_auth(DATA); 
+            return new Promise(function(resolve, reject) {
+                resolve({packed_trx, serializedTransaction : serial, transactions, transaction, privaKeysAuth}); 
+            }); 
+        }else{
+            const freeBandwidth = await packedtrx_bl_craft_ring_freeBandwidth(DATA); 
+            return new Promise(function(resolve, reject) {
+                resolve({packed_trx, serializedTransaction : serial, transactions, transaction, freeBandwidth}); 
+            }); 
+        }; 
+      
+    } catch (err) {
+        console.log('err is', err);
+    }
+}; 
+async function packedtrx_bl_craft_ring_freeBandwidth(DATA){
+
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('bcbrawlers');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('bcbrawlers', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions": [{
+                'account'           : 'boost.wax',
+                'name'              : 'noop', 
+                "authorization"     : [{
+                    "actor"             : 'boost.wax',
+                    "permission"        : "paybw"
+                }],
+                "data"              : null
+            }, {
+                "account"           : `bcbrawlers`,
+                "name"              : "craft",
+                "authorization"     : [{
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                "data"          : {
+                    "asset_ids"         : [], 
+                    "owner"             : DATA['actor'],
+                    "category"          : 'rings', 
+                    "recipe_id"         : DATA['toolid']
+                }
+            }]
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions); 
+        const packed_trx    = arrayToHex(serial); 
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }
+}; 
+async function packedtrx_bl_craft_ring_private_key_auth(DATA){
+    
+    const _privateKeys        = [ DATA['privateKey'] ]; 
+    const _signatureProvider  = new JsSignatureProvider(_privateKeys); 
+    
+    console.log(DATA)
+    
+    try {
+        const chainId       = DATA['chainId'];
+        //    const abiObj        = await get_rawabi_and_abi('bcbrawlers');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //    api.cachedAbis.set('bcbrawlers', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions"           : [{
+                "account"           : `bcbrawlers`,
+                "name"              : "craft",
+                "authorization"     : [{
+                    "actor"             : DATA['payer'],
+                    "permission"        : "active"
+                }, {
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                "data"          : {
+                    "asset_ids"         : [], 
+                    "owner"             : DATA['actor'],
+                    "category"          : 'rings', 
+                    "recipe_id"         : DATA['toolid']
+                }
+            }]
+        }; 
+    
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions);
+        const packed_trx    = arrayToHex(serial); 
+        
+        const result        = await api.transact(transactions, { broadcast: false, sign: false });
+        const abis          = await api.getTransactionAbis(transaction);
+        
+        const requiredKeys  = _privateKeys.map((privateKey) => PrivateKey.fromString(privateKey).getPublicKey().toString());
+        
+        result.signatures = await _signatureProvider.sign({
+            chainId,
+            requiredKeys,
+            serializedTransaction: result.serializedTransaction,
+            serializedContextFreeData: result.serializedContextFreeData,
+            abis
+        });
+        
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions, signatures : result.signatures}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }; 
+
+}; 
+async function packedtrx_bl_claim_ring(DATA){
+
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('bcbrawlers');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('bcbrawlers', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions"           : [{
+                "account"           : `bcbrawlers`,
+                "name"              : "craftclaim",
+                "authorization"     : [{
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                "data"          : {
+                    "owner"             : DATA['actor'],
+                    "assoc_id"          : DATA['toolid']
+                }
+            }]
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions); 
+        const packed_trx    = arrayToHex(serial); 
+      
+        if( DATA.hasOwnProperty('privateKey') && DATA['privateKey'] != '' ){
+            const privaKeysAuth = await packedtrx_bl_claim_ring_private_key_auth(DATA); 
+            return new Promise(function(resolve, reject) {
+                resolve({packed_trx, serializedTransaction : serial, transactions, transaction, privaKeysAuth}); 
+            }); 
+        }else{
+            const freeBandwidth = await packedtrx_bl_claim_ring_freeBandwidth(DATA); 
+            return new Promise(function(resolve, reject) {
+                resolve({packed_trx, serializedTransaction : serial, transactions, transaction, freeBandwidth}); 
+            }); 
+        }; 
+      
+    } catch (err) {
+        console.log('err is', err);
+    }
+}; 
+async function packedtrx_bl_claim_ring_freeBandwidth(DATA){
+
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('bcbrawlers');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('bcbrawlers', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions": [{
+                'account'           : 'boost.wax',
+                'name'              : 'noop', 
+                "authorization"     : [{
+                    "actor"             : 'boost.wax',
+                    "permission"        : "paybw"
+                }],
+                "data"              : null
+            }, {
+                "account"           : `bcbrawlers`,
+                "name"              : "craftclaim",
+                "authorization"     : [{
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                "data"          : {
+                    "owner"             : DATA['actor'],
+                    "assoc_id"          : DATA['toolid']
+                }
+            }]
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions); 
+        const packed_trx    = arrayToHex(serial); 
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }
+}; 
+async function packedtrx_bl_claim_ring_private_key_auth(DATA){
+    
+    const _privateKeys        = [ DATA['privateKey'] ]; 
+    const _signatureProvider  = new JsSignatureProvider(_privateKeys); 
+    
+    console.log(DATA)
+    
+    try {
+        const chainId       = DATA['chainId'];
+        //    const abiObj        = await get_rawabi_and_abi('bcbrawlers');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //    api.cachedAbis.set('bcbrawlers', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions"           : [{
+                "account"           : `bcbrawlers`,
+                "name"              : "craftclaim",
+                "authorization"     : [{
+                    "actor"             : DATA['payer'],
+                    "permission"        : "active"
+                }, {
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                "data"          : {
+                    "owner"             : DATA['actor'],
+                    "assoc_id"          : DATA['toolid']
+                }
+            }]
+        }; 
+    
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions);
+        const packed_trx    = arrayToHex(serial); 
+        
+        const result        = await api.transact(transactions, { broadcast: false, sign: false });
+        const abis          = await api.getTransactionAbis(transaction);
+        
+        const requiredKeys  = _privateKeys.map((privateKey) => PrivateKey.fromString(privateKey).getPublicKey().toString());
+        
+        result.signatures = await _signatureProvider.sign({
+            chainId,
+            requiredKeys,
+            serializedTransaction: result.serializedTransaction,
+            serializedContextFreeData: result.serializedContextFreeData,
+            abis
+        });
+        
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions, signatures : result.signatures}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }; 
+
+}; 
+async function packedtrx_bl_export_braw(DATA){
+
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('bcbrawlers');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('bcbrawlers', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions"           : [{
+                "account"           : `bcbrawlers`,
+                "name"              : "wdrawbrawler",
+                "authorization"     : [{
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                "data"          : {
+                    "owner"             : DATA['actor'],
+                    "asset_ids"         : DATA['toolid']
+                }
+            }]
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions); 
+        const packed_trx    = arrayToHex(serial); 
+      
+        if( DATA.hasOwnProperty('privateKey') && DATA['privateKey'] != '' ){
+            const privaKeysAuth = await packedtrx_bl_export_braw_private_key_auth(DATA); 
+            return new Promise(function(resolve, reject) {
+                resolve({packed_trx, serializedTransaction : serial, transactions, transaction, privaKeysAuth}); 
+            }); 
+        }else{
+            const freeBandwidth = await packedtrx_bl_export_braw_freeBandwidth(DATA); 
+            return new Promise(function(resolve, reject) {
+                resolve({packed_trx, serializedTransaction : serial, transactions, transaction, freeBandwidth}); 
+            }); 
+        }; 
+      
+    } catch (err) {
+        console.log('err is', err);
+    }
+}; 
+async function packedtrx_bl_export_braw_freeBandwidth(DATA){
+
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('bcbrawlers');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('bcbrawlers', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions": [{
+                'account'           : 'boost.wax',
+                'name'              : 'noop', 
+                "authorization"     : [{
+                    "actor"             : 'boost.wax',
+                    "permission"        : "paybw"
+                }],
+                "data"              : null
+            }, {
+                "account"           : `bcbrawlers`,
+                "name"              : "wdrawbrawler",
+                "authorization"     : [{
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                "data"          : {
+                    "owner"             : DATA['actor'],
+                    "asset_ids"         : DATA['toolid']
+                }
+            }]
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions); 
+        const packed_trx    = arrayToHex(serial); 
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }
+}; 
+async function packedtrx_bl_export_braw_private_key_auth(DATA){
+    
+    const _privateKeys        = [ DATA['privateKey'] ]; 
+    const _signatureProvider  = new JsSignatureProvider(_privateKeys); 
+    
+    console.log(DATA)
+    
+    try {
+        const chainId       = DATA['chainId'];
+        //    const abiObj        = await get_rawabi_and_abi('bcbrawlers');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //    api.cachedAbis.set('bcbrawlers', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions"           : [{
+                "account"           : `bcbrawlers`,
+                "name"              : "wdrawbrawler",
+                "authorization"     : [{
+                    "actor"             : DATA['payer'],
+                    "permission"        : "active"
+                }, {
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                "data"          : {
+                    "owner"             : DATA['actor'],
+                    "asset_ids"         : DATA['toolid']
+                }
+            }]
+        }; 
+    
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions);
+        const packed_trx    = arrayToHex(serial); 
+        
+        const result        = await api.transact(transactions, { broadcast: false, sign: false });
+        const abis          = await api.getTransactionAbis(transaction);
+        
+        const requiredKeys  = _privateKeys.map((privateKey) => PrivateKey.fromString(privateKey).getPublicKey().toString());
+        
+        result.signatures = await _signatureProvider.sign({
+            chainId,
+            requiredKeys,
+            serializedTransaction: result.serializedTransaction,
+            serializedContextFreeData: result.serializedContextFreeData,
+            abis
+        });
+        
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions, signatures : result.signatures}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }; 
+
+}; 
+async function packedtrx_dw_mktbuy(DATA){
+
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('m.federation');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('m.federation', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions"           : [{
+                "account"           : `diggerswgame`,
+                "name"              : "buy",
+                "authorization"     : [{
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                "data"          : {
+                    "player"            : DATA['actor'],
+                    "template_id"       : parseInt(DATA['toolid']),
+                }
+            }]
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions); 
+        const packed_trx    = arrayToHex(serial); 
+      
+        if( DATA.hasOwnProperty('privateKey') && DATA['privateKey'] != '' ){
+            const privaKeysAuth = await packedtrx_dw_mktbuy_private_key_auth(DATA); 
+            return new Promise(function(resolve, reject) {
+                resolve({packed_trx, serializedTransaction : serial, transactions, transaction, privaKeysAuth}); 
+            }); 
+        }else{
+            const freeBandwidth = await packedtrx_dw_mktbuy_freeBandwidth(DATA); 
+            return new Promise(function(resolve, reject) {
+                resolve({packed_trx, serializedTransaction : serial, transactions, transaction, freeBandwidth}); 
+            }); 
+        }; 
+      
+    } catch (err) {
+        console.log('err is', err);
+    }
+}; 
+async function packedtrx_dw_mktbuy_freeBandwidth(DATA){
+
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('m.federation');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('m.federation', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions": [{
+                'account'           : 'boost.wax',
+                'name'              : 'noop', 
+                "authorization"     : [{
+                    "actor"             : 'boost.wax',
+                    "permission"        : "paybw"
+                }],
+                "data"              : null
+            }, {
+                "account"           : `diggerswgame`,
+                "name"              : "buy",
+                "authorization"     : [{
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                "data"          : {
+                    "player"            : DATA['actor'],
+                    "template_id"       : parseInt(DATA['toolid']),
+                }
+            }]
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions); 
+        const packed_trx    = arrayToHex(serial); 
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }
+}; 
+async function packedtrx_dw_mktbuy_private_key_auth(DATA){
+    
+    const _privateKeys        = [ DATA['privateKey'] ]; 
+    const _signatureProvider  = new JsSignatureProvider(_privateKeys); 
+    
+    console.log(DATA)
+    
+    try {
+        const chainId       = DATA['chainId'];
+        //    const abiObj        = await get_rawabi_and_abi('farmersworld');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //    api.cachedAbis.set('farmersworld', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions"           : [{
+                "account"           : `diggerswgame`,
+                "name"              : "buy",
+                "authorization"     : [{
+                    "actor"             : DATA['payer'],
+                    "permission"        : "active"
+                }, {
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                "data"          : {
+                    "player"            : DATA['actor'],
+                    "template_id"       : parseInt(DATA['toolid']),
+                }
+            }]
+        }; 
+    
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions);
+        const packed_trx    = arrayToHex(serial); 
+        
+        const result        = await api.transact(transactions, { broadcast: false, sign: false });
+        const abis          = await api.getTransactionAbis(transaction);
+        
+        const requiredKeys  = _privateKeys.map((privateKey) => PrivateKey.fromString(privateKey).getPublicKey().toString());
+        
+        result.signatures = await _signatureProvider.sign({
+            chainId,
+            requiredKeys,
+            serializedTransaction: result.serializedTransaction,
+            serializedContextFreeData: result.serializedContextFreeData,
+            abis
+        });
+        
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions, signatures : result.signatures}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }; 
+
+}; 
+
+
+async function packedtrx_ss_depo(DATA){
+
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('kyanitelpnft');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('kyanitelpnft', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions": [{
+                "account"           : `kyanitelpnft`,
+                "name"              : "transfer",
+                "authorization"     : [{
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                "data": {
+                    'from'              : DATA['actor'], 
+                    'to'                : 'starshipgame', 
+                    'quantity'          : DATA['quantity'][0], 
+                    'memo'              : 'KYANITE Stake'
+                }
+            }]
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions); 
+        const packed_trx    = arrayToHex(serial); 
+      
+        if( DATA.hasOwnProperty('privateKey') && DATA['privateKey'] != '' ){
+            const privaKeysAuth = await packedtrx_ss_depo_private_key_auth(DATA); 
+            return new Promise(function(resolve, reject) {
+                resolve({packed_trx, serializedTransaction : serial, transactions, transaction, privaKeysAuth}); 
+            }); 
+        }else{
+            const freeBandwidth = await packedtrx_ss_depo_freeBandwidth(DATA); 
+            return new Promise(function(resolve, reject) {
+                resolve({packed_trx, serializedTransaction : serial, transactions, transaction, freeBandwidth}); 
+            }); 
+        }; 
+        
+    } catch (err) {
+        console.log('err is', err);
+    }
+}; 
+async function packedtrx_ss_depo_freeBandwidth(DATA){
+
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('m.federation');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('m.federation', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions": [{
+                'account'           : 'boost.wax',
+                'name'              : 'noop', 
+                "authorization"     : [{
+                    "actor"             : 'boost.wax',
+                    "permission"        : "paybw"
+                }],
+                "data"              : null
+            }, {
+                "account"           : `kyanitelpnft`,
+                "name"              : "transfer",
+                "authorization"     : [{
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                "data": {
+                    'from'              : DATA['actor'], 
+                    'to'                : 'starshipgame', 
+                    'quantity'          : DATA['quantity'][0], 
+                    'memo'              : 'KYANITE Stake'
+                }
+            }]
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions); 
+        const packed_trx    = arrayToHex(serial); 
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions, transaction}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }
+}; 
+async function packedtrx_ss_depo_private_key_auth(DATA){
+    
+    const _privateKeys        = [ DATA['privateKey'] ]; 
+    const _signatureProvider  = new JsSignatureProvider(_privateKeys); 
+    
+    console.log(DATA)
+    
+    try {
+        const chainId       = DATA['chainId'];
+        //    const abiObj        = await get_rawabi_and_abi('farmersworld');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //    api.cachedAbis.set('farmersworld', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions": [{
+                "account"           : `kyanitelpnft`,
+                "name"              : "transfer",
+                "authorization"     : [{
+                    "actor"             : DATA['payer'],
+                    "permission"        : "active"
+                }, {
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                "data": {
+                    'from'              : DATA['actor'], 
+                    'to'                : 'starshipgame', 
+                    'quantity'          : DATA['quantity'][0], 
+                    'memo'              : 'KYANITE Stake'
+                }
+            }]
+        }; 
+    
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions);
+        const packed_trx    = arrayToHex(serial); 
+        
+        const result        = await api.transact(transactions, { broadcast: false, sign: false });
+        const abis          = await api.getTransactionAbis(transaction);
+        
+        const requiredKeys  = _privateKeys.map((privateKey) => PrivateKey.fromString(privateKey).getPublicKey().toString());
+        
+        result.signatures = await _signatureProvider.sign({
+            chainId,
+            requiredKeys,
+            serializedTransaction: result.serializedTransaction,
+            serializedContextFreeData: result.serializedContextFreeData,
+            abis
+        });
+        
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions, transaction, signatures : result.signatures}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }; 
+
+}; 
+
+async function packedtrx_ss_with(DATA){
+
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('starshipgame');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('starshipgame', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions": [{
+                "account"           : `starshipgame`,
+                "name"              : "withdraw",
+                "authorization"     : [{
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                "data": {
+                    "player"            : DATA['actor'],
+                    "amount"            : parseInt(DATA['quantity'][0])
+                }
+            }]
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions); 
+        const packed_trx    = arrayToHex(serial); 
+      
+        if( DATA.hasOwnProperty('privateKey') && DATA['privateKey'] != '' ){
+            const privaKeysAuth = await packedtrx_ss_with_private_key_auth(DATA); 
+            return new Promise(function(resolve, reject) {
+                resolve({packed_trx, serializedTransaction : serial, transactions, transaction, privaKeysAuth}); 
+            }); 
+        }else{
+            //    const freeBandwidth = await packedtrx_ss_with_freeBandwidth(DATA); 
+            return new Promise(function(resolve, reject) {
+                resolve({packed_trx, serializedTransaction : serial, transactions, transaction}); 
+            }); 
+        }; 
+      
+    } catch (err) {
+        console.log('err is', err);
+    }
+}; 
+async function packedtrx_ss_with_freeBandwidth(DATA){
+
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('ageoffarming');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('ageoffarming', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions": [{
+                'account'           : 'boost.wax',
+                'name'              : 'noop', 
+                "authorization"     : [{
+                    "actor"             : 'boost.wax',
+                    "permission"        : "paybw"
+                }],
+                "data"              : null
+            }, {
+                "account"           : `starshipgame`,
+                "name"              : "withdraw",
+                "authorization"     : [{
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                "data": {
+                    "player"            : DATA['actor'],
+                    "amount"            : parseInt(DATA['quantity'][0])
+                }
+            }]
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions); 
+        const packed_trx    = arrayToHex(serial); 
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions, transaction}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }
+}; 
+async function packedtrx_ss_with_private_key_auth(DATA){
+    
+    const _privateKeys        = [ DATA['privateKey'] ]; 
+    const _signatureProvider  = new JsSignatureProvider(_privateKeys); 
+    
+    console.log(DATA)
+    
+    try {
+        const chainId       = DATA['chainId'];
+        //    const abiObj        = await get_rawabi_and_abi('ageoffarming');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //    api.cachedAbis.set('ageoffarming', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions": [{
+                "account"           : `starshipgame`,
+                "name"              : "withdraw",
+                "authorization"     : [{
+                    "actor"             : DATA['payer'],
+                    "permission"        : "active"
+                }, {
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                "data": {
+                    "player"            : DATA['actor'],
+                    "amount"            : parseInt(DATA['quantity'][0])
+                }
+            }]
+        }; 
+    
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions);
+        const packed_trx    = arrayToHex(serial); 
+        
+        const result        = await api.transact(transactions, { broadcast: false, sign: false });
+        const abis          = await api.getTransactionAbis(transaction);
+        
+        const requiredKeys  = _privateKeys.map((privateKey) => PrivateKey.fromString(privateKey).getPublicKey().toString());
+        
+        result.signatures = await _signatureProvider.sign({
+            chainId,
+            requiredKeys,
+            serializedTransaction: result.serializedTransaction,
+            serializedContextFreeData: result.serializedContextFreeData,
+            abis
+        });
+        
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions, transaction, signatures : result.signatures}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }; 
+
+}; 
+async function packedtrx_ss_claimrewards(DATA){
+
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions": [{
+                "account"           : `starshipgame`,
+                "name"              : "claimrewards",
+                "authorization"     : [{
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                "data": {
+                    "player_id"         : DATA['actor']
+                }
+            }]
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions); 
+        const packed_trx    = arrayToHex(serial); 
+      
+        if( DATA.hasOwnProperty('privateKey') && DATA['privateKey'] != '' ){
+            const privaKeysAuth = await packedtrx_ss_claimrewards_private_key_auth(DATA); 
+            return new Promise(function(resolve, reject) {
+                resolve({packed_trx, serializedTransaction : serial, transactions, transaction, privaKeysAuth}); 
+            }); 
+        }else{
+            const freeBandwidth = await packedtrx_ss_claimrewards_freeBandwidth(DATA); 
+            return new Promise(function(resolve, reject) {
+                resolve({packed_trx, serializedTransaction : serial, transactions, transaction}); 
+            }); 
+        }; 
+      
+    } catch (err) {
+        console.log('err is', err);
+    }
+}; 
+async function packedtrx_ss_claimrewards_freeBandwidth(DATA){
+
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('ageoffarming');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('ageoffarming', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions": [{
+                'account'           : 'boost.wax',
+                'name'              : 'noop', 
+                "authorization"     : [{
+                    "actor"             : 'boost.wax',
+                    "permission"        : "paybw"
+                }],
+                "data"              : null
+            }, {
+                "account"           : `starshipgame`,
+                "name"              : "claimrewards",
+                "authorization"     : [{
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                "data": {
+                    "player_id"         : DATA['actor']
+                }
+            }]
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions); 
+        const packed_trx    = arrayToHex(serial); 
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions, transaction}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }
+}; 
+async function packedtrx_ss_claimrewards_private_key_auth(DATA){
+    
+    const _privateKeys        = [ DATA['privateKey'] ]; 
+    const _signatureProvider  = new JsSignatureProvider(_privateKeys); 
+    
+    console.log(DATA)
+    
+    try {
+        const chainId       = DATA['chainId'];
+        //    const abiObj        = await get_rawabi_and_abi('ageoffarming');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //    api.cachedAbis.set('ageoffarming', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions": [{
+                "account"           : `starshipgame`,
+                "name"              : "claimrewards",
+                "authorization"     : [{
+                    "actor"             : DATA['payer'],
+                    "permission"        : "active"
+                }, {
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                "data": {
+                    "player_id"         : DATA['actor']
+                }
+            }]
+        }; 
+    
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions);
+        const packed_trx    = arrayToHex(serial); 
+        
+        const result        = await api.transact(transactions, { broadcast: false, sign: false });
+        const abis          = await api.getTransactionAbis(transaction);
+        
+        const requiredKeys  = _privateKeys.map((privateKey) => PrivateKey.fromString(privateKey).getPublicKey().toString());
+        
+        result.signatures = await _signatureProvider.sign({
+            chainId,
+            requiredKeys,
+            serializedTransaction: result.serializedTransaction,
+            serializedContextFreeData: result.serializedContextFreeData,
+            abis
+        });
+        
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions, transaction, signatures : result.signatures}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }; 
+
+}; 
+
+
+async function packedtrx_af_depo(DATA){
+
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('ageoffarming');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('ageoffarming', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions": [{
+                "account"           : `ageoftokenss`,
+                "name"              : "transfer1",
+                "authorization"     : [{
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                "data": {
+                    'from'              : DATA['actor'], 
+                    'to'                : 'ageoffarming', 
+                    'quantity'          : DATA['quantity'], 
+                    'memo'              : "exchange"
+                }
+            }]
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions); 
+        const packed_trx    = arrayToHex(serial); 
+      
+        if( DATA.hasOwnProperty('privateKey') && DATA['privateKey'] != '' ){
+            const privaKeysAuth = await packedtrx_af_depo_private_key_auth(DATA); 
+            return new Promise(function(resolve, reject) {
+                resolve({packed_trx, serializedTransaction : serial, transactions, transaction, privaKeysAuth}); 
+            }); 
+        }else{
+            //    const freeBandwidth = await af_packedtrx_crop_free_trx(DATA); 
+            return new Promise(function(resolve, reject) {
+                resolve({packed_trx, serializedTransaction : serial, transactions, transaction}); 
+            }); 
+        }; 
+        
+    } catch (err) {
+        console.log('err is', err);
+    }
+}; 
+async function packedtrx_af_depo_freeBandwidth(DATA){
+
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('m.federation');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('m.federation', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions": [{
+                'account'           : 'boost.wax',
+                'name'              : 'noop', 
+                "authorization"     : [{
+                    "actor"             : 'boost.wax',
+                    "permission"        : "paybw"
+                }],
+                "data"              : null
+            }, {
+                "account"           : `ageoftokenss`,
+                "name"              : "transfer1",
+                "authorization"     : [{
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                "data": {
+                    'from'              : DATA['actor'], 
+                    'to'                : 'ageoffarming', 
+                    'quantity'          : DATA['quantity'], 
+                    'memo'              : "exchange"
+                }
+            }]
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions); 
+        const packed_trx    = arrayToHex(serial); 
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }
+}; 
+async function packedtrx_af_depo_private_key_auth(DATA){
+    
+    const _privateKeys        = [ DATA['privateKey'] ]; 
+    const _signatureProvider  = new JsSignatureProvider(_privateKeys); 
+    
+    console.log(DATA)
+    
+    try {
+        const chainId       = DATA['chainId'];
+        //    const abiObj        = await get_rawabi_and_abi('farmersworld');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //    api.cachedAbis.set('farmersworld', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions": [{
+                "account"           : `ageoftokenss`,
+                "name"              : "transfer1",
+                "authorization"     : [{
+                    "actor"             : DATA['payer'],
+                    "permission"        : "active"
+                }, {
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                "data": {
+                    'from'              : DATA['actor'], 
+                    'to'                : 'ageoffarming', 
+                    'quantity'          : DATA['quantity'], 
+                    'memo'              : "exchange"
+                }
+            }]
+        }; 
+    
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions);
+        const packed_trx    = arrayToHex(serial); 
+        
+        const result        = await api.transact(transactions, { broadcast: false, sign: false });
+        const abis          = await api.getTransactionAbis(transaction);
+        
+        const requiredKeys  = _privateKeys.map((privateKey) => PrivateKey.fromString(privateKey).getPublicKey().toString());
+        
+        result.signatures = await _signatureProvider.sign({
+            chainId,
+            requiredKeys,
+            serializedTransaction: result.serializedTransaction,
+            serializedContextFreeData: result.serializedContextFreeData,
+            abis
+        });
+        
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions, signatures : result.signatures}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }; 
+
+}; 
+async function packedtrx_af_with(DATA){
+
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('ageoffarming');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('ageoffarming', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions": [{
+                "account"           : `ageoffarming`,
+                "name"              : "exchangetkn",
+                "authorization"     : [{
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                "data": {
+                    "user"              : DATA['actor'],
+                    "to_exchange"       : DATA['quantity']
+                }
+            }]
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions); 
+        const packed_trx    = arrayToHex(serial); 
+      
+        if( DATA.hasOwnProperty('privateKey') && DATA['privateKey'] != '' ){
+            const privaKeysAuth = await packedtrx_af_with_private_key_auth(DATA); 
+            return new Promise(function(resolve, reject) {
+                resolve({packed_trx, serializedTransaction : serial, transactions, transaction, privaKeysAuth}); 
+            }); 
+        }else{
+            //    const freeBandwidth = await af_packedtrx_crop_free_trx(DATA); 
+            return new Promise(function(resolve, reject) {
+                resolve({packed_trx, serializedTransaction : serial, transactions, transaction}); 
+            }); 
+        }; 
+      
+    } catch (err) {
+        console.log('err is', err);
+    }
+}; 
+async function packedtrx_af_with_freeBandwidth(DATA){
+
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('ageoffarming');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('ageoffarming', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions": [{
+                'account'           : 'boost.wax',
+                'name'              : 'noop', 
+                "authorization"     : [{
+                    "actor"             : 'boost.wax',
+                    "permission"        : "paybw"
+                }],
+                "data"              : null
+            }, {
+                "account"           : `ageoffarming`,
+                "name"              : "exchangetkn",
+                "authorization"     : [{
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                "data": {
+                    "user"              : DATA['actor'],
+                    "to_exchange"       : DATA['quantity']
+                }
+            }]
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions); 
+        const packed_trx    = arrayToHex(serial); 
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }
+}; 
+async function packedtrx_af_with_private_key_auth(DATA){
+    
+    const _privateKeys        = [ DATA['privateKey'] ]; 
+    const _signatureProvider  = new JsSignatureProvider(_privateKeys); 
+    
+    console.log(DATA)
+    
+    try {
+        const chainId       = DATA['chainId'];
+        //    const abiObj        = await get_rawabi_and_abi('ageoffarming');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //    api.cachedAbis.set('ageoffarming', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions": [{
+                "account"           : `ageoffarming`,
+                "name"              : "exchangetkn",
+                "authorization"     : [{
+                    "actor"             : DATA['payer'],
+                    "permission"        : "active"
+                }, {
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                "data": {
+                    "user"              : DATA['actor'],
+                    "to_exchange"       : DATA['quantity']
+                }
+            }]
+        }; 
+    
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions);
+        const packed_trx    = arrayToHex(serial); 
+        
+        const result        = await api.transact(transactions, { broadcast: false, sign: false });
+        const abis          = await api.getTransactionAbis(transaction);
+        
+        const requiredKeys  = _privateKeys.map((privateKey) => PrivateKey.fromString(privateKey).getPublicKey().toString());
+        
+        result.signatures = await _signatureProvider.sign({
+            chainId,
+            requiredKeys,
+            serializedTransaction: result.serializedTransaction,
+            serializedContextFreeData: result.serializedContextFreeData,
+            abis
+        });
+        
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions, signatures : result.signatures}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }; 
+
+}; 
+
+
+
+async function packedtrx_sr_depo(DATA){
+
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('saarofficial');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('saarofficial', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions": [{
+                "account"           : `saargametkns`,
+                "name"              : "transfers",
+                "authorization"     : [{
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                "data": {
+                    'from'              : DATA['actor'], 
+                    'to'                : 'saarofficial', 
+                    'quantities'        : DATA['quantity'], 
+                    'memo'              : "deposit"
+                }
+            }]
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions); 
+        const packed_trx    = arrayToHex(serial); 
+      
+        if( DATA.hasOwnProperty('privateKey') && DATA['privateKey'] != '' ){
+            const privaKeysAuth = await packedtrx_sr_depo_private_key_auth(DATA); 
+            return new Promise(function(resolve, reject) {
+                resolve({packed_trx, serializedTransaction : serial, transactions, transaction, privaKeysAuth}); 
+            }); 
+        }else{
+            //    const freeBandwidth = await sr_packedtrx_crop_free_trx(DATA); 
+            return new Promise(function(resolve, reject) {
+                resolve({packed_trx, serializedTransaction : serial, transactions, transaction}); 
+            }); 
+        }; 
+        
+    } catch (err) {
+        console.log('err is', err);
+    }
+}; 
+async function packedtrx_sr_depo_freeBandwidth(DATA){
+
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('m.federation');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('m.federation', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions": [{
+                'account'           : 'boost.wax',
+                'name'              : 'noop', 
+                "authorization"     : [{
+                    "actor"             : 'boost.wax',
+                    "permission"        : "paybw"
+                }],
+                "data"              : null
+            }, {
+                "account"           : `saargametkns`,
+                "name"              : "transfers",
+                "authorization"     : [{
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                "data": {
+                    'from'              : DATA['actor'], 
+                    'to'                : 'saarofficial', 
+                    'quantities'        : DATA['quantity'], 
+                    'memo'              : "deposit"
+                }
+            }]
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions); 
+        const packed_trx    = arrayToHex(serial); 
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }
+}; 
+async function packedtrx_sr_depo_private_key_auth(DATA){
+    
+    const _privateKeys        = [ DATA['privateKey'] ]; 
+    const _signatureProvider  = new JsSignatureProvider(_privateKeys); 
+    
+    console.log(DATA)
+    
+    try {
+        const chainId       = DATA['chainId'];
+        //    const abiObj        = await get_rawabi_and_abi('farmersworld');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //    api.cachedAbis.set('farmersworld', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions": [{
+                "account"           : `saargametkns`,
+                "name"              : "transfers",
+                "authorization"     : [{
+                    "actor"             : DATA['payer'],
+                    "permission"        : "active"
+                }, {
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                "data": {
+                    'from'              : DATA['actor'], 
+                    'to'                : 'saarofficial', 
+                    'quantities'        : DATA['quantity'], 
+                    'memo'              : "deposit"
+                }
+            }]
+        }; 
+    
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions);
+        const packed_trx    = arrayToHex(serial); 
+        
+        const result        = await api.transact(transactions, { broadcast: false, sign: false });
+        const abis          = await api.getTransactionAbis(transaction);
+        
+        const requiredKeys  = _privateKeys.map((privateKey) => PrivateKey.fromString(privateKey).getPublicKey().toString());
+        
+        result.signatures = await _signatureProvider.sign({
+            chainId,
+            requiredKeys,
+            serializedTransaction: result.serializedTransaction,
+            serializedContextFreeData: result.serializedContextFreeData,
+            abis
+        });
+        
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions, signatures : result.signatures}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }; 
+
+}; 
+async function packedtrx_sr_with(DATA){
+
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('m.federation');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('m.federation', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions": [{
+                "account"           : `saarofficial`,
+                "name"              : "withdraw",
+                "authorization"     : [{
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                "data": {
+                    "account"           : DATA['actor'],
+                    "tokens"            : DATA['quantity'],
+                    "tax"               : parseInt(DATA['amount'])
+                }
+            }]
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions); 
+        const packed_trx    = arrayToHex(serial); 
+      
+        if( DATA.hasOwnProperty('privateKey') && DATA['privateKey'] != '' ){
+            const privaKeysAuth = await packedtrx_sr_with_private_key_auth(DATA); 
+            return new Promise(function(resolve, reject) {
+                resolve({packed_trx, serializedTransaction : serial, transactions, transaction, privaKeysAuth}); 
+            }); 
+        }else{
+            //    const freeBandwidth = await sr_packedtrx_crop_free_trx(DATA); 
+            return new Promise(function(resolve, reject) {
+                resolve({packed_trx, serializedTransaction : serial, transactions, transaction}); 
+            }); 
+        }; 
+      
+    } catch (err) {
+        console.log('err is', err);
+    }
+}; 
+async function packedtrx_sr_with_freeBandwidth(DATA){
+
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('saarofficial');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('saarofficial', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions": [{
+                'account'           : 'boost.wax',
+                'name'              : 'noop', 
+                "authorization"     : [{
+                    "actor"             : 'boost.wax',
+                    "permission"        : "paybw"
+                }],
+                "data"              : null
+            }, {
+                "account"           : `saarofficial`,
+                "name"              : "withdraw",
+                "authorization"     : [{
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                "data": {
+                    "account"           : DATA['actor'],
+                    "tokens"            : DATA['quantity'],
+                    "tax"               : parseInt(DATA['amount'])
+                }
+            }]
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions); 
+        const packed_trx    = arrayToHex(serial); 
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }
+}; 
+async function packedtrx_sr_with_private_key_auth(DATA){
+    
+    const _privateKeys        = [ DATA['privateKey'] ]; 
+    const _signatureProvider  = new JsSignatureProvider(_privateKeys); 
+    
+    console.log(DATA)
+    
+    try {
+        const chainId       = DATA['chainId'];
+        //    const abiObj        = await get_rawabi_and_abi('saarofficial');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //    api.cachedAbis.set('saarofficial', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions": [{
+                "account"           : `saarofficial`,
+                "name"              : "withdraw",
+                "authorization"     : [{
+                    "actor"             : DATA['payer'],
+                    "permission"        : "active"
+                }, {
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                "data": {
+                    "account"           : DATA['actor'],
+                    "tokens"            : DATA['quantity'],
+                    "tax"               : parseInt(DATA['amount'])
+                }
+            }]
+        }; 
+    
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions);
+        const packed_trx    = arrayToHex(serial); 
+        
+        const result        = await api.transact(transactions, { broadcast: false, sign: false });
+        const abis          = await api.getTransactionAbis(transaction);
+        
+        const requiredKeys  = _privateKeys.map((privateKey) => PrivateKey.fromString(privateKey).getPublicKey().toString());
+        
+        result.signatures = await _signatureProvider.sign({
+            chainId,
+            requiredKeys,
+            serializedTransaction: result.serializedTransaction,
+            serializedContextFreeData: result.serializedContextFreeData,
+            abis
+        });
+        
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions, signatures : result.signatures}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }; 
+
+}; 
+
+async function packedtrx_dw_depo(DATA){
+
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('diggerstoken');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('diggerstoken', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions": [{
+                "account"           : `diggerstoken`,
+                "name"              : "transfers",
+                "authorization"     : [{
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                "data": {
+                    'from'              : DATA['actor'], 
+                    'to'                : 'diggerswgame', 
+                    'quantities'        : DATA['quantity'], 
+                    'memo'              : "deposit"
+                }
+            }]
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions); 
+        const packed_trx    = arrayToHex(serial); 
+      
+        if( DATA.hasOwnProperty('privateKey') && DATA['privateKey'] != '' ){
+            const privaKeysAuth = await packedtrx_dw_depo_private_key_auth(DATA); 
+            return new Promise(function(resolve, reject) {
+                resolve({packed_trx, serializedTransaction : serial, transactions, transaction, privaKeysAuth}); 
+            }); 
+        }else{
+            //    const freeBandwidth = await dw_packedtrx_crop_free_trx(DATA); 
+            return new Promise(function(resolve, reject) {
+                resolve({packed_trx, serializedTransaction : serial, transactions, transaction}); 
+            }); 
+        }; 
+        
+    } catch (err) {
+        console.log('err is', err);
+    }
+}; 
+async function packedtrx_dw_depo_freeBandwidth(DATA){
+
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('diggerstoken');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('diggerstoken', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions": [{
+                'account'           : 'boost.wax',
+                'name'              : 'noop', 
+                "authorization"     : [{
+                    "actor"             : 'boost.wax',
+                    "permission"        : "paybw"
+                }],
+                "data"              : null
+            }, {
+                "account"           : `diggerstoken`,
+                "name"              : "transfers",
+                "authorization"     : [{
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                "data": {
+                    'from'              : DATA['actor'], 
+                    'to'                : 'diggerswgame', 
+                    'quantities'        : DATA['quantity'], 
+                    'memo'              : "deposit"
+                }
+            }]
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions); 
+        const packed_trx    = arrayToHex(serial); 
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }
+}; 
+async function packedtrx_dw_depo_private_key_auth(DATA){
+    
+    const _privateKeys        = [ DATA['privateKey'] ]; 
+    const _signatureProvider  = new JsSignatureProvider(_privateKeys); 
+    
+    console.log(DATA)
+    
+    try {
+        const chainId       = DATA['chainId'];
+        //    const abiObj        = await get_rawabi_and_abi('diggerstoken');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //    api.cachedAbis.set('diggerstoken', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions": [{
+                "account"           : `diggerstoken`,
+                "name"              : "transfers",
+                "authorization"     : [{
+                    "actor"             : DATA['payer'],
+                    "permission"        : "active"
+                }, {
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                "data": {
+                    'from'              : DATA['actor'], 
+                    'to'                : 'diggerswgame', 
+                    'quantities'        : DATA['quantity'], 
+                    'memo'              : "deposit"
+                }
+            }]
+        }; 
+    
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions);
+        const packed_trx    = arrayToHex(serial); 
+        
+        const result        = await api.transact(transactions, { broadcast: false, sign: false });
+        const abis          = await api.getTransactionAbis(transaction);
+        
+        const requiredKeys  = _privateKeys.map((privateKey) => PrivateKey.fromString(privateKey).getPublicKey().toString());
+        
+        result.signatures = await _signatureProvider.sign({
+            chainId,
+            requiredKeys,
+            serializedTransaction: result.serializedTransaction,
+            serializedContextFreeData: result.serializedContextFreeData,
+            abis
+        });
+        
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions, signatures : result.signatures}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }; 
+
+}; 
+async function packedtrx_dw_with(DATA){
+
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('diggerswgame');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('diggerswgame', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions": [{
+                "account"           : `diggerswgame`,
+                "name"              : "withdraw",
+                "authorization"     : [{
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                "data": {
+                    "owner"             : DATA['actor'],
+                    "quantities"        : DATA['quantity']
+                }
+            }]
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions); 
+        const packed_trx    = arrayToHex(serial); 
+      
+        if( DATA.hasOwnProperty('privateKey') && DATA['privateKey'] != '' ){
+            const privaKeysAuth = await packedtrx_dw_with_private_key_auth(DATA); 
+            return new Promise(function(resolve, reject) {
+                resolve({packed_trx, serializedTransaction : serial, transactions, transaction, privaKeysAuth}); 
+            }); 
+        }else{
+            //    const freeBandwidth = await packedtrx_dw_with_freeBandwidth(DATA); 
+            return new Promise(function(resolve, reject) {
+                resolve({packed_trx, serializedTransaction : serial, transactions, transaction}); 
+            }); 
+        }; 
+      
+    } catch (err) {
+        console.log('err is', err);
+    }
+}; 
+async function packedtrx_dw_with_freeBandwidth(DATA){
+
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('diggerswgame');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('diggerswgame', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions": [{
+                'account'           : 'boost.wax',
+                'name'              : 'noop', 
+                "authorization"     : [{
+                    "actor"             : 'boost.wax',
+                    "permission"        : "paybw"
+                }],
+                "data"              : null
+            }, {
+                "account"           : `diggerswgame`,
+                "name"              : "withdraw",
+                "authorization"     : [{
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                "data": {
+                    "owner"             : DATA['actor'],
+                    "quantities"        : DATA['quantity']
+                }
+            }]
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions); 
+        const packed_trx    = arrayToHex(serial); 
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }
+}; 
+async function packedtrx_dw_with_private_key_auth(DATA){
+    
+    const _privateKeys        = [ DATA['privateKey'] ]; 
+    const _signatureProvider  = new JsSignatureProvider(_privateKeys); 
+    
+    console.log(DATA)
+    
+    try {
+        const chainId       = DATA['chainId'];
+        //    const abiObj        = await get_rawabi_and_abi('diggerswgame');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //    api.cachedAbis.set('diggerswgame', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions": [{
+                "account"           : `diggerswgame`,
+                "name"              : "withdraw",
+                "authorization"     : [{
+                    "actor"             : DATA['payer'],
+                    "permission"        : "active"
+                }, {
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                "data": {
+                    "owner"             : DATA['actor'],
+                    "quantities"        : DATA['quantity']
+                }
+            }]
+        }; 
+    
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions);
+        const packed_trx    = arrayToHex(serial); 
+        
+        const result        = await api.transact(transactions, { broadcast: false, sign: false });
+        const abis          = await api.getTransactionAbis(transaction);
+        
+        const requiredKeys  = _privateKeys.map((privateKey) => PrivateKey.fromString(privateKey).getPublicKey().toString());
+        
+        result.signatures = await _signatureProvider.sign({
+            chainId,
+            requiredKeys,
+            serializedTransaction: result.serializedTransaction,
+            serializedContextFreeData: result.serializedContextFreeData,
+            abis
+        });
+        
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions, signatures : result.signatures}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }; 
+
+}; 
+
+async function packedtrx_fl_depo(DATA){
+
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('fishingcoins');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('fishingcoins', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions": [{
+                "account"           : `fishingcoins`,
+                "name"              : "transfers",
+                "authorization"     : [{
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                "data": {
+                    'from'              : DATA['actor'], 
+                    'to'                : 'fishinglgame', 
+                    'quantities'        : DATA['quantity'], 
+                    'memo'              : "deposit"
+                }
+            }]
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions); 
+        const packed_trx    = arrayToHex(serial); 
+      
+        if( DATA.hasOwnProperty('privateKey') && DATA['privateKey'] != '' ){
+            const privaKeysAuth = await packedtrx_fl_depo_private_key_auth(DATA); 
+            return new Promise(function(resolve, reject) {
+                resolve({packed_trx, serializedTransaction : serial, transactions, transaction, privaKeysAuth}); 
+            }); 
+        }else{
+            //    const freeBandwidth = await packedtrx_fl_depo_free_trx(DATA); 
+            return new Promise(function(resolve, reject) {
+                resolve({packed_trx, serializedTransaction : serial, transactions, transaction}); 
+            }); 
+        }; 
+        
+    } catch (err) {
+        console.log('err is', err);
+    }
+}; 
+async function packedtrx_fl_depo_freeBandwidth(DATA){
+
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('fishingcoins');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('fishingcoins', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions": [{
+                'account'           : 'boost.wax',
+                'name'              : 'noop', 
+                "authorization"     : [{
+                    "actor"             : 'boost.wax',
+                    "permission"        : "paybw"
+                }],
+                "data"              : null
+            }, {
+                "account"           : `fishingcoins`,
+                "name"              : "transfers",
+                "authorization"     : [{
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                "data": {
+                    'from'              : DATA['actor'], 
+                    'to'                : 'fishinglgame', 
+                    'quantities'        : DATA['quantity'], 
+                    'memo'              : "deposit"
+                }
+            }]
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions); 
+        const packed_trx    = arrayToHex(serial); 
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }
+}; 
+async function packedtrx_fl_depo_private_key_auth(DATA){
+    
+    const _privateKeys        = [ DATA['privateKey'] ]; 
+    const _signatureProvider  = new JsSignatureProvider(_privateKeys); 
+    
+    console.log(DATA)
+    
+    try {
+        const chainId       = DATA['chainId'];
+        //    const abiObj        = await get_rawabi_and_abi('diggerstoken');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //    api.cachedAbis.set('diggerstoken', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions": [{
+                "account"           : `fishingcoins`,
+                "name"              : "transfers",
+                "authorization"     : [{
+                    "actor"             : DATA['payer'],
+                    "permission"        : "active"
+                }, {
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                "data": {
+                    'from'              : DATA['actor'], 
+                    'to'                : 'fishinglgame', 
+                    'quantities'        : DATA['quantity'], 
+                    'memo'              : "deposit"
+                }
+            }]
+        }; 
+    
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions);
+        const packed_trx    = arrayToHex(serial); 
+        
+        const result        = await api.transact(transactions, { broadcast: false, sign: false });
+        const abis          = await api.getTransactionAbis(transaction);
+        
+        const requiredKeys  = _privateKeys.map((privateKey) => PrivateKey.fromString(privateKey).getPublicKey().toString());
+        
+        result.signatures = await _signatureProvider.sign({
+            chainId,
+            requiredKeys,
+            serializedTransaction: result.serializedTransaction,
+            serializedContextFreeData: result.serializedContextFreeData,
+            abis
+        });
+        
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions, signatures : result.signatures}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }; 
+
+}; 
+async function packedtrx_fl_with(DATA){
+
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('fishinglgame');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('fishinglgame', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions": [{
+                "account"           : `fishinglgame`,
+                "name"              : "withdraw",
+                "authorization"     : [{
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                "data": {
+                    "owner"             : DATA['actor'],
+                    "assets"            : DATA['quantity']
+                }
+            }]
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions); 
+        const packed_trx    = arrayToHex(serial); 
+      
+        if( DATA.hasOwnProperty('privateKey') && DATA['privateKey'] != '' ){
+            const privaKeysAuth = await packedtrx_fl_with_private_key_auth(DATA); 
+            return new Promise(function(resolve, reject) {
+                resolve({packed_trx, serializedTransaction : serial, transactions, transaction, privaKeysAuth}); 
+            }); 
+        }else{
+            //    const freeBandwidth = await packedtrx_fl_with_freeBandwidth(DATA); 
+            return new Promise(function(resolve, reject) {
+                resolve({packed_trx, serializedTransaction : serial, transactions, transaction}); 
+            }); 
+        }; 
+      
+    } catch (err) {
+        console.log('err is', err);
+    }
+}; 
+async function packedtrx_fl_with_freeBandwidth(DATA){
+
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('fishinglgame');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('fishinglgame', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions": [{
+                'account'           : 'boost.wax',
+                'name'              : 'noop', 
+                "authorization"     : [{
+                    "actor"             : 'boost.wax',
+                    "permission"        : "paybw"
+                }],
+                "data"              : null
+            }, {
+                "account"           : `fishinglgame`,
+                "name"              : "withdraw",
+                "authorization"     : [{
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                "data": {
+                    "owner"             : DATA['actor'],
+                    "assets"            : DATA['quantity']
+                }
+            }]
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions); 
+        const packed_trx    = arrayToHex(serial); 
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }
+}; 
+async function packedtrx_fl_with_private_key_auth(DATA){
+    
+    const _privateKeys        = [ DATA['privateKey'] ]; 
+    const _signatureProvider  = new JsSignatureProvider(_privateKeys); 
+    
+    console.log(DATA)
+    
+    try {
+        const chainId       = DATA['chainId'];
+        //    const abiObj        = await get_rawabi_and_abi('fishinglgame');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //    api.cachedAbis.set('fishinglgame', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions": [{
+                "account"           : `fishinglgame`,
+                "name"              : "withdraw",
+                "authorization"     : [{
+                    "actor"             : DATA['payer'],
+                    "permission"        : "active"
+                }, {
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                "data": {
+                    "owner"             : DATA['actor'],
+                    "assets"            : DATA['quantity']
+                }
+            }]
+        }; 
+    
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions);
+        const packed_trx    = arrayToHex(serial); 
+        
+        const result        = await api.transact(transactions, { broadcast: false, sign: false });
+        const abis          = await api.getTransactionAbis(transaction);
+        
+        const requiredKeys  = _privateKeys.map((privateKey) => PrivateKey.fromString(privateKey).getPublicKey().toString());
+        
+        result.signatures = await _signatureProvider.sign({
+            chainId,
+            requiredKeys,
+            serializedTransaction: result.serializedTransaction,
+            serializedContextFreeData: result.serializedContextFreeData,
+            abis
+        });
+        
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions, signatures : result.signatures}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }; 
+
+}; 
+
+async function packedtrx_vl_depo(DATA){
+
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('varialandstk');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('varialandstk', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions"           : (function (data){
+                data['val'] = []; 
+                for (const x of DATA['quantity']) {
+                    data['val'].push({
+                        "account"           : 'varialandstk',
+                        "name"              : "transfer",
+                        "authorization"     : [{
+                            "actor"             : data['actor'],
+                            "permission"        : "active"
+                        }],
+                        'data'              : {
+                            'from'              : DATA['actor'], 
+                            'to'                : 'varialandsio', 
+                            'quantity'          : x, 
+                            'memo'              : ".transfer_token."
+                        },
+                    })
+                }; return data['val']; 
+            })(DATA)
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions); 
+        const packed_trx    = arrayToHex(serial); 
+      
+        if( DATA.hasOwnProperty('privateKey') && DATA['privateKey'] != '' ){
+            const privaKeysAuth = await packedtrx_vl_depo_private_key_auth(DATA); 
+            return new Promise(function(resolve, reject) {
+                resolve({packed_trx, serializedTransaction : serial, transactions, transaction, privaKeysAuth}); 
+            }); 
+        }else{
+            //    const freeBandwidth = await packedtrx_vl_depo_free_trx(DATA); 
+            return new Promise(function(resolve, reject) {
+                resolve({packed_trx, serializedTransaction : serial, transactions, transaction}); 
+            }); 
+        }; 
+        
+    } catch (err) {
+        console.log('err is', err);
+    }
+}; 
+async function packedtrx_vl_depo_freeBandwidth(DATA){
+
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('fishingcoins');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('fishingcoins', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions"           : [{
+                'account'           : 'boost.wax',
+                'name'              : 'noop', 
+                "authorization"     : [{
+                    "actor"             : 'boost.wax',
+                    "permission"        : "paybw"
+                }],
+                "data"              : null
+            }].concat((function (data){
+                data['val'] = []; 
+                for (const x of DATA['quantity']) {
+                    data['val'].push({
+                        "account"           : 'varialandstk',
+                        "name"              : "transfer",
+                        "authorization"     : [{
+                            "actor"             : data['actor'],
+                            "permission"        : "active"
+                        }],
+                        'data'              : {
+                            'from'              : DATA['actor'], 
+                            'to'                : 'varialandsio', 
+                            'quantity'          : x, 
+                            'memo'              : ".transfer_token."
+                        },
+                    })
+                }; return data['val']; 
+            })(DATA))
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions); 
+        const packed_trx    = arrayToHex(serial); 
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }
+}; 
+async function packedtrx_vl_depo_private_key_auth(DATA){
+    
+    const _privateKeys        = [ DATA['privateKey'] ]; 
+    const _signatureProvider  = new JsSignatureProvider(_privateKeys); 
+    
+    console.log(DATA)
+    
+    try {
+        const chainId       = DATA['chainId'];
+        //    const abiObj        = await get_rawabi_and_abi('diggerstoken');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //    api.cachedAbis.set('diggerstoken', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions"           : (function (data){
+                data['val'] = []; 
+                for (const x of DATA['quantity']) {
+                    data['val'].push({
+                        "account"           : 'varialandstk',
+                        "name"              : "transfer",
+                        "authorization"     : [{
+                            "actor"             : DATA['payer'],
+                            "permission"        : "active"
+                        }, {
+                            "actor"             : data['actor'],
+                            "permission"        : "active"
+                        }],
+                        'data'              : {
+                            'from'              : DATA['actor'], 
+                            'to'                : 'varialandsio', 
+                            'quantity'          : x, 
+                            'memo'              : ".transfer_token."
+                        },
+                    })
+                }; return data['val']; 
+            })(DATA)
+        }; 
+    
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions);
+        const packed_trx    = arrayToHex(serial); 
+        
+        const result        = await api.transact(transactions, { broadcast: false, sign: false });
+        const abis          = await api.getTransactionAbis(transaction);
+        
+        const requiredKeys  = _privateKeys.map((privateKey) => PrivateKey.fromString(privateKey).getPublicKey().toString());
+        
+        result.signatures = await _signatureProvider.sign({
+            chainId,
+            requiredKeys,
+            serializedTransaction: result.serializedTransaction,
+            serializedContextFreeData: result.serializedContextFreeData,
+            abis
+        });
+        
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions, signatures : result.signatures}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }; 
+
+}; 
+async function packedtrx_vl_with(DATA){
+
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('varialandsio');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('varialandsio', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions"           : (function (data){
+                data['val'] = []; 
+                for (const x of DATA['quantity']) {
+                    data['val'].push({
+                        "account"           : 'varialandsio',
+                        "name"              : "withdraw",
+                        "authorization"     : [{
+                            "actor"             : data['actor'],
+                            "permission"        : "active"
+                        }],
+                        'data'              : {
+                            'miner'             : DATA['actor'], 
+                            'quantity'          : x
+                        },
+                    })
+                }; return data['val']; 
+            })(DATA)
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions); 
+        const packed_trx    = arrayToHex(serial); 
+      
+        if( DATA.hasOwnProperty('privateKey') && DATA['privateKey'] != '' ){
+            const privaKeysAuth = await packedtrx_vl_with_private_key_auth(DATA); 
+            return new Promise(function(resolve, reject) {
+                resolve({packed_trx, serializedTransaction : serial, transactions, transaction, privaKeysAuth}); 
+            }); 
+        }else{
+            //    const freeBandwidth = await packedtrx_vl_with_freeBandwidth(DATA); 
+            return new Promise(function(resolve, reject) {
+                resolve({packed_trx, serializedTransaction : serial, transactions, transaction}); 
+            }); 
+        }; 
+      
+    } catch (err) {
+        console.log('err is', err);
+    }
+}; 
+async function packedtrx_vl_with_freeBandwidth(DATA){
+
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('fishinglgame');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('fishinglgame', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions": [{
+                'account'           : 'boost.wax',
+                'name'              : 'noop', 
+                "authorization"     : [{
+                    "actor"             : 'boost.wax',
+                    "permission"        : "paybw"
+                }],
+                "data"              : null
+            }].concat((function (data){
+                data['val'] = []; 
+                for (const x of DATA['quantity']) {
+                    data['val'].push({
+                        "account"           : 'varialandsio',
+                        "name"              : "withdraw",
+                        "authorization"     : [{
+                            "actor"             : data['actor'],
+                            "permission"        : "active"
+                        }],
+                        'data'              : {
+                            'miner'             : DATA['actor'], 
+                            'quantity'          : x
+                        },
+                    })
+                }; return data['val']; 
+            })(DATA))
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions); 
+        const packed_trx    = arrayToHex(serial); 
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }
+}; 
+async function packedtrx_vl_with_private_key_auth(DATA){
+    
+    const _privateKeys        = [ DATA['privateKey'] ]; 
+    const _signatureProvider  = new JsSignatureProvider(_privateKeys); 
+    
+    console.log(DATA)
+    
+    try {
+        const chainId       = DATA['chainId'];
+        //    const abiObj        = await get_rawabi_and_abi('fishinglgame');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //    api.cachedAbis.set('fishinglgame', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions"           : (function (data){
+                data['val'] = []; 
+                for (const x of DATA['quantity']) {
+                    data['val'].push({
+                        "account"           : 'varialandsio',
+                        "name"              : "withdraw",
+                        "authorization"     : [{
+                            "actor"             : DATA['payer'],
+                            "permission"        : "active"
+                        }, {
+                            "actor"             : data['actor'],
+                            "permission"        : "active"
+                        }],
+                        'data'              : {
+                            'miner'             : DATA['actor'], 
+                            'quantity'          : x
+                        },
+                    })
+                }; return data['val']; 
+            })(DATA)
+        }; 
+    
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions);
+        const packed_trx    = arrayToHex(serial); 
+        
+        const result        = await api.transact(transactions, { broadcast: false, sign: false });
+        const abis          = await api.getTransactionAbis(transaction);
+        
+        const requiredKeys  = _privateKeys.map((privateKey) => PrivateKey.fromString(privateKey).getPublicKey().toString());
+        
+        result.signatures = await _signatureProvider.sign({
+            chainId,
+            requiredKeys,
+            serializedTransaction: result.serializedTransaction,
+            serializedContextFreeData: result.serializedContextFreeData,
+            abis
+        });
+        
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions, signatures : result.signatures}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }; 
+
+}; 
+
+async function packedtrx_df_depo(DATA){
+
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('fishingcoins');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('fishingcoins', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions"           : (function (data){
+                data['val'] = []; 
+                for (const x of DATA['quantity']) {
+                    data['val'].push({
+                        "account"           : 'deserttokens',
+                        "name"              : "transfer",
+                        "authorization"     : [{
+                            "actor"             : data['actor'],
+                            "permission"        : "active"
+                        }],
+                        'data'              : {
+                            'from'              : DATA['actor'], 
+                            'to'                : 'desertfarmgm', 
+                            'quantity'          : x, 
+                            'memo'              : ""
+                        },
+                    })
+                }; return data['val']; 
+            })(DATA)
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions); 
+        const packed_trx    = arrayToHex(serial); 
+      
+        if( DATA.hasOwnProperty('privateKey') && DATA['privateKey'] != '' ){
+            const privaKeysAuth = await packedtrx_df_depo_private_key_auth(DATA); 
+            return new Promise(function(resolve, reject) {
+                resolve({packed_trx, serializedTransaction : serial, transactions, transaction, privaKeysAuth}); 
+            }); 
+        }else{
+            //    const freeBandwidth = await packedtrx_df_depo_free_trx(DATA); 
+            return new Promise(function(resolve, reject) {
+                resolve({packed_trx, serializedTransaction : serial, transactions, transaction}); 
+            }); 
+        }; 
+        
+    } catch (err) {
+        console.log('err is', err);
+    }
+}; 
+async function packedtrx_df_depo_freeBandwidth(DATA){
+
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('fishingcoins');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('fishingcoins', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions"           : [{
+                'account'           : 'boost.wax',
+                'name'              : 'noop', 
+                "authorization"     : [{
+                    "actor"             : 'boost.wax',
+                    "permission"        : "paybw"
+                }],
+                "data"              : null
+            }].concat((function (data){
+                data['val'] = []; 
+                for (const x of DATA['quantity']) {
+                    data['val'].push({
+                        "account"           : 'deserttokens',
+                        "name"              : "transfer",
+                        "authorization"     : [{
+                            "actor"             : data['actor'],
+                            "permission"        : "active"
+                        }],
+                        'data'              : {
+                            'from'              : DATA['actor'], 
+                            'to'                : 'desertfarmgm', 
+                            'quantity'          : x, 
+                            'memo'              : ""
+                        },
+                    })
+                }; return data['val']; 
+            })(DATA))
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions); 
+        const packed_trx    = arrayToHex(serial); 
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }
+}; 
+async function packedtrx_df_depo_private_key_auth(DATA){
+    
+    const _privateKeys        = [ DATA['privateKey'] ]; 
+    const _signatureProvider  = new JsSignatureProvider(_privateKeys); 
+    
+    console.log(DATA)
+    
+    try {
+        const chainId       = DATA['chainId'];
+        //    const abiObj        = await get_rawabi_and_abi('diggerstoken');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //    api.cachedAbis.set('diggerstoken', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions"           : (function (data){
+                data['val'] = []; 
+                for (const x of DATA['quantity']) {
+                    data['val'].push({
+                        "account"           : 'deserttokens',
+                        "name"              : "transfer",
+                        "authorization"     : [{
+                            "actor"             : data['payer'],
+                            "permission"        : "active"
+                        }, {
+                            "actor"             : data['actor'],
+                            "permission"        : "active"
+                        }],
+                        'data'              : {
+                            'from'              : DATA['actor'], 
+                            'to'                : 'desertfarmgm', 
+                            'quantity'          : x, 
+                            'memo'              : ""
+                        },
+                    })
+                }; return data['val']; 
+            })(DATA)
+        }; 
+    
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions);
+        const packed_trx    = arrayToHex(serial); 
+        
+        const result        = await api.transact(transactions, { broadcast: false, sign: false });
+        const abis          = await api.getTransactionAbis(transaction);
+        
+        const requiredKeys  = _privateKeys.map((privateKey) => PrivateKey.fromString(privateKey).getPublicKey().toString());
+        
+        result.signatures = await _signatureProvider.sign({
+            chainId,
+            requiredKeys,
+            serializedTransaction: result.serializedTransaction,
+            serializedContextFreeData: result.serializedContextFreeData,
+            abis
+        });
+        
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions, signatures : result.signatures}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }; 
+
+}; 
+async function packedtrx_df_with(DATA){
+
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('desertfarmgm');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('desertfarmgm', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions"           : (function (data){
+                data['val'] = []; 
+                for (const x of DATA['quantity']) {
+                    data['val'].push({
+                        "account"           : 'desertfarmgm',
+                        "name"              : "withdraw",
+                        "authorization"     : [{
+                            "actor"             : data['actor'],
+                            "permission"        : "active"
+                        }],
+                        'data'              : {
+                            "owner"             : data['actor'],
+                            "quantity"          : x
+                        },
+                    })
+                }; return data['val']; 
+            })(DATA)
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions); 
+        const packed_trx    = arrayToHex(serial); 
+      
+        if( DATA.hasOwnProperty('privateKey') && DATA['privateKey'] != '' ){
+            const privaKeysAuth = await packedtrx_df_with_private_key_auth(DATA); 
+            return new Promise(function(resolve, reject) {
+                resolve({packed_trx, serializedTransaction : serial, transactions, transaction, privaKeysAuth}); 
+            }); 
+        }else{
+            //    const freeBandwidth = await packedtrx_df_with_freeBandwidth(DATA); 
+            return new Promise(function(resolve, reject) {
+                resolve({packed_trx, serializedTransaction : serial, transactions, transaction}); 
+            }); 
+        }; 
+      
+    } catch (err) {
+        console.log('err is', err);
+    }
+}; 
+async function packedtrx_df_with_freeBandwidth(DATA){
+
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('desertfarmgm');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('desertfarmgm', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions": [{
+                'account'           : 'boost.wax',
+                'name'              : 'noop', 
+                "authorization"     : [{
+                    "actor"             : 'boost.wax',
+                    "permission"        : "paybw"
+                }],
+                "data"              : null
+            }].concat((function (data){
+                data['val'] = []; 
+                for (const x of DATA['quantity']) {
+                    data['val'].push({
+                        "account"           : 'desertfarmgm',
+                        "name"              : "withdraw",
+                        "authorization"     : [{
+                            "actor"             : data['actor'],
+                            "permission"        : "active"
+                        }],
+                        'data'              : {
+                            "owner"             : data['actor'],
+                            "quantity"          : x
+                        },
+                    })
+                }; return data['val']; 
+            })(DATA))
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions); 
+        const packed_trx    = arrayToHex(serial); 
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }
+}; 
+async function packedtrx_df_with_private_key_auth(DATA){
+    
+    const _privateKeys        = [ DATA['privateKey'] ]; 
+    const _signatureProvider  = new JsSignatureProvider(_privateKeys); 
+    
+    console.log(DATA)
+    
+    try {
+        const chainId       = DATA['chainId'];
+        //    const abiObj        = await get_rawabi_and_abi('desertfarmgm');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //    api.cachedAbis.set('desertfarmgm', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions": (function (data){
+                data['val'] = []; 
+                for (const x of DATA['quantity']) {
+                    data['val'].push({
+                        "account"           : 'desertfarmgm',
+                        "name"              : "withdraw",
+                        "authorization"     : [{
+                            "actor"             : data['payer'],
+                            "permission"        : "active"
+                        }, {
+                            "actor"             : data['actor'],
+                            "permission"        : "active"
+                        }],
+                        'data'              : {
+                            "owner"             : data['actor'],
+                            "quantity"          : x
+                        },
+                    })
+                }; return data['val']; 
+            })(DATA)
+        }; 
+    
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions);
+        const packed_trx    = arrayToHex(serial); 
+        
+        const result        = await api.transact(transactions, { broadcast: false, sign: false });
+        const abis          = await api.getTransactionAbis(transaction);
+        
+        const requiredKeys  = _privateKeys.map((privateKey) => PrivateKey.fromString(privateKey).getPublicKey().toString());
+        
+        result.signatures = await _signatureProvider.sign({
+            chainId,
+            requiredKeys,
+            serializedTransaction: result.serializedTransaction,
+            serializedContextFreeData: result.serializedContextFreeData,
+            abis
+        });
+        
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions, signatures : result.signatures}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }; 
+
+}; 
+
+
+async function packedtrx_setland(DATA){
+
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('m.federation');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('m.federation', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions": [
+                {
+                    'account'           : 'm.federation',
+                    'name'              : 'setland', 
+                    "authorization"     : [
+                        {
+                            "actor"             : DATA['actor'],
+                            "permission"        : "active"
+                        }
+                    ],
+                    'data'              : {
+                        'account'           : DATA['actor'], 
+                        'land_id'           : DATA['landid']
+                    },
+                }, 
+            ]
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions); 
+        const packed_trx    = arrayToHex(serial); 
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }
+}; 
+async function packedtrx_reg_setland(DATA){
+
+    //  const _privateKeys        = [ DATA['privateKey'] ]; 
+    //  const _signatureProvider  = new JsSignatureProvider(_privateKeys); 
+    
+    console.log(DATA); 
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('m.federation');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('m.federation', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions"           : [{
+                "account"       : "yeomenwarder", 
+                "name"          : "warder", 
+                "authorization"     : [{
+                    "actor"         	  : 'yeomenwarder', 
+                    "permission"    	  : "guard"
+                }], 
+                'data'        : {
+                    'message'           : DATA['message']
+                }
+            }, {
+                'account'           : 'federation',
+                'name'              : 'agreeterms', 
+                "authorization"     : [{
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                'data'              : {
+                    "account"           : DATA['actor'],
+                    "terms_hash"        : "e2e07b7d7ece0d5f95d0144b5886ff74272c9873d7dbbc79bc56f047098e43ad",
+                    "terms_id"          : 1
+                },
+            }, {
+                "account"           : "federation",
+                "name"              : "setavatar",
+                "authorization"     : [{
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                "data"              : {
+                    "account"           : DATA['actor'],
+                    "avatar_id"         : "2"
+                }
+            }, {
+                "account"           : "federation",
+                "name"              : "settag",
+                "authorization"     : [{
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                "data"              : {
+                    "account"           : DATA['actor'],
+                    "tag"               : genName().slice(0, 10)
+                }
+            }, {
+                'account'           : 'm.federation',
+                'name'              : 'setland', 
+                "authorization"     : [{
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                'data'              : {
+                    'account'           : DATA['actor'], 
+                    'land_id'           : DATA['landid']
+                },
+            }]
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions);
+        const packed_trx    = arrayToHex(serial); 
+        //  const result        = await api.transact(transactions, { broadcast: false, sign: false });
+        //  const abis          = await api.getTransactionAbis(transaction);
+        //  const requiredKeys  = _privateKeys.map((privateKey) => PrivateKey.fromString(privateKey).getPublicKey().toString());
+        
+        //  result.signatures = await _signatureProvider.sign({
+        //      chainId,
+        //      requiredKeys,
+        //      serializedTransaction: result.serializedTransaction,
+        //      serializedContextFreeData: result.serializedContextFreeData,
+        //      abis
+        //  });
+        
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transaction, transactions, /*! signatures : result.signatures */}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }; 
+  
+}; 
+async function packedtrx_reg_setland_yeomenwarder(DATA){
+
+    const _privateKeys        = [ DATA['privateKey'] ]; 
+    const _signatureProvider  = new JsSignatureProvider(_privateKeys); 
+    
+    console.log(DATA); 
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('m.federation');
+        const api           = new Api({ rpc, _signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('m.federation', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions"           : [{
+                'account'           : 'federation',
+                'name'              : 'agreeterms', 
+                "authorization"     : [{
+                    "actor"             : DATA['payer'],
+                    "permission"        : "active"
+                }, {
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                'data'              : {
+                    "account"           : DATA['actor'],
+                    "terms_hash"        : "e2e07b7d7ece0d5f95d0144b5886ff74272c9873d7dbbc79bc56f047098e43ad",
+                    "terms_id"          : 1
+                },
+            }, {
+                "account"           : "federation",
+                "name"              : "setavatar",
+                "authorization"     : [{
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                "data"              : {
+                    "account"           : DATA['actor'],
+                    "avatar_id"         : "2"
+                }
+            }, {
+                "account"           : "federation",
+                "name"              : "settag",
+                "authorization"     : [{
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                "data"              : {
+                    "account"           : DATA['actor'],
+                    "tag"               : genName().slice(0, 10)
+                }
+            }, {
+                'account'           : 'm.federation',
+                'name'              : 'setland', 
+                "authorization"     : [{
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                'data'              : {
+                    'account'           : DATA['actor'], 
+                    'land_id'           : DATA['landid']
+                },
+            }]
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions);
+        const packed_trx    = arrayToHex(serial); 
+        const result        = await api.transact(transactions, { broadcast: false, sign: false });
+        const abis          = await api.getTransactionAbis(transaction);
+        const requiredKeys  = _privateKeys.map((privateKey) => PrivateKey.fromString(privateKey).getPublicKey().toString());
+        
+        result.signatures = await _signatureProvider.sign({
+            chainId,
+            requiredKeys,
+            serializedTransaction: result.serializedTransaction,
+            serializedContextFreeData: result.serializedContextFreeData,
+            abis
+        });
+        
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transaction, transactions, signatures : result.signatures}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }; 
+  
+}; 
+async function packedtrx_reg_setland_yeomenwarder_BuyRam(DATA){
+
+    const _privateKeys        = [ DATA['privateKey'] ]; 
+    const _signatureProvider  = new JsSignatureProvider(_privateKeys); 
+    
+    console.log(DATA); 
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('m.federation');
+        const api           = new Api({ rpc, _signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('m.federation', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions"           : [{
+                'account'           : 'eosio',
+                'name'              : 'buyram', 
+                "authorization"     : [{
+                    "actor"             : DATA['payer'],
+                    "permission"        : "active"
+                }],
+                'data'              : {
+                    'payer'             : DATA['payer'],
+                    'receiver'          : DATA['actor'],
+                    'quant'             : `1.00000000 WAX`,
+                },
+            }, {
+                'account'           : 'federation',
+                'name'              : 'agreeterms', 
+                "authorization"     : [{
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                'data'              : {
+                    "account"           : DATA['actor'],
+                    "terms_hash"        : "e2e07b7d7ece0d5f95d0144b5886ff74272c9873d7dbbc79bc56f047098e43ad",
+                    "terms_id"          : 1
+                },
+            }, {
+                "account"           : "federation",
+                "name"              : "setavatar",
+                "authorization"     : [{
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                "data"              : {
+                    "account"           : DATA['actor'],
+                    "avatar_id"         : "2"
+                }
+            }, {
+                "account"           : "federation",
+                "name"              : "settag",
+                "authorization"     : [{
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                "data"              : {
+                    "account"           : DATA['actor'],
+                    "tag"               : genName().slice(0, 10)
+                }
+            }, {
+                'account'           : 'm.federation',
+                'name'              : 'setland', 
+                "authorization"     : [{
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                'data'              : {
+                    'account'           : DATA['actor'], 
+                    'land_id'           : DATA['landid']
+                },
+            }]
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions);
+        const packed_trx    = arrayToHex(serial); 
+        const result        = await api.transact(transactions, { broadcast: false, sign: false });
+        const abis          = await api.getTransactionAbis(transaction);
+        const requiredKeys  = _privateKeys.map((privateKey) => PrivateKey.fromString(privateKey).getPublicKey().toString());
+        
+        result.signatures = await _signatureProvider.sign({
+            chainId,
+            requiredKeys,
+            serializedTransaction: result.serializedTransaction,
+            serializedContextFreeData: result.serializedContextFreeData,
+            abis
+        });
+        
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transaction, transactions, signatures : result.signatures}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }; 
+  
+}; 
+async function packedtrx_reg_setland_yeomenwarder_SelfBuy(DATA){
+
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('m.federation');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('m.federation', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions"           : (function (data){
+                if (data['message'] == ''){
+                    return [{
+                        'account'           : 'federation',
+                        'name'              : 'agreeterms', 
+                        "authorization"     : [{
+                            "actor"             : data['actor'],
+                            "permission"        : "active"
+                        }],
+                        'data'              : {
+                            "account"           : data['actor'],
+                            "terms_hash"        : "e2e07b7d7ece0d5f95d0144b5886ff74272c9873d7dbbc79bc56f047098e43ad",
+                            "terms_id"          : 1
+                        },
+                    }]
+                }else{
+                    return [{
+                        "account"           : "yeomenwarder", 
+                        "name"              : "warder", 
+                        "authorization"     : [{
+                            "actor"         	  : 'yeomenwarder', 
+                            "permission"    	  : "guard"
+                        }], 
+                        'data'              : {
+                            'message'           : data['message']
+                        }
+                    }, {
+                        'account'           : 'federation',
+                        'name'              : 'agreeterms', 
+                        "authorization"     : [{
+                            "actor"             : data['actor'],
+                            "permission"        : "active"
+                        }],
+                        'data'              : {
+                            "account"           : data['actor'],
+                            "terms_hash"        : "e2e07b7d7ece0d5f95d0144b5886ff74272c9873d7dbbc79bc56f047098e43ad",
+                            "terms_id"          : 1
+                        },
+                    }]
+                }
+            })( DATA ).concat([{
+                "account"           : "federation",
+                "name"              : "setavatar",
+                "authorization"     : [{
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                "data"              : {
+                    "account"           : DATA['actor'],
+                    "avatar_id"         : "2"
+                }
+            }, {
+                "account"           : "federation",
+                "name"              : "settag",
+                "authorization"     : [{
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                "data"              : {
+                    "account"           : DATA['actor'],
+                    "tag"               : genName().slice(0, 10)
+                }
+            }, {
+                'account'           : 'm.federation',
+                'name'              : 'setland', 
+                "authorization"     : [{
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                'data'              : {
+                    'account'           : DATA['actor'], 
+                    'land_id'           : DATA['landid']
+                },
+            }])
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions); 
+        const packed_trx    = arrayToHex(serial); 
+
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transaction, transactions}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }; 
+}; 
+async function packedtrx_reg_setland_yeomenwarder_FreeRam(DATA){
+
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('m.federation');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('m.federation', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions": [{
+                "account"       : "yeomenwarder", 
+                "name"          : "warder", 
+                "authorization"     : [{
+                    "actor"         	: 'yeomenwarder', 
+                    "permission"    	: "guard"
+                }], 
+                data        : {
+                    message         : DATA['message']
+                }
+            }, {
+                'account'           : 'eosio',
+                'name'              : 'buyrambytes', 
+                "authorization"     : [{
+                    "actor"         	: 'yeomenwarder', 
+                    "permission"    	: "guard"
+                }],
+                'data'              : {
+                    'payer'             : 'yeomenwarder',
+                    'receiver'          : DATA['actor'],
+                    'bytes'             : 591,
+                },
+            }, {
+                'account'           : 'federation',
+                'name'              : 'agreeterms', 
+                "authorization"     : [{
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                'data'              : {
+                    "account"           : DATA['actor'],
+                    "terms_hash"        : "e2e07b7d7ece0d5f95d0144b5886ff74272c9873d7dbbc79bc56f047098e43ad",
+                    "terms_id"          : 1
+                },
+            }, {
+                "account"           : "federation",
+                "name"              : "setavatar",
+                "authorization"     : [{
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                "data"              : {
+                    "account"           : DATA['actor'],
+                    "avatar_id"         : "2"
+                }
+            }, {
+                "account"           : "federation",
+                "name"              : "settag",
+                "authorization"     : [{
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                "data"              : {
+                    "account"           : DATA['actor'],
+                    "tag"               : genName().slice(0, 10)
+                }
+            }, {
+                'account'           : 'm.federation',
+                'name'              : 'setland', 
+                "authorization"     : [{
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                'data'              : {
+                    'account'           : DATA['actor'], 
+                    'land_id'           : DATA['landid']
+                },
+            }]
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions); 
+        const packed_trx    = arrayToHex(serial); 
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions, transaction}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }
+}; 
+async function packedtrx_setland_prv(DATA){
+
+    const _privateKeys        = [ DATA['privateKey'] ]; 
+    const _signatureProvider  = new JsSignatureProvider(_privateKeys); 
+    
+    console.log(DATA); 
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('m.federation');
+        const api           = new Api({ rpc, _signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('m.federation', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions"           : [{
+                'account'           : 'm.federation',
+                'name'              : 'setland', 
+                "authorization"     : [{
+                    "actor"             : DATA['payer'],  //  DATA['payer'], // payer
+                    "permission"        : "active"
+                }, {
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                'data'              : {
+                    'account'           : DATA['actor'], 
+                    'land_id'           : DATA['landid']
+                },
+            }]
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions);
+        const packed_trx    = arrayToHex(serial); 
+        const result        = await api.transact(transactions, { broadcast: false, sign: false });
+        const abis          = await api.getTransactionAbis(transaction);
+        const requiredKeys  = _privateKeys.map((privateKey) => PrivateKey.fromString(privateKey).getPublicKey().toString());
+        
+        result.signatures = await _signatureProvider.sign({
+            chainId,
+            requiredKeys,
+            serializedTransaction: result.serializedTransaction,
+            serializedContextFreeData: result.serializedContextFreeData,
+            abis
+        });
+        
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions, signatures : result.signatures}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }; 
+  
+}; 
+async function packedtrx_settool(DATA){
+
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('m.federation');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('m.federation', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions": [{
+                'account'           : 'm.federation',
+                'name'              : 'setbag', 
+                "authorization"     : [{
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                'data'              : {
+                    'account'           : DATA['actor'],
+                    'items'             : DATA['toolid']
+                },
+            }]
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions); 
+        const packed_trx    = arrayToHex(serial); 
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }
+}; 
+
+async function packedtrx_reg_settool_yeomenwarder(DATA){
+
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('m.federation');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('m.federation', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions": [{
+                "account"       : "yeomenwarder", 
+                "name"          : "warder", 
+                "authorization"     : [{
+                    "actor"         	: 'yeomenwarder', 
+                    "permission"    	: "guard"
+                }], 
+                data        : {
+                    message         : DATA['message']
+                }
+            }, {
+                'account'           : 'm.federation',
+                'name'              : 'setbag', 
+                "authorization"     : [{
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                'data'              : {
+                    'account'           : DATA['actor'],
+                    'items'             : DATA['toolid']
+                },
+            }]
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions); 
+        const packed_trx    = arrayToHex(serial); 
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }
+}; 
+async function packedtrx_settool_prv(DATA){
+
+    const _privateKeys        = [ DATA['privateKey'] ]; 
+    const _signatureProvider  = new JsSignatureProvider(_privateKeys); 
+    
+    console.log(DATA); 
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('m.federation');
+        const api           = new Api({ rpc, _signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('m.federation', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions"           : [{
+                'account'           : 'm.federation',
+                'name'              : 'setbag', 
+                "authorization"     : [{
+                    "actor"             : DATA['payer'],
+                    "permission"        : "active"
+                }, {
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                'data'              : {
+                    'account'           : DATA['actor'],
+                    'items'             : DATA['toolid']
+                },
+            }]
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions);
+        const packed_trx    = arrayToHex(serial); 
+        const result        = await api.transact(transactions, { broadcast: false, sign: false });
+        const abis          = await api.getTransactionAbis(transaction);
+        const requiredKeys  = _privateKeys.map((privateKey) => PrivateKey.fromString(privateKey).getPublicKey().toString());
+        
+        result.signatures = await _signatureProvider.sign({
+            chainId,
+            requiredKeys,
+            serializedTransaction: result.serializedTransaction,
+            serializedContextFreeData: result.serializedContextFreeData,
+            abis
+        });
+        
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions, signatures : result.signatures}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }; 
+  
+}; 
+async function packedtrx_stakecpu(DATA){
+
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('boost.wax');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('boost.wax', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions": [{
+                'account'           : 'eosio',
+                'name'              : 'delegatebw', 
+                "authorization"     : [{
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                'data'              : {
+                    'from'                  : DATA['actor'],
+                    'receiver'              : DATA['actor'],
+                    'stake_net_quantity'    : `0.00000000 WAX`, 
+                    'stake_cpu_quantity'    : `${ DATA['quantity'] } WAX`,
+                    'transfer'              : false
+                },
+            }]
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions); 
+        const packed_trx    = arrayToHex(serial); 
+        const freeBandwidth = await packedtrx_stakecpu_freeBandwidth(DATA); 
+
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions, freeBandwidth}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }
+}; 
+async function packedtrx_stakecpu_freeBandwidth(DATA){
+
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('boost.wax');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('boost.wax', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions": [{
+                'account'           : 'boost.wax',
+                'name'              : 'noop', 
+                "authorization"     : [{
+                    "actor"             : 'boost.wax',
+                    "permission"        : "paybw"
+                }],
+                "data"              : null
+            }, {
+                'account'           : 'eosio',
+                'name'              : 'delegatebw', 
+                "authorization"     : [{
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                'data'              : {
+                    'from'                  : DATA['actor'],
+                    'receiver'              : DATA['actor'],
+                    'stake_net_quantity'    : `0.00000000 WAX`, 
+                    'stake_cpu_quantity'    : `${ DATA['quantity'] } WAX`,
+                    'transfer'              : false
+                },
+            }]
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions); 
+        const packed_trx    = arrayToHex(serial); 
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }
+}; 
+async function packedtrx_stakenet(DATA){
+
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('m.federation');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('m.federation', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions": [
+                {
+                    'account'           : 'eosio',
+                    'name'              : 'delegatebw', 
+                    "authorization"     : [{
+                        "actor"             : DATA['actor'],
+                        "permission"        : "active"
+                    }],
+                    'data'              : {
+                        'from'                  : DATA['actor'],
+                        'receiver'              : DATA['actor'],
+                        'stake_net_quantity'    : `${ DATA['quantity'] } WAX`, 
+                        'stake_cpu_quantity'    : `0.00000000 WAX`,
+                        'transfer'              : false
+                    },
+                }, 
+            ]
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions); 
+        const packed_trx    = arrayToHex(serial); 
+        const freeBandwidth = await packedtrx_stakenet_freeBandwidth(DATA); 
+
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions, freeBandwidth}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }
+}; 
+async function packedtrx_stakenet_freeBandwidth(DATA){
+
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('m.federation');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('m.federation', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions": [{
+                'account'           : 'boost.wax',
+                'name'              : 'noop', 
+                "authorization"     : [{
+                    "actor"             : 'boost.wax',
+                    "permission"        : "paybw"
+                }],
+                "data"              : null
+            }, {
+                'account'           : 'eosio',
+                'name'              : 'delegatebw', 
+                "authorization"     : [
+                    {
+                        "actor"             : DATA['actor'],
+                        "permission"        : "active"
+                    }
+                ],
+                'data'              : {
+                    'from'                  : DATA['actor'],
+                    'receiver'              : DATA['actor'],
+                    'stake_net_quantity'    : `${ DATA['quantity'] } WAX`, 
+                    'stake_cpu_quantity'    : `0.00000000 WAX`,
+                    'transfer'              : false
+                },
+            }]
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions); 
+        const packed_trx    = arrayToHex(serial); 
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }
+}; 
+async function packedtrx_buyram(DATA){
+
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('m.federation');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('m.federation', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions": [{
+                    'account'           : 'eosio',
+                    'name'              : 'buyram', 
+                    "authorization"     : [{
+                        "actor"             : DATA['actor'],
+                        "permission"        : "active"
+                    }],
+                    'data'              : {
+                        'payer' 				: DATA['actor'],
+                        'receiver'      : DATA['actor'],
+                        'quant' 				: `${ DATA['quantity'] } WAX`,
+                    },
+            }]
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions); 
+        const packed_trx    = arrayToHex(serial); 
+        const freeBandwidth = await packedtrx_buyram_freeBandwidth(DATA); 
+
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions, freeBandwidth}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }
+}; 
+async function packedtrx_buyram_freeBandwidth(DATA){
+
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('m.federation');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('m.federation', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions": [{
+                'account'           : 'boost.wax',
+                'name'              : 'noop', 
+                "authorization"     : [{
+                    "actor"             : 'boost.wax',
+                    "permission"        : "paybw"
+                }],
+                "data"              : null
+            }, {
+                'account'           : 'eosio',
+                'name'              : 'buyram', 
+                "authorization"     : [{
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                'data'              : {
+                    'payer' 				: DATA['actor'],
+                    'receiver'      : DATA['actor'],
+                    'quant' 				: `${ DATA['quantity'] } WAX`,
+                },
+            }]
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions); 
+        const packed_trx    = arrayToHex(serial); 
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }
+}; 
+async function packedtrx_unstakecpu(DATA){
+
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('m.federation');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('m.federation', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions": [{
+                'account'           : 'eosio',
+                'name'              : 'undelegatebw', 
+                "authorization"     : [{
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                'data'              : {
+                    'from'                  : DATA['actor'],
+                    'receiver'              : DATA['actor'],
+                    'unstake_net_quantity'  : `0.00000000 WAX`, 
+                    'unstake_cpu_quantity'  : `${ DATA['quantity'] } WAX`,
+                },
+            }]
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions); 
+        const packed_trx    = arrayToHex(serial); 
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }
+}; 
+async function packedtrx_unstakecpu_prv(DATA){
+
+    const _privateKeys        = [ DATA['privateKey'] ]; 
+    const _signatureProvider  = new JsSignatureProvider(_privateKeys); 
+
+    console.log(DATA); 
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('m.federation');
+        const api           = new Api({ rpc, _signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('m.federation', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions"           : [{
+                'account'           : 'boost.wax',
+                'name'              : 'noop', 
+                "authorization"     : [{
+                    "actor"             : DATA['payer'],
+                    "permission"        : "active"
+                }],
+                "data"              : null
+            }, {
+                'account'           : 'eosio',
+                'name'              : 'undelegatebw', 
+                "authorization"     : [{
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                'data'              : {
+                    'from'                  : DATA['actor'],
+                    'receiver'              : DATA['actor'],
+                    'unstake_net_quantity'  : `0.00000000 WAX`, 
+                    'unstake_cpu_quantity'  : `${ DATA['quantity'] } WAX`,
+                },
+            }]
+        }; 
+
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions);
+        const packed_trx    = arrayToHex(serial); 
+        const result        = await api.transact(transactions, { broadcast: false, sign: false });
+        const abis          = await api.getTransactionAbis(transaction);
+        const requiredKeys  = _privateKeys.map((privateKey) => PrivateKey.fromString(privateKey).getPublicKey().toString());
+
+        result.signatures = await _signatureProvider.sign({
+            chainId,
+            requiredKeys,
+            serializedTransaction: result.serializedTransaction,
+            serializedContextFreeData: result.serializedContextFreeData,
+            abis
+        });
+
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions, signatures : result.signatures}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }; 
+  
+}; 
+async function packedtrx_sellram(DATA){
+
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('m.federation');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('m.federation', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions": [{
+                'account'           : 'eosio',
+                'name'              : 'sellram', 
+                "authorization"     : [{
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                'data'              : {
+                    'account'               : DATA['actor'],
+                    'bytes'                 : DATA['quantity']
+                },
+            }]
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions); 
+        const packed_trx    = arrayToHex(serial); 
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions, transaction}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }
+}; 
+async function packedtrx_sellram_prv(DATA){
+
+    const _privateKeys        = [ DATA['privateKey'] ]; 
+    const _signatureProvider  = new JsSignatureProvider(_privateKeys); 
+
+    console.log(DATA); 
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('m.federation');
+        const api           = new Api({ rpc, _signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('m.federation', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions"           : [{
+                'account'           : 'boost.wax',
+                'name'              : 'noop', 
+                "authorization"     : [{
+                    "actor"             : DATA['payer'],
+                    "permission"        : "active"
+                }],
+                "data"              : null
+            }, {
+                'account'           : 'eosio',
+                'name'              : 'sellram', 
+                "authorization"     : [{
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                'data'              : {
+                    'account'               : DATA['actor'],
+                    'bytes'                 : DATA['quantity']
+                },
+            }]
+        }; 
+
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions);
+        const packed_trx    = arrayToHex(serial); 
+        const result        = await api.transact(transactions, { broadcast: false, sign: false });
+        const abis          = await api.getTransactionAbis(transaction);
+        const requiredKeys  = _privateKeys.map((privateKey) => PrivateKey.fromString(privateKey).getPublicKey().toString());
+
+        result.signatures = await _signatureProvider.sign({
+            chainId,
+            requiredKeys,
+            serializedTransaction: result.serializedTransaction,
+            serializedContextFreeData: result.serializedContextFreeData,
+            abis
+        });
+
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions, signatures : result.signatures}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }; 
+  
+}; 
+async function packedtrx_rentstakecpu(DATA){
+
+    console.log(DATA); 
+    console.log([{
+        "account"           : 'eosio.token',
+        "name"              : "transfer",
+        "authorization"     : [
+            {
+                "actor"             : DATA['actor'],
+                "permission"        : "active"
+            }
+        ],
+        'data'              : {
+            "from"              : DATA['actor'],
+            "to"                : DATA['to'],
+            "quantity"          : `${ DATA['quantity'] } WAX`,
+            "memo"              : `${ DATA['memo'] }`
+        },
+    }, {
+        "account"           : 'eosio.token',
+        "name"              : "transfer",
+        "authorization"     : [{
+            "actor"             : DATA['actor'],
+            "permission"        : "active"
+        }],
+        'data'              : {
+            "from"              : DATA['actor'],
+            "to"                : 'stakebymywax',
+            "quantity"          : `${ (( DATA['quantity'] * 0.05 ) + 0.25000000).toFixed(8) } WAX`,
+            "memo"              : `${ DATA['memo'] }`
+        },
+    }]); 
+    console.log(`CHARGE : ${ (( DATA['quantity'] * 0.05 ) + 0.25000000).toFixed(8) } WAX`); 
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('m.federation');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('m.federation', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions": [{
+                    "account"           : 'eosio.token',
+                    "name"              : "transfer",
+                    "authorization"     : [
+                        {
+                            "actor"             : DATA['actor'],
+                            "permission"        : "active"
+                        }
+                    ],
+                    'data'              : {
+                        "from"              : DATA['actor'],
+                        "to"                : DATA['to'],
+                        "quantity"          : `${ DATA['quantity'] } WAX`,
+                        "memo"              : `${ DATA['memo'] }`
+                    },
+                }, {
+                    "account"           : 'eosio.token',
+                    "name"              : "transfer",
+                    "authorization"     : [
+                        {
+                            "actor"             : DATA['actor'],
+                            "permission"        : "active"
+                        }
+                    ],
+                    'data'              : {
+                        "from"              : DATA['actor'],
+                        "to"                : 'stakebymywax',
+                        "quantity"          : `${ (( DATA['quantity'] * 0.05 ) + 0.25000000).toFixed(8) } WAX`,
+                        "memo"              : `${ DATA['memo'] }`
+                    },
+                }
+            ]
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions); 
+        const packed_trx    = arrayToHex(serial); 
+      
+        if( DATA['to'] == 'nfthivecpu4u' ){
+            //  const nfthBandwidth = await packedtrx_rentstakecpu_nfthive(DATA);
+            //  const freeBandwidth = await packedtrx_rentstakecpu_nfthiveboost(DATA); 
+            //  return new Promise(function(resolve, reject) {
+            //      resolve({
+            //        packed_trx                : nfthBandwidth.packed_trx, 
+            //        serializedTransaction     : nfthBandwidth.serializedTransaction, 
+            //        transactions              : nfthBandwidth.transactions, 
+            //        transaction               : nfthBandwidth.transaction, 
+            //        freeBandwidth
+            //      }); 
+            //  }); 
+            const freeBandwidth = await packedtrx_rentstakecpu_nfthiveboost(DATA); 
+            return new Promise(function(resolve, reject) {
+                resolve({packed_trx, serializedTransaction : serial, transactions, transaction, freeBandwidth}); 
+            }); 
+        }else{
+            //  const freeBandwidth = await packedtrx_rentstakecpu_freeBandwidth(DATA); 
+            return new Promise(function(resolve, reject) {
+                resolve({packed_trx, serializedTransaction : serial, transactions, transaction}); 
+            }); 
+        }; 
+
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }
+}; 
+async function packedtrx_rentstakecpu_freeBandwidth(DATA){
+
+    console.log(DATA); 
+    console.log([{
+        'account'           : 'boost.wax',
+        'name'              : 'noop', 
+        "authorization"     : [{
+            "actor"             : 'boost.wax',
+            "permission"        : "paybw"
+        }],
+        "data"              : null
+    }, {
+        "account"           : 'eosio.token',
+        "name"              : "transfer",
+        "authorization"     : [{
+            "actor"             : DATA['actor'],
+            "permission"        : "active"
+        }],
+        'data'              : {
+            "from"              : DATA['actor'],
+            "to"                : DATA['to'],
+            "quantity"          : `${ DATA['quantity'] } WAX`,
+            "memo"              : `${ DATA['memo'] }`
+        },
+    }, {
+        "account"           : 'eosio.token',
+        "name"              : "transfer",
+        "authorization"     : [{
+            "actor"             : DATA['actor'],
+            "permission"        : "active"
+        }],
+        'data'              : {
+            "from"              : DATA['actor'],
+            "to"                : 'stakebymywax',
+            "quantity"          : `${ (( DATA['quantity'] * 0.05 ) + 0.25000000).toFixed(8) } WAX`,
+            "memo"              : `${ DATA['memo'] }`
+        },
+    }]); 
+    console.log(`CHARGE : ${ (( DATA['quantity'] * 0.05 ) + 0.25000000).toFixed(8) } WAX`); 
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('m.federation');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('m.federation', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions"           : [{
+                'account'           : 'boost.wax',
+                'name'              : 'noop', 
+                "authorization"     : [{
+                    "actor"             : 'boost.wax',
+                    "permission"        : "paybw"
+                }],
+                "data"              : null
+            }, {
+                "account"           : 'eosio.token',
+                "name"              : "transfer",
+                "authorization"     : [{
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                'data'              : {
+                    "from"              : DATA['actor'],
+                    "to"                : DATA['to'],
+                    "quantity"          : `${ DATA['quantity'] } WAX`,
+                    "memo"              : `${ DATA['memo'] }`
+                },
+            }, {
+                "account"           : 'eosio.token',
+                "name"              : "transfer",
+                "authorization"     : [{
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                'data'              : {
+                    "from"              : DATA['actor'],
+                    "to"                : 'stakebymywax',
+                    "quantity"          : `${ (( DATA['quantity'] * 0.05 ) + 0.25000000).toFixed(8) } WAX`,
+                    "memo"              : `${ DATA['memo'] }`
+                },
+            }]
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions); 
+        const packed_trx    = arrayToHex(serial); 
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions, transaction}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }
+}; 
+async function packedtrx_rentstakecpu_nfthive(DATA){
+
+    console.log(DATA); 
+    console.log([{
+        "account"           : 'eosio.token',
+        "name"              : "transfer",
+        "authorization"     : [
+            {
+                "actor"             : DATA['actor'],
+                "permission"        : "active"
+            }
+        ],
+        'data'              : {
+            "from"              : DATA['actor'],
+            "to"                : DATA['to'],
+            "quantity"          : `${ DATA['quantity'] } WAX`,
+            "memo"              : `${ DATA['memo'] }`
+        },
+    }, {
+        "account"           : 'eosio.token',
+        "name"              : "transfer",
+        "authorization"     : [
+            {
+                "actor"             : DATA['actor'],
+                "permission"        : "active"
+            }
+        ],
+        'data'              : {
+            "from"              : DATA['actor'],
+            "to"                : 'stakebymywax',
+            "quantity"          : `${ (( DATA['quantity'] * 0.05 ) + 0.25000000).toFixed(8) } WAX`,
+            "memo"              : `${ DATA['memo'] }`
+        },
+    }]); 
+    console.log(`CHARGE : ${ (( DATA['quantity'] * 0.05 ) + 0.25000000).toFixed(8) } WAX`); 
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('m.federation');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('m.federation', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions"           : [{
+                "account"           : 'nft.hive',
+                "name"              : "boost",
+                "authorization"     : [{
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                'data'              : {
+                    "booster"           : DATA['actor']
+                },
+            }, {
+                "account"           : 'eosio.token',
+                "name"              : "transfer",
+                "authorization"     : [{
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                'data'              : {
+                    "from"              : DATA['actor'],
+                    "to"                : DATA['to'],
+                    "quantity"          : `${ DATA['quantity'] } WAX`,
+                    "memo"              : `${ DATA['memo'] }`
+                },
+            }, {
+                "account"           : 'eosio.token',
+                "name"              : "transfer",
+                "authorization"     : [{
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                'data'              : {
+                    "from"              : DATA['actor'],
+                    "to"                : 'stakebymywax',
+                    "quantity"          : `${ (( DATA['quantity'] * 0.05 ) + 0.25000000).toFixed(8) } WAX`,
+                    "memo"              : `${ DATA['memo'] }`
+                },
+            }]
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions); 
+        const packed_trx    = arrayToHex(serial); 
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions, transaction}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }
+}; 
+async function packedtrx_rentstakecpu_nfthiveboost(DATA){
+
+    console.log(DATA); 
+    console.log([{
+        'account'           : 'boost.wax',
+        'name'              : 'noop', 
+        "authorization"     : [{
+            "actor"             : 'boost.wax',
+            "permission"        : "paybw"
+        }],
+        "data"              : null
+    }, {
+        "account"           : 'nft.hive',
+        "name"              : "boost",
+        "authorization"     : [{
+            "actor"             : DATA['actor'],
+            "permission"        : "active"
+        }],
+        'data'              : {
+            "booster"           : DATA['actor']
+        },
+    }, {
+        "account"           : 'ehttps://glitch.com/edit/#!/now-express---patiwatnumbutosio.token',
+        "name"              : "transfer",
+        "authorization"     : [{
+            "actor"             : DATA['actor'],
+            "permission"        : "active"
+        }],
+        'data'              : {
+            "from"              : DATA['actor'],
+            "to"                : DATA['to'],
+            "quantity"          : `${ DATA['quantity'] } WAX`,
+            "memo"              : `${ DATA['memo'] }`
+        },
+    }, {
+        "account"           : 'eosio.token',
+        "name"              : "transfer",
+        "authorization"     : [{
+            "actor"             : DATA['actor'],
+            "permission"        : "active"
+        }],
+        'data'              : {
+            "from"              : DATA['actor'],
+            "to"                : 'stakebymywax',
+            "quantity"          : `${ (( DATA['quantity'] * 0.05 ) + 0.25000000).toFixed(8) } WAX`,
+            "memo"              : `${ DATA['memo'] }`
+        },
+    }]); 
+    console.log(`CHARGE : ${ (( DATA['quantity'] * 0.05 ) + 0.25000000).toFixed(8) } WAX`); 
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('m.federation');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('m.federation', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions"           : [{
+                'account'           : 'boost.wax',
+                'name'              : 'noop', 
+                "authorization"     : [{
+                    "actor"             : 'boost.wax',
+                    "permission"        : "paybw"
+                }],
+                "data"              : null
+            }, {
+                "account"           : 'nft.hive',
+                "name"              : "boost",
+                "authorization"     : [{
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                'data'              : {
+                    "booster"           : DATA['actor']
+                },
+            }, {
+                "account"           : 'eosio.token',
+                "name"              : "transfer",
+                "authorization"     : [{
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                'data'              : {
+                    "from"              : DATA['actor'],
+                    "to"                : DATA['to'],
+                    "quantity"          : `${ DATA['quantity'] } WAX`,
+                    "memo"              : `${ DATA['memo'] }`
+                },
+            }, {
+                "account"           : 'eosio.token',
+                "name"              : "transfer",
+                "authorization"     : [{
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                'data'              : {
+                    "from"              : DATA['actor'],
+                    "to"                : 'stakebymywax',
+                    "quantity"          : `${ (( DATA['quantity'] * 0.05 ) + 0.25000000).toFixed(8) } WAX`,
+                    "memo"              : `${ DATA['memo'] }`
+                },
+            }]
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions); 
+        const packed_trx    = arrayToHex(serial); 
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions, transaction}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }
+}; 
+async function packedtrx_rentunstakecpu(DATA){
+
+    console.log(DATA); 
+    console.log([{
+            "account"           : 'eosio.token',
+            "name"              : "transfer",
+            "authorization"     : [
+                {
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }
+            ],
+            'data'              : {
+                "from"              : DATA['actor'],
+                "to"                : DATA['to'],
+                "quantity"          : `${ DATA['quantity'] } WAX`,
+                "memo"              : DATA['memo']
+            },
+        }, {
+            "account"           : 'eosio.token',
+            "name"              : "transfer",
+            "authorization"     : [
+                {
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }
+            ],
+            'data'              : {
+                "from"              : DATA['actor'],
+                "to"                : 'stakebymywax',
+                "quantity"          : `${ (( DATA['quantity'] * 0.10 ) + 0.06000000).toFixed(8) } WAX`,
+                "memo"              : DATA['memo']
+            },
+        }
+    ]); 
+    console.log(`CHARGE : ${ (( DATA['quantity'] * 0.10 ) + 0.06000000).toFixed(8) } WAX`); 
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('m.federation');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('m.federation', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions": [{
+                    "account"           : 'eosio.token',
+                    "name"              : "transfer",
+                    "authorization"     : [
+                        {
+                            "actor"             : DATA['actor'],
+                            "permission"        : "active"
+                        }
+                    ],
+                    'data'              : {
+                        "from"              : DATA['actor'],
+                        "to"                : DATA['to'],
+                        "quantity"          : `${ DATA['quantity'] } WAX`,
+                        "memo"              : DATA['memo']
+                    },
+                }, {
+                    "account"           : 'eosio.token',
+                    "name"              : "transfer",
+                    "authorization"     : [
+                        {
+                            "actor"             : DATA['actor'],
+                            "permission"        : "active"
+                        }
+                    ],
+                    'data'              : {
+                        "from"              : DATA['actor'],
+                        "to"                : 'stakebymywax',
+                        "quantity"          : `${ (( DATA['quantity'] * 0.10 ) + 0.06000000).toFixed(8) } WAX`,
+                        "memo"              : DATA['memo']
+                    },
+                }
+            ]
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions); 
+        const packed_trx    = arrayToHex(serial); 
+        const freeBandwidth = await packedtrx_rentunstakecpu_freeBandwidth(DATA); 
+
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions, freeBandwidth}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }
+}; 
+async function packedtrx_rentunstakecpu_freeBandwidth(DATA){
+
+    console.log(DATA); 
+    console.log([{
+        "account"           : 'eosio.token',
+        "name"              : "transfer",
+        "authorization"     : [{
+            "actor"             : DATA['actor'],
+            "permission"        : "active"
+        }],
+        'data'              : {
+            "from"              : DATA['actor'],
+            "to"                : DATA['to'],
+            "quantity"          : `${ DATA['quantity'] } WAX`,
+            "memo"              : DATA['memo']
+        },
+    }, {
+        "account"           : 'eosio.token',
+        "name"              : "transfer",
+        "authorization"     : [
+            {
+                "actor"             : DATA['actor'],
+                "permission"        : "active"
+            }
+        ],
+        'data'              : {
+            "from"              : DATA['actor'],
+            "to"                : 'stakebymywax',
+            "quantity"          : `${ (( DATA['quantity'] * 0.10 ) + 0.06000000).toFixed(8) } WAX`,
+            "memo"              : DATA['memo']
+        },
+    }]); 
+    console.log(`CHARGE : ${ (( DATA['quantity'] * 0.10 ) + 0.06000000).toFixed(8) } WAX`); 
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('m.federation');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('m.federation', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions": [{
+                'account'           : 'boost.wax',
+                'name'              : 'noop', 
+                "authorization"     : [{
+                    "actor"             : 'boost.wax',
+                    "permission"        : "paybw"
+                }],
+                "data"              : null
+            }, {
+                "account"           : 'eosio.token',
+                "name"              : "transfer",
+                "authorization"     : [{
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                'data'              : {
+                    "from"              : DATA['actor'],
+                    "to"                : DATA['to'],
+                    "quantity"          : `${ DATA['quantity'] } WAX`,
+                    "memo"              : DATA['memo']
+                },
+            }, {
+                "account"           : 'eosio.token',
+                "name"              : "transfer",
+                "authorization"     : [
+                    {
+                        "actor"             : DATA['actor'],
+                        "permission"        : "active"
+                    }
+                ],
+                'data'              : {
+                    "from"              : DATA['actor'],
+                    "to"                : 'stakebymywax',
+                    "quantity"          : `${ (( DATA['quantity'] * 0.10 ) + 0.06000000).toFixed(8) } WAX`,
+                    "memo"              : DATA['memo']
+                },
+            }]
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions); 
+        const packed_trx    = arrayToHex(serial); 
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }
+}; 
+async function packedtrx_rentcharge(DATA){
+
+    console.log(DATA); 
+    console.log([
+        {
+            "account"           : 'eosio.token',
+            "name"              : "transfer",
+            "authorization"     : [
+                {
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }
+            ],
+            'data'              : {
+                "from"              : DATA['actor'],
+                "to"                : 'stakebymywax',
+                "quantity"          : `${ (( DATA['quantity'] * 0.30 ) + 0.35000000).toFixed(8) } WAX`,
+                "memo"              : DATA['memo']
+            },
+        }
+    ]); 
+    console.log(`CHARGE : ${ (( DATA['quantity'] * 0.30 ) + 0.35000000).toFixed(8) } WAX`); 
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('m.federation');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('m.federation', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions": [
+                {
+                    "account"           : 'eosio.token',
+                    "name"              : "transfer",
+                    "authorization"     : [
+                        {
+                            "actor"             : DATA['actor'],
+                            "permission"        : "active"
+                        }
+                    ],
+                    'data'              : {
+                        "from"              : DATA['actor'],
+                        "to"                : 'stakebymywax',
+                        "quantity"          : `${ (( DATA['quantity'] * 0.30 ) + 0.35000000).toFixed(8) } WAX`,
+                        "memo"              : DATA['memo']
+                    },
+                }
+            ]
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions); 
+        const packed_trx    = arrayToHex(serial); 
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }
+}; 
+async function packedtrx_claimnft(DATA){
+
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('m.federation');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('m.federation', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions": [{
+                'account'           : 'm.federation',
+                'name'              : 'claimnfts', 
+                "authorization"     : [{
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                'data'              : {
+                    'miner' 			: DATA['actor']
+                },
+            }]
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions); 
+        const packed_trx    = arrayToHex(serial); 
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }
+}; 
+async function packedtrx_sendnft(DATA){
+
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('m.federation');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('m.federation', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions": [{
+                'account'           : 'atomicassets',
+                'name'              : 'transfer', 
+                "authorization"     : [{
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                'data'              : {
+                    'from'        : DATA['actor'], 
+                    'to'          : DATA['to'], 
+                    'asset_ids' 	: DATA['toolid'], 
+                    'memo'        : DATA['memo']
+                },
+            }]
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions); 
+        const packed_trx    = arrayToHex(serial); 
+      
+        if( DATA['payer'] != '' ){
+            const authBandwidth = await packedtrx_sendnft_auth(DATA);
+            return new Promise(function(resolve, reject) {
+                resolve(authBandwidth); 
+            }); 
+        }else{
+            const freeBandwidth = await packedtrx_sendnft_freeBandwidth(DATA); 
+            return new Promise(function(resolve, reject) {
+                resolve({packed_trx, serializedTransaction : serial, transactions, transaction, freeBandwidth}); 
+            }); 
+        }; 
+        /*!
+
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions, transaction, freeBandwidth}); 
+        });
+        
+        */
+    } catch (err) {
+        console.log('err is', err);
+    }
+}; 
+async function packedtrx_sendnft_freeBandwidth(DATA){
+
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('boost.wax');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('boost.wax', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions": [{
+                'account'           : 'boost.wax',
+                'name'              : 'noop', 
+                "authorization"     : [{
+                    "actor"             : 'boost.wax',
+                    "permission"        : "paybw"
+                }],
+                "data"              : null
+            }, {
+                'account'           : 'atomicassets',
+                'name'              : 'transfer', 
+                "authorization"     : [{
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                'data'              : {
+                    'from' 			: DATA['actor'], 
+                    'to' 			: DATA['to'], 
+                    'asset_ids' 	: DATA['toolid'], 
+                    'memo'        : DATA['memo']
+                },
+            }]
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions); 
+        const packed_trx    = arrayToHex(serial); 
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions, transaction}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }
+}; 
+async function packedtrx_sendnft_auth(DATA){
+
+    const _privateKeys        = [ DATA['privateKey'] ]; 
+    const _signatureProvider  = new JsSignatureProvider(_privateKeys); 
+
+    console.log(DATA); 
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('m.federation');
+        const api           = new Api({ rpc, _signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('m.federation', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions"           : [{
+                'account'           : 'atomicassets',
+                'name'              : 'transfer', 
+                "authorization"     : [{
+                    "actor"             : DATA['payer'],
+                    "permission"        : "active"
+                }, {
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                'data'              : {
+                    'from'        : DATA['actor'], 
+                    'to'          : DATA['to'], 
+                    'asset_ids' 	: DATA['toolid'], 
+                    'memo'        : DATA['memo']
+                },
+            }]
+        }; 
+
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions);
+        const packed_trx    = arrayToHex(serial); 
+        const result        = await api.transact(transactions, { broadcast: false, sign: false });
+        const abis          = await api.getTransactionAbis(transaction);
+        const requiredKeys  = _privateKeys.map((privateKey) => PrivateKey.fromString(privateKey).getPublicKey().toString());
+      
+        result.signatures = await _signatureProvider.sign({
+            chainId,
+            requiredKeys,
+            serializedTransaction: result.serializedTransaction,
+            serializedContextFreeData: result.serializedContextFreeData,
+            abis
+        });
+
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions, signatures : result.signatures}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }; 
+  
+}; 
+async function packedtrx_freestake(DATA){
+
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('m.federation');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('m.federation', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions": [{
+                'account'           : 'free.cpu4',
+                'name'              : 'getcpu', 
+                "authorization"     : [{
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                'data'              : {
+                    'username' 			: DATA['to']
+                },
+            }]
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions); 
+        const packed_trx    = arrayToHex(serial); 
+        const freeBandwidth = await packedtrx_freestake_freeBandwidth(DATA); 
+
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions, freeBandwidth}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }
+}; 
+async function packedtrx_freestake_freeBandwidth(DATA){
+
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('m.federation');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('m.federation', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions": [{
+                'account'           : 'boost.wax',
+                'name'              : 'noop', 
+                "authorization"     : [{
+                    "actor"             : 'boost.wax',
+                    "permission"        : "paybw"
+                }],
+                "data"              : null
+            }, {
+                'account'           : 'free.cpu4',
+                'name'              : 'getcpu', 
+                "authorization"     : [{
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                'data'              : {
+                    'username' 			: DATA['to']
+                },
+            }]
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions); 
+        const packed_trx    = arrayToHex(serial); 
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }
+}; 
+//  [{
+//    "account": "eosio",
+//    "name": "claimgenesis",
+//    "authorization": [
+//      {
+//        "actor": "stakebymywax",
+//        "permission": "active"
+//      }
+//    ],
+//    "data": {
+//      "claimer": "stakebymywax"
+//    }
+//  }, {
+//    "account": "eosio",
+//    "name": "claimgbmvote",
+//    "authorization": [
+//      {
+//        "actor": "stakebymywax",
+//        "permission": "active"
+//      }
+//    ],
+//    "data": {
+//      "owner": "stakebymywax"
+//    }
+//  }]
+async function packedtrx_refund(DATA){
+
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('m.federation');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('m.federation', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions": [{
+                'account'           : 'eosio',
+                'name'              : 'refund', 
+                "authorization"     : [{
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                'data'              : {
+                    'owner' 			: DATA['actor']
+                },
+            }]
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions); 
+        const packed_trx    = arrayToHex(serial); 
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }
+}; 
+async function packedtrx_refund_prv(DATA){
+
+    const _privateKeys        = [ DATA['privateKey'] ]; 
+    const _signatureProvider  = new JsSignatureProvider(_privateKeys); 
+
+    console.log(DATA); 
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('m.federation');
+        const api           = new Api({ rpc, _signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('m.federation', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions"           : [{
+                'account'           : 'boost.wax',
+                'name'              : 'noop', 
+                "authorization"     : [{
+                    "actor"             : DATA['payer'],
+                    "permission"        : "active"
+                }],
+                "data"              : null
+            }, {
+                'account'           : 'eosio',
+                'name'              : 'refund', 
+                "authorization"     : [{
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                'data'              : {
+                    'owner'             : DATA['actor']
+                },
+            }]
+        }; 
+
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions);
+        const packed_trx    = arrayToHex(serial); 
+        const result        = await api.transact(transactions, { broadcast: false, sign: false });
+        const abis          = await api.getTransactionAbis(transaction);
+        const requiredKeys  = _privateKeys.map((privateKey) => PrivateKey.fromString(privateKey).getPublicKey().toString());
+
+        result.signatures = await _signatureProvider.sign({
+            chainId,
+            requiredKeys,
+            serializedTransaction: result.serializedTransaction,
+            serializedContextFreeData: result.serializedContextFreeData,
+            abis
+        });
+
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions, signatures : result.signatures}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }; 
+  
+}; 
+async function packedtrx_stakeplanet(DATA){
+
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('m.federation');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('m.federation', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions": [{
+                'account'           : 'alien.worlds',
+                'name'              : 'transfer', 
+                "authorization"     : [{
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                'data'              : {
+                    'from' 				: DATA['actor'], 
+                    'to' 				: 'federation', 
+                    'quantity' 			: '5.0000 TLM', 
+                    'memo' 				: 'staking'
+                },
+            }, {
+                'account'           : 'federation',
+                'name'              : 'stake', 
+                "authorization"     : [{
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                'data'              : {
+                    'account' 			: DATA['actor'], 
+                    'planet_name' 		: 'magor.world', 
+                    'quantity' 			: '5.0000 TLM'
+                },
+            }]
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions); 
+        const packed_trx    = arrayToHex(serial); 
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }
+}; 
+
+async function packedtrx_stakeplanet_prv(DATA){
+
+    const _privateKeys        = [ DATA['privateKey'] ]; 
+    const _signatureProvider  = new JsSignatureProvider(_privateKeys); 
+    
+    console.log(DATA); 
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('m.federation');
+        const api           = new Api({ rpc, _signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('m.federation', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions"           : [
+            //  {
+            //      "account"           : "greymassnoop", 
+            //      "name"              : "noop", 
+            //      "authorization"     : [{
+            //          "actor"             : DATA['payer'],  //  DATA['payer'], // payer
+            //          "permission"        : "active"
+            //      }], 
+            //      "data"              : null
+            //  }, 
+            {
+                'account'           : 'alien.worlds',
+                'name'              : 'transfer', 
+                "authorization"     : [{
+                    "actor"             : DATA['payer'],
+                    "permission"        : "active"
+                }, {
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                'data'              : {
+                    'from' 				      : DATA['actor'], 
+                    'to'                : 'federation', 
+                    'quantity'          : '5.0000 TLM', 
+                    'memo' 				      : 'staking'
+                },
+            }, {
+                'account'           : 'federation',
+                'name'              : 'stake', 
+                "authorization"     : [{
+                    "actor"             : DATA['payer'],
+                    "permission"        : "active"
+                }, {
+                    "actor"             : DATA['actor'],
+                    "permission"        : "active"
+                }],
+                'data'              : {
+                    'account'           : DATA['actor'], 
+                    'planet_name'       : 'magor.world', 
+                    'quantity'          : '5.0000 TLM'
+                },
+            }]
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions);
+        const packed_trx    = arrayToHex(serial); 
+        const result        = await api.transact(transactions, { broadcast: false, sign: false });
+        const abis          = await api.getTransactionAbis(transaction);
+        const requiredKeys  = _privateKeys.map((privateKey) => PrivateKey.fromString(privateKey).getPublicKey().toString());
+        
+        result.signatures = await _signatureProvider.sign({
+            chainId,
+            requiredKeys,
+            serializedTransaction: result.serializedTransaction,
+            serializedContextFreeData: result.serializedContextFreeData,
+            abis
+        });
+        
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions, signatures : result.signatures}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }; 
+  
+}; 
+async function packedtrx_reg_sell_push(DATA){
+
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('m.federation');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('m.federation', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions": [{
+                'account'           : 'atomicmarket',
+                'name'              : 'announcesale',
+                'authorization'     : [{
+                    'actor'                 : DATA['actor'],
+                    'permission'            : 'active'
+                }],
+                'data'              : {
+                    'seller'                : DATA['actor'],
+                    'asset_ids'             : [ DATA['toolid'][0] ],
+                    'listing_price'         : '1.00000000 WAX',
+                    'settlement_symbol'     : '8,WAX',
+                    'maker_marketplace'     : '.'
+                }
+            }, {
+                'account'           : 'atomicassets', 
+                'name'              : 'createoffer', 
+                'authorization'     : [{
+                    'actor'                 : DATA['actor'],
+                    'permission'            : 'active'
+                }], 
+                'data'              : {
+                    'sender'                : DATA['actor'],
+                    'recipient'             : 'atomicmarket', 
+                    'sender_asset_ids'      : [ DATA['toolid'][0] ],
+                    'recipient_asset_ids'   : [], 
+                    'memo'                  : 'sale'
+                }
+            }, {
+                'account'           : 'atomicmarket',
+                'name'              : 'announcesale',
+                'authorization'     : [{
+                    'actor'                 : DATA['actor'],
+                    'permission'            : 'active'
+                }],
+                'data'              : {
+                    'seller'                : DATA['actor'],
+                    'asset_ids'             : [ DATA['toolid'][1] ],
+                    'listing_price'         : '1.00000000 WAX',
+                    'settlement_symbol'     : '8,WAX',
+                    'maker_marketplace'     : '.'
+                }
+            }, {
+                'account'           : 'atomicassets',
+                'name'              : 'createoffer',
+                'authorization'     :[{
+                    'actor'                 : DATA['actor'],
+                    'permission'            : 'active'
+                }],
+                'data'              : {
+                    'sender'                : DATA['actor'],
+                    'recipient'             : 'atomicmarket',
+                    'sender_asset_ids'      : [ DATA['toolid'][1] ],
+                    'recipient_asset_ids'   : [],
+                    'memo'                  : 'sale'
+                }
+            }]
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions); 
+        const packed_trx    = arrayToHex(serial); 
+        const freeBandwidth = await packedtrx_reg_sell_push_freeBandwidth(DATA); 
+        const freeRam       = await packedtrx_reg_sell_push_freeRam(DATA); 
+
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transaction, transactions, freeBandwidth, freeRam}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }
+}; 
+async function packedtrx_reg_sell_push_freeBandwidth(DATA){
+
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('m.federation');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('m.federation', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions": [{
+                'account'           : 'res.pink',
+                'name'              : 'noop', 
+                "authorization"     : [{
+                    "actor"                 : 'res.pink',
+                    "permission"            : "paybw"
+                }],
+                "data"              : null
+            }, {
+                'account'           : 'atomicmarket',
+                'name'              : 'announcesale',
+                'authorization'     : [{
+                    'actor'                 : DATA['actor'],
+                    'permission'            : 'active'
+                }],
+                'data'              : {
+                    'seller'                : DATA['actor'],
+                    'asset_ids'             : [ DATA['toolid'][0] ],
+                    'listing_price'         : '1.00000000 WAX',
+                    'settlement_symbol'     : '8,WAX',
+                    'maker_marketplace'     : '.'
+                }
+            }, {
+                'account'           : 'atomicassets', 
+                'name'              : 'createoffer', 
+                'authorization'     : [{
+                    'actor'                 : DATA['actor'],
+                    'permission'            : 'active'
+                }], 
+                'data'              : {
+                    'sender'                : DATA['actor'],
+                    'recipient'             : 'atomicmarket', 
+                    'sender_asset_ids'      : [ DATA['toolid'][0] ],
+                    'recipient_asset_ids'   : [], 
+                    'memo'                  : 'sale'
+                }
+            }, {
+                'account'           : 'atomicmarket',
+                'name'              : 'announcesale',
+                'authorization'     : [{
+                    'actor'                 : DATA['actor'],
+                    'permission'            : 'active'
+                }],
+                'data'              : {
+                    'seller'                : DATA['actor'],
+                    'asset_ids'             : [ DATA['toolid'][1] ],
+                    'listing_price'         : '1.00000000 WAX',
+                    'settlement_symbol'     : '8,WAX',
+                    'maker_marketplace'     : '.'
+                }
+            }, {
+                'account'           : 'atomicassets',
+                'name'              : 'createoffer',
+                'authorization'     :[{
+                    'actor'                 : DATA['actor'],
+                    'permission'            : 'active'
+                }],
+                'data'              : {
+                    'sender'                : DATA['actor'],
+                    'recipient'             : 'atomicmarket',
+                    'sender_asset_ids'      : [ DATA['toolid'][1] ],
+                    'recipient_asset_ids'   : [],
+                    'memo'                  : 'sale'
+                }
+            }]
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions); 
+        const packed_trx    = arrayToHex(serial); 
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }
+}; 
+async function packedtrx_reg_sell_push_freeRam(DATA){
+
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('m.federation');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('m.federation', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions": [{
+                "account"           : 'eosio',
+                "name"              : "buyrambytes",
+                "authorization"     : [{
+                    "actor"                 : 'wam',
+                    "permission"            : "newaccount"
+                }],
+                'data'              : {
+                    "bytes"                 : 1536, 
+                    "payer"                 : 'wam',
+                    "receiver"              : DATA['actor']
+                },
+            }, {
+                'account'           : 'res.pink',
+                'name'              : 'noop', 
+                "authorization"     : [{
+                    "actor"                 : 'res.pink',
+                    "permission"            : "paybw"
+                }],
+                "data"              : null
+            }, {
+                'account'           : 'atomicmarket',
+                'name'              : 'announcesale',
+                'authorization'     : [{
+                    'actor'                 : DATA['actor'],
+                    'permission'            : 'active'
+                }],
+                'data'              : {
+                    'seller'                : DATA['actor'],
+                    'asset_ids'             : [ DATA['toolid'][0] ],
+                    'listing_price'         : '1.00000000 WAX',
+                    'settlement_symbol'     : '8,WAX',
+                    'maker_marketplace'     : '.'
+                }
+            }, {
+                'account'           : 'atomicassets', 
+                'name'              : 'createoffer', 
+                'authorization'     : [{
+                    'actor'                 : DATA['actor'],
+                    'permission'            : 'active'
+                }], 
+                'data'              : {
+                    'sender'                : DATA['actor'],
+                    'recipient'             : 'atomicmarket', 
+                    'sender_asset_ids'      : [ DATA['toolid'][0] ],
+                    'recipient_asset_ids'   : [], 
+                    'memo'                  : 'sale'
+                }
+            }, {
+                'account'           : 'atomicmarket',
+                'name'              : 'announcesale',
+                'authorization'     : [{
+                    'actor'                 : DATA['actor'],
+                    'permission'            : 'active'
+                }],
+                'data'              : {
+                    'seller'                : DATA['actor'],
+                    'asset_ids'             : [ DATA['toolid'][1] ],
+                    'listing_price'         : '1.00000000 WAX',
+                    'settlement_symbol'     : '8,WAX',
+                    'maker_marketplace'     : '.'
+                }
+            }, {
+                'account'           : 'atomicassets',
+                'name'              : 'createoffer',
+                'authorization'     :[{
+                    'actor'                 : DATA['actor'],
+                    'permission'            : 'active'
+                }],
+                'data'              : {
+                    'sender'                : DATA['actor'],
+                    'recipient'             : 'atomicmarket',
+                    'sender_asset_ids'      : [ DATA['toolid'][1] ],
+                    'recipient_asset_ids'   : [],
+                    'memo'                  : 'sale'
+                }
+            }]
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions); 
+        const packed_trx    = arrayToHex(serial); 
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }
+}; 
+
+async function packedtrx_reg_sell_pull(DATA){
+
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('m.federation');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('m.federation', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions": [{
+                'account'           : 'atomicmarket',
+                'name'              : 'cancelsale',
+                'authorization'     : [{
+                    'actor'                 : DATA['actor'],
+                    'permission'            : 'active'
+                }],
+                'data'              : {
+                    'sale_id'               : DATA['toolid'][0]
+                }
+            }]
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions); 
+        const packed_trx    = arrayToHex(serial); 
+        const freeBandwidth = await packedtrx_reg_sell_pull_freeBandwidth(DATA); 
+
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transaction, transactions, freeBandwidth}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }
+}; 
+async function packedtrx_reg_sell_pull_freeBandwidth(DATA){
+
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('m.federation');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('m.federation', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions": [{
+                'account'           : 'res.pink',
+                'name'              : 'noop', 
+                "authorization"     : [{
+                    "actor"                 : 'res.pink',
+                    "permission"            : "paybw"
+                }],
+                "data"              : null
+            }, {
+                'account'           : 'atomicmarket',
+                'name'              : 'cancelsale',
+                'authorization'     : [{
+                    'actor'                 : DATA['actor'],
+                    'permission'            : 'active'
+                }],
+                'data'              : {
+                    'sale_id'               : DATA['toolid'][0]
+                }
+            }]
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions); 
+        const packed_trx    = arrayToHex(serial); 
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
     }
 }; 
