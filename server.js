@@ -6646,6 +6646,7 @@ if (cluster.isMaster) {
             'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), 
             'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
             'actor'             : (url.parse(req.url,true).query.actor                          || '435yo.wam'), 
+            'message'           : (url.parse(req.url,true).query.message                        || '3'), 
             'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
             'payer'             : (url.parse(req.url,true).query.payer                          || '')
         }).then(result => {
@@ -6660,6 +6661,7 @@ if (cluster.isMaster) {
             'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), 
             'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
             'actor'             : (url.parse(req.url,true).query.actor                          || '435yo.wam'), 
+            'message'           : (url.parse(req.url,true).query.message                        || '3'), 
             'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
             'payer'             : (url.parse(req.url,true).query.payer                          || '')
         }).then(result => {
@@ -12184,7 +12186,7 @@ async function vl_packedtrx_mine(DATA){
                         }],
                         'data'              : {
                             "miner"             : data['actor'], 
-                            "r1"                : 2
+                            "r1"                : parseInt(data['message'])
                         },
                     }); 
                 }; return data['val']; 
@@ -12248,7 +12250,7 @@ async function vl_packedtrx_mine_free_trx(DATA){
                             }],
                             'data'              : {
                                 "miner"             : data['actor'], 
-                                "r1"                : 2
+                                "r1"                : parseInt(data['message'])
                             },
                         }); 
                     }; return data['val']; 
@@ -12299,7 +12301,7 @@ async function vl_packedtrx_mine_private_key_auth(DATA){
                         }],
                         'data'              : {
                             "miner"             : data['actor'], 
-                            "r1"                : 2
+                            "r1"                : parseInt(data['message'])
                         },
                     }); 
                 }; return data['val']; 
