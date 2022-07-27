@@ -6805,6 +6805,7 @@ if (cluster.isMaster) {
             'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
             'actor'             : (url.parse(req.url,true).query.actor                          || 'gj1xc.wam'), 
             'asset_id'          : (url.parse(req.url,true).query.asset_id                       || '0000000000000').match(/\d{13,13}/gi), 
+            'time'              : (url.parse(req.url,true).query.time                           || 1), 
             'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
             'payer'             : (url.parse(req.url,true).query.payer                          || '')
         }).then(result => {
@@ -6820,6 +6821,7 @@ if (cluster.isMaster) {
             'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
             'actor'             : (url.parse(req.url,true).query.actor                          || 'gj1xc.wam'), 
             'asset_id'          : (url.parse(req.url,true).query.asset_id                       || '0000000000000').match(/\d{13,13}/gi), 
+            'time'              : (url.parse(req.url,true).query.time                           || 1), 
             'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
             'payer'             : (url.parse(req.url,true).query.payer                          || '')
         }).then(result => {
@@ -12987,7 +12989,8 @@ async function fe_packedtrx_mine(DATA){
                         }],
                         'data'              : {
                             "miner"             : data['actor'], 
-                            "asset_id"          : x
+                            "asset_id"          : x, 
+                            "hours"             : parseInt( data['time'])
                         },
                     }); 
                 }; return data['val']; 
@@ -13051,7 +13054,8 @@ async function fe_packedtrx_mine_free_trx(DATA){
                             }],
                             'data'              : {
                                 "miner"             : data['actor'], 
-                                "asset_id"          : x
+                                "asset_id"          : x, 
+                                "hours"             : parseInt( data['time'])
                             },
                         }); 
                     }; return data['val']; 
@@ -13102,7 +13106,8 @@ async function fe_packedtrx_mine_private_key_auth(DATA){
                         }],
                         'data'              : {
                             "miner"             : data['actor'], 
-                            "asset_id"          : x
+                            "asset_id"          : x, 
+                            "hours"             : parseInt( data['time'])
                         },
                     }); 
                 }; return data['val']; 
