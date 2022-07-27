@@ -11,6 +11,7 @@
   "author": "William Imoh",
   "license": "MIT",
   "dependencies": {
+    "eos-unpack": "^1.0.1",
     "eosjs": "^22.0.0",
     "eosjs-ecc": "^4.0.7",
     "express": "^4.17.1",
