@@ -4587,10 +4587,696 @@ if (cluster.isMaster) {
             res.end();
         }); 
     });
+    
+    // packedtrx_fe_depo API
+    app.get("/packedtrx_fe_depo", (req, res) => {
+        packedtrx_fe_depo({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'quantity'          : (function (){
+                var ar = []; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] } FEE`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 FEE`)
+                };
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] } FEF`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 FEF`)
+                }; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] } FEG`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 FEG`)
+                }; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[3]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[3] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[3] } FEO`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 FEO`)
+                }; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[4]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[4] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[4] } FEW`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 FEW`)
+                }; 
+                return ar
+            })(), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_fe_depo", (req, res) => {
+        packedtrx_fe_depo({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'quantity'          : (function (){
+                var ar = []; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] } FEE`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 FEE`)
+                };
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] } FEF`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 FEF`)
+                }; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] } FEG`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 FEG`)
+                }; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[3]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[3] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[3] } FEO`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 FEO`)
+                }; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[4]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[4] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[4] } FEW`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 FEW`)
+                }; 
+                return ar
+            })(), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    
+    // packedtrx_fe_depo_private_key_auth API
+    app.get("/packedtrx_fe_depo_private_key_auth", (req, res) => {
+        packedtrx_fe_depo_private_key_auth({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'quantity'          : (function (){
+                var ar = []; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] } FEE`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 FEE`)
+                };
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] } FEF`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 FEF`)
+                }; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] } FEG`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 FEG`)
+                }; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[3]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[3] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[3] } FEO`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 FEO`)
+                }; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[4]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[4] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[4] } FEW`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 FEW`)
+                }; 
+                return ar
+            })(), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_fe_depo_private_key_auth", (req, res) => {
+        packedtrx_fe_depo_private_key_auth({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'quantity'          : (function (){
+                var ar = []; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] } FEE`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 FEE`)
+                };
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] } FEF`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 FEF`)
+                }; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] } FEG`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 FEG`)
+                }; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[3]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[3] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[3] } FEO`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 FEO`)
+                }; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[4]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[4] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[4] } FEW`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 FEW`)
+                }; 
+                return ar
+            })(), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    
+    // packedtrx_fe_with API
+    app.get("/packedtrx_fe_with", (req, res) => {
+        packedtrx_fe_with({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'amount'            : (url.parse(req.url,true).query.amount                         || 5), 
+            'quantity'          : (function (){
+                var ar = []; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] } FEE`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 FEE`)
+                };
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] } FEF`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 FEF`)
+                }; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] } FEG`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 FEG`)
+                }; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[3]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[3] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[3] } FEO`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 FEO`)
+                }; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[4]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[4] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[4] } FEW`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 FEW`)
+                }; 
+                return ar
+            })(), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_fe_with", (req, res) => {
+        packedtrx_fe_with({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'amount'            : (url.parse(req.url,true).query.amount                         || 5), 
+            'quantity'          : (function (){
+                var ar = []; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] } FEE`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 FEE`)
+                };
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] } FEF`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 FEF`)
+                }; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] } FEG`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 FEG`)
+                }; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[3]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[3] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[3] } FEO`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 FEO`)
+                }; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[4]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[4] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[4] } FEW`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 FEW`)
+                }; 
+                return ar
+            })(), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    
+    // packedtrx_fe_with_private_key_auth API
+    app.get("/packedtrx_fe_with_private_key_auth", (req, res) => {
+        packedtrx_fe_with_private_key_auth({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'amount'            : (url.parse(req.url,true).query.amount                         || 5), 
+            'quantity'          : (function (){
+                var ar = []; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] } FEE`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 FEE`)
+                };
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] } FEF`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 FEF`)
+                }; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] } FEG`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 FEG`)
+                }; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[3]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[3] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[3] } FEO`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 FEO`)
+                }; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[4]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[4] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[4] } FEW`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 FEW`)
+                }; 
+                return ar
+            })(), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_fe_with_private_key_auth", (req, res) => {
+        packedtrx_fe_with_private_key_auth({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'amount'            : (url.parse(req.url,true).query.amount                         || 5), 
+            'quantity'          : (function (){
+                var ar = []; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] } FEE`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 FEE`)
+                };
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] } FEF`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 FEF`)
+                }; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] } FEG`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 FEG`)
+                }; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[3]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[3] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[3] } FEO`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 FEO`)
+                }; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[4]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[4] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[4] } FEW`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 FEW`)
+                }; 
+                return ar
+            })(), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    
+    // packedtrx_ur_swap API
+    app.get("/packedtrx_ur_swap", (req, res) => {
+        packedtrx_ur_swap({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'quantity'          : (function (){
+                var ar = [];     
+                for ( const x of (url.parse(req.url,true).query.quantity || 'ENRG-NNT-1.00000001,ENRG-OMT-1.00000001,ENRG-XPT-1.00000001').match(/\w{3,4}-\w{3,4}-\d{1,8}.\d{4,8}/gi) ) {
+                    ar.push( x ); 
+                }; 
+                return ar
+            })(), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_ur_swap", (req, res) => {
+        packedtrx_ur_swap({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'quantity'          : (function (){
+                var ar = [];
+                for ( const x of (url.parse(req.url,true).query.quantity || 'ENRG-NNT-1.00000001,ENRG-OMT-1.00000001,ENRG-XPT-1.00000001').match(/\w{3,4}-\w{3,4}-\d{1,8}.\d{4,8}/gi) ) {
+                    ar.push( x ); 
+                }; 
+                return ar
+            })(), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    
+    // packedtrx_ur_swap_private_key_auth API
+    app.get("/packedtrx_ur_swap_private_key_auth", (req, res) => {
+        packedtrx_ur_swap_private_key_auth({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'quantity'          : (function (){
+                var ar = [];     
+                for ( const x of (url.parse(req.url,true).query.quantity || 'ENRG-NNT-1.00000001,ENRG-OMT-1.00000001,ENRG-XPT-1.00000001').match(/\w{3,4}-\w{3,4}-\d{1,8}.\d{4,8}/gi) ) {
+                    ar.push( x ); 
+                }; 
+                return ar
+            })(), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/packedtrx_ur_swap_private_key_auth", (req, res) => {
+        packedtrx_ur_swap_private_key_auth({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), // 90 sec
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || 'xxxxx.wam'), 
+            'quantity'          : (function (){
+                var ar = [];                 
+                for ( const x of (url.parse(req.url,true).query.quantity || 'ENRG-NNT-1.00000001,ENRG-OMT-1.00000001,ENRG-XPT-1.00000001').match(/\w{3,4}-\w{3,4}-\d{1,8}.\d{4,8}/gi) ) {
+                    ar.push( x ); 
+                }; 
+                return ar
+            })(), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
 
 
 
 
+
+    
     
   
     // packedtrx setland API
@@ -18202,7 +18888,7 @@ async function packedtrx_vl_depo(DATA){
             "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
             "actions"           : (function (data){
                 data['val'] = []; 
-                for (const x of DATA['quantity']) {
+                for (const x of data['quantity']) {
                     data['val'].push({
                         "account"           : 'varialandstk',
                         "name"              : "transfer",
@@ -18211,7 +18897,7 @@ async function packedtrx_vl_depo(DATA){
                             "permission"        : "active"
                         }],
                         'data'              : {
-                            'from'              : DATA['actor'], 
+                            'from'              : data['actor'], 
                             'to'                : 'varialandsio', 
                             'quantity'          : x, 
                             'memo'              : ".transfer_token."
@@ -18264,7 +18950,7 @@ async function packedtrx_vl_depo_freeBandwidth(DATA){
                 "data"              : null
             }].concat((function (data){
                 data['val'] = []; 
-                for (const x of DATA['quantity']) {
+                for (const x of data['quantity']) {
                     data['val'].push({
                         "account"           : 'varialandstk',
                         "name"              : "transfer",
@@ -18273,7 +18959,7 @@ async function packedtrx_vl_depo_freeBandwidth(DATA){
                             "permission"        : "active"
                         }],
                         'data'              : {
-                            'from'              : DATA['actor'], 
+                            'from'              : data['actor'], 
                             'to'                : 'varialandsio', 
                             'quantity'          : x, 
                             'memo'              : ".transfer_token."
@@ -18311,7 +18997,7 @@ async function packedtrx_vl_depo_private_key_auth(DATA){
             "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
             "actions"           : (function (data){
                 data['val'] = []; 
-                for (const x of DATA['quantity']) {
+                for (const x of data['quantity']) {
                     data['val'].push({
                         "account"           : 'varialandstk',
                         "name"              : "transfer",
@@ -18323,7 +19009,7 @@ async function packedtrx_vl_depo_private_key_auth(DATA){
                             "permission"        : "active"
                         }],
                         'data'              : {
-                            'from'              : DATA['actor'], 
+                            'from'              : data['actor'], 
                             'to'                : 'varialandsio', 
                             'quantity'          : x, 
                             'memo'              : ".transfer_token."
@@ -18373,7 +19059,7 @@ async function packedtrx_vl_with(DATA){
             "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
             "actions"           : (function (data){
                 data['val'] = []; 
-                for (const x of DATA['quantity']) {
+                for (const x of data['quantity']) {
                     data['val'].push({
                         "account"           : 'varialandsio',
                         "name"              : "withdraw",
@@ -18382,7 +19068,7 @@ async function packedtrx_vl_with(DATA){
                             "permission"        : "active"
                         }],
                         'data'              : {
-                            'miner'             : DATA['actor'], 
+                            'miner'             : data['actor'], 
                             'quantity'          : x
                         },
                     })
@@ -18433,7 +19119,7 @@ async function packedtrx_vl_with_freeBandwidth(DATA){
                 "data"              : null
             }].concat((function (data){
                 data['val'] = []; 
-                for (const x of DATA['quantity']) {
+                for (const x of data['quantity']) {
                     data['val'].push({
                         "account"           : 'varialandsio',
                         "name"              : "withdraw",
@@ -18442,7 +19128,7 @@ async function packedtrx_vl_with_freeBandwidth(DATA){
                             "permission"        : "active"
                         }],
                         'data'              : {
-                            'miner'             : DATA['actor'], 
+                            'miner'             : data['actor'], 
                             'quantity'          : x
                         },
                     })
@@ -18478,19 +19164,19 @@ async function packedtrx_vl_with_private_key_auth(DATA){
             "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
             "actions"           : (function (data){
                 data['val'] = []; 
-                for (const x of DATA['quantity']) {
+                for (const x of data['quantity']) {
                     data['val'].push({
                         "account"           : 'varialandsio',
                         "name"              : "withdraw",
                         "authorization"     : [{
-                            "actor"             : DATA['payer'],
+                            "actor"             : data['payer'],
                             "permission"        : "active"
                         }, {
                             "actor"             : data['actor'],
                             "permission"        : "active"
                         }],
                         'data'              : {
-                            'miner'             : DATA['actor'], 
+                            'miner'             : data['actor'], 
                             'quantity'          : x
                         },
                     })
@@ -18539,7 +19225,7 @@ async function packedtrx_df_depo(DATA){
             "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
             "actions"           : (function (data){
                 data['val'] = []; 
-                for (const x of DATA['quantity']) {
+                for (const x of data['quantity']) {
                     data['val'].push({
                         "account"           : 'deserttokens',
                         "name"              : "transfer",
@@ -18548,7 +19234,7 @@ async function packedtrx_df_depo(DATA){
                             "permission"        : "active"
                         }],
                         'data'              : {
-                            'from'              : DATA['actor'], 
+                            'from'              : data['actor'], 
                             'to'                : 'desertfarmgm', 
                             'quantity'          : x, 
                             'memo'              : ""
@@ -18601,7 +19287,7 @@ async function packedtrx_df_depo_freeBandwidth(DATA){
                 "data"              : null
             }].concat((function (data){
                 data['val'] = []; 
-                for (const x of DATA['quantity']) {
+                for (const x of data['quantity']) {
                     data['val'].push({
                         "account"           : 'deserttokens',
                         "name"              : "transfer",
@@ -18610,7 +19296,7 @@ async function packedtrx_df_depo_freeBandwidth(DATA){
                             "permission"        : "active"
                         }],
                         'data'              : {
-                            'from'              : DATA['actor'], 
+                            'from'              : data['actor'], 
                             'to'                : 'desertfarmgm', 
                             'quantity'          : x, 
                             'memo'              : ""
@@ -18648,7 +19334,7 @@ async function packedtrx_df_depo_private_key_auth(DATA){
             "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
             "actions"           : (function (data){
                 data['val'] = []; 
-                for (const x of DATA['quantity']) {
+                for (const x of data['quantity']) {
                     data['val'].push({
                         "account"           : 'deserttokens',
                         "name"              : "transfer",
@@ -18710,7 +19396,7 @@ async function packedtrx_df_with(DATA){
             "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
             "actions"           : (function (data){
                 data['val'] = []; 
-                for (const x of DATA['quantity']) {
+                for (const x of data['quantity']) {
                     data['val'].push({
                         "account"           : 'desertfarmgm',
                         "name"              : "withdraw",
@@ -18770,7 +19456,7 @@ async function packedtrx_df_with_freeBandwidth(DATA){
                 "data"              : null
             }].concat((function (data){
                 data['val'] = []; 
-                for (const x of DATA['quantity']) {
+                for (const x of data['quantity']) {
                     data['val'].push({
                         "account"           : 'desertfarmgm',
                         "name"              : "withdraw",
@@ -18815,7 +19501,7 @@ async function packedtrx_df_with_private_key_auth(DATA){
             "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
             "actions": (function (data){
                 data['val'] = []; 
-                for (const x of DATA['quantity']) {
+                for (const x of data['quantity']) {
                     data['val'].push({
                         "account"           : 'desertfarmgm',
                         "name"              : "withdraw",
@@ -18860,6 +19546,523 @@ async function packedtrx_df_with_private_key_auth(DATA){
     }; 
 
 }; 
+
+async function packedtrx_fe_depo(DATA){
+
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('fishingcoins');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('fishingcoins', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions"           : (function (data){
+                data['val'] = []; 
+                for (const x of data['quantity']) {
+                    data['val'].push({
+                        "account"           : 'fiveelementk',
+                        "name"              : "transfer",
+                        "authorization"     : [{
+                            "actor"             : data['actor'],
+                            "permission"        : "active"
+                        }],
+                        'data'              : {
+                            'from'              : data['actor'], 
+                            'to'                : 'fiveelements', 
+                            'amount'            : parseInt(x.split(' ')[0]), 
+                            'symbol'            : x.split(' ')[1], 
+                            'quantity'          : x, 
+                            'memo'              : ""
+                        },
+                    })
+                }; return data['val']; 
+            })(DATA)
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions); 
+        const packed_trx    = arrayToHex(serial); 
+      
+        if( DATA.hasOwnProperty('privateKey') && DATA['privateKey'] != '' ){
+            const privaKeysAuth = await packedtrx_df_depo_private_key_auth(DATA); 
+            return new Promise(function(resolve, reject) {
+                resolve({packed_trx, serializedTransaction : serial, transactions, transaction, privaKeysAuth}); 
+            }); 
+        }else{
+            //    const freeBandwidth = await packedtrx_fe_depo_free_trx(DATA); 
+            return new Promise(function(resolve, reject) {
+                resolve({packed_trx, serializedTransaction : serial, transactions, transaction}); 
+            }); 
+        }; 
+        
+    } catch (err) {
+        console.log('err is', err);
+    }
+}; 
+async function packedtrx_fe_depo_freeBandwidth(DATA){
+
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('fishingcoins');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('fishingcoins', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions"           : [{
+                'account'           : 'boost.wax',
+                'name'              : 'noop', 
+                "authorization"     : [{
+                    "actor"             : 'boost.wax',
+                    "permission"        : "paybw"
+                }],
+                "data"              : null
+            }].concat((function (data){
+                data['val'] = []; 
+                for (const x of data['quantity']) {
+                    data['val'].push({
+                        "account"           : 'fiveelementk',
+                        "name"              : "transfer",
+                        "authorization"     : [{
+                            "actor"             : data['actor'],
+                            "permission"        : "active"
+                        }],
+                        'data'              : {
+                            'from'              : data['actor'], 
+                            'to'                : 'fiveelements', 
+                            'amount'            : parseInt(x.split(' ')[0]), 
+                            'symbol'            : x.split(' ')[1], 
+                            'quantity'          : x, 
+                            'memo'              : ""
+                        },
+                    })
+                }; return data['val']; 
+            })(DATA))
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions); 
+        const packed_trx    = arrayToHex(serial); 
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }
+}; 
+async function packedtrx_fe_depo_private_key_auth(DATA){
+    
+    const _privateKeys        = [ DATA['privateKey'] ]; 
+    const _signatureProvider  = new JsSignatureProvider(_privateKeys); 
+    
+    console.log(DATA)
+    
+    try {
+        const chainId       = DATA['chainId'];
+        //    const abiObj        = await get_rawabi_and_abi('diggerstoken');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //    api.cachedAbis.set('diggerstoken', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions"           : (function (data){
+                data['val'] = []; 
+                for (const x of data['quantity']) {
+                    data['val'].push({
+                        "account"           : 'fiveelementk',
+                        "name"              : "transfer",
+                        "authorization"     : [{
+                            "actor"             : data['payer'],
+                            "permission"        : "active"
+                        }, {
+                            "actor"             : data['actor'],
+                            "permission"        : "active"
+                        }],
+                        'data'              : {
+                            'from'              : data['actor'], 
+                            'to'                : 'fiveelements', 
+                            'amount'            : parseInt(x.split(' ')[0]), 
+                            'symbol'            : x.split(' ')[1], 
+                            'quantity'          : x, 
+                            'memo'              : ""
+                        },
+                    })
+                }; return data['val']; 
+            })(DATA)
+        }; 
+    
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions);
+        const packed_trx    = arrayToHex(serial); 
+        
+        const result        = await api.transact(transactions, { broadcast: false, sign: false });
+        const abis          = await api.getTransactionAbis(transaction);
+        
+        const requiredKeys  = _privateKeys.map((privateKey) => PrivateKey.fromString(privateKey).getPublicKey().toString());
+        
+        result.signatures = await _signatureProvider.sign({
+            chainId,
+            requiredKeys,
+            serializedTransaction: result.serializedTransaction,
+            serializedContextFreeData: result.serializedContextFreeData,
+            abis
+        });
+        
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions, signatures : result.signatures}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }; 
+
+}; 
+async function packedtrx_fe_with(DATA){
+
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('fiveelements');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('fiveelements', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions"           : (function (data){
+                data['val'] = []; 
+                for (const x of data['quantity']) {
+                    data['val'].push({
+                        "account"           : 'fiveelements',
+                        "name"              : "withdraw",
+                        "authorization"     : [{
+                            "actor"             : data['actor'],
+                            "permission"        : "active"
+                        }],
+                        'data'              : {
+                            "miner"             : data['actor'],
+                            "quantity"          : x
+                        },
+                    })
+                }; return data['val']; 
+            })(DATA)
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions); 
+        const packed_trx    = arrayToHex(serial); 
+      
+        if( DATA.hasOwnProperty('privateKey') && DATA['privateKey'] != '' ){
+            const privaKeysAuth = await packedtrx_fe_with_private_key_auth(DATA); 
+            return new Promise(function(resolve, reject) {
+                resolve({packed_trx, serializedTransaction : serial, transactions, transaction, privaKeysAuth}); 
+            }); 
+        }else{
+            //    const freeBandwidth = await packedtrx_fe_with_freeBandwidth(DATA); 
+            return new Promise(function(resolve, reject) {
+                resolve({packed_trx, serializedTransaction : serial, transactions, transaction}); 
+            }); 
+        }; 
+      
+    } catch (err) {
+        console.log('err is', err);
+    }
+}; 
+async function packedtrx_fe_with_freeBandwidth(DATA){
+
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('fiveelements');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('fiveelements', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions": [{
+                'account'           : 'boost.wax',
+                'name'              : 'noop', 
+                "authorization"     : [{
+                    "actor"             : 'boost.wax',
+                    "permission"        : "paybw"
+                }],
+                "data"              : null
+            }].concat((function (data){
+                data['val'] = []; 
+                for (const x of data['quantity']) {
+                    data['val'].push({
+                        "account"           : 'fiveelements',
+                        "name"              : "withdraw",
+                        "authorization"     : [{
+                            "actor"             : data['actor'],
+                            "permission"        : "active"
+                        }],
+                        'data'              : {
+                            "miner"             : data['actor'],
+                            "quantity"          : x
+                        },
+                    })
+                }; return data['val']; 
+            })(DATA))
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions); 
+        const packed_trx    = arrayToHex(serial); 
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }
+}; 
+async function packedtrx_fe_with_private_key_auth(DATA){
+    
+    const _privateKeys        = [ DATA['privateKey'] ]; 
+    const _signatureProvider  = new JsSignatureProvider(_privateKeys); 
+    
+    console.log(DATA)
+    
+    try {
+        const chainId       = DATA['chainId'];
+        //    const abiObj        = await get_rawabi_and_abi('fiveelements');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //    api.cachedAbis.set('fiveelements', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions": (function (data){
+                data['val'] = []; 
+                for (const x of data['quantity']) {
+                    data['val'].push({
+                        "account"           : 'fiveelements',
+                        "name"              : "withdraw",
+                        "authorization"     : [{
+                            "actor"             : data['payer'],
+                            "permission"        : "active"
+                        }, {
+                            "actor"             : data['actor'],
+                            "permission"        : "active"
+                        }],
+                        'data'              : {
+                            "miner"             : data['actor'],
+                            "quantity"          : x
+                        },
+                    })
+                }; return data['val']; 
+            })(DATA)
+        }; 
+    
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions);
+        const packed_trx    = arrayToHex(serial); 
+        
+        const result        = await api.transact(transactions, { broadcast: false, sign: false });
+        const abis          = await api.getTransactionAbis(transaction);
+        
+        const requiredKeys  = _privateKeys.map((privateKey) => PrivateKey.fromString(privateKey).getPublicKey().toString());
+        
+        result.signatures = await _signatureProvider.sign({
+            chainId,
+            requiredKeys,
+            serializedTransaction: result.serializedTransaction,
+            serializedContextFreeData: result.serializedContextFreeData,
+            abis
+        });
+        
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions, signatures : result.signatures}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }; 
+
+}; 
+
+async function packedtrx_ur_swap(DATA){
+
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('fishingcoins');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('fishingcoins', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions"           : (function (data){
+                data['val'] = []; 
+                for (const x of data['quantity']) {
+                    data['val'].push({
+                        "account"           : 'underwtrader',
+                        "name"              : "swap",
+                        "authorization"     : [{
+                            "actor"             : data['actor'],
+                            "permission"        : "active"
+                        }],
+                        'data'              : {
+                            'user'              : data['actor'], 
+                            'first_symbol'      : `8,${x.split('-')[0]}`, 
+                            'second_symbol'     : `8,${x.split('-')[1]}`, 
+                            'trade'             : `${x.split('-')[2]} ${x.split('-')[0]}`
+                        },
+                    })
+                }; return data['val']; 
+            })(DATA)
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions); 
+        const packed_trx    = arrayToHex(serial); 
+      
+        if( DATA.hasOwnProperty('privateKey') && DATA['privateKey'] != '' ){
+            const privaKeysAuth = await packedtrx_df_depo_private_key_auth(DATA); 
+            return new Promise(function(resolve, reject) {
+                resolve({packed_trx, serializedTransaction : serial, transactions, transaction, privaKeysAuth}); 
+            }); 
+        }else{
+            //    const freeBandwidth = await packedtrx_fe_depo_free_trx(DATA); 
+            return new Promise(function(resolve, reject) {
+                resolve({packed_trx, serializedTransaction : serial, transactions, transaction}); 
+            }); 
+        }; 
+        
+    } catch (err) {
+        console.log('err is', err);
+    }
+}; 
+async function packedtrx_fe_depo_freeBandwidth(DATA){
+
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        //  const abiObj        = await get_rawabi_and_abi('fishingcoins');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //  api.cachedAbis.set('fishingcoins', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions"           : [{
+                'account'           : 'boost.wax',
+                'name'              : 'noop', 
+                "authorization"     : [{
+                    "actor"             : 'boost.wax',
+                    "permission"        : "paybw"
+                }],
+                "data"              : null
+            }].concat((function (data){
+                data['val'] = []; 
+                for (const x of data['quantity']) {
+                    data['val'].push({
+                        "account"           : 'underwtrader',
+                        "name"              : "swap",
+                        "authorization"     : [{
+                            "actor"             : data['actor'],
+                            "permission"        : "active"
+                        }],
+                        'data'              : {
+                            'user'              : data['actor'], 
+                            'first_symbol'      : `8,${x.split('-')[0]}`, 
+                            'second_symbol'     : `8,${x.split('-')[1]}`, 
+                            'trade'             : `${x.split('-')[2]} ${x.split('-')[0]}`
+                        },
+                    })
+                }; return data['val']; 
+            })(DATA))
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions); 
+        const packed_trx    = arrayToHex(serial); 
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }
+}; 
+async function packedtrx_fe_depo_private_key_auth(DATA){
+    
+    const _privateKeys        = [ DATA['privateKey'] ]; 
+    const _signatureProvider  = new JsSignatureProvider(_privateKeys); 
+    
+    console.log(DATA)
+    
+    try {
+        const chainId       = DATA['chainId'];
+        //    const abiObj        = await get_rawabi_and_abi('diggerstoken');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //    api.cachedAbis.set('diggerstoken', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions"           : (function (data){
+                data['val'] = []; 
+                for (const x of data['quantity']) {
+                    data['val'].push({
+                        "account"           : 'underwtrader',
+                        "name"              : "swap",
+                        "authorization"     : [{
+                            "actor"             : data['payer'],
+                            "permission"        : "active"
+                        }, {
+                            "actor"             : data['actor'],
+                            "permission"        : "active"
+                        }],
+                        'data'              : {
+                            'user'              : data['actor'], 
+                            'first_symbol'      : `8,${x.split('-')[0]}`, 
+                            'second_symbol'     : `8,${x.split('-')[1]}`, 
+                            'trade'             : `${x.split('-')[2]} ${x.split('-')[0]}`
+                        },
+                    })
+                }; return data['val']; 
+            })(DATA)
+        }; 
+    
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions);
+        const packed_trx    = arrayToHex(serial); 
+        
+        const result        = await api.transact(transactions, { broadcast: false, sign: false });
+        const abis          = await api.getTransactionAbis(transaction);
+        
+        const requiredKeys  = _privateKeys.map((privateKey) => PrivateKey.fromString(privateKey).getPublicKey().toString());
+        
+        result.signatures = await _signatureProvider.sign({
+            chainId,
+            requiredKeys,
+            serializedTransaction: result.serializedTransaction,
+            serializedContextFreeData: result.serializedContextFreeData,
+            abis
+        });
+        
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions, signatures : result.signatures}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }; 
+
+}; 
+
+
 
 
 async function packedtrx_setland(DATA){
