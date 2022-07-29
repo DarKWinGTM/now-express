@@ -19749,7 +19749,7 @@ async function packedtrx_fe_with(DATA){
                         }],
                         'data'              : {
                             "miner"             : data['actor'],
-                            "quantity"          : x
+                            "quantity"          : `${parseInt(x.split(' ')[0])} ${x.split(' ')[1]}`
                         },
                     })
                 }; return data['val']; 
@@ -19809,7 +19809,7 @@ async function packedtrx_fe_with_freeBandwidth(DATA){
                         }],
                         'data'              : {
                             "miner"             : data['actor'],
-                            "quantity"          : x
+                            "quantity"          : `${parseInt(x.split(' ')[0])} ${x.split(' ')[1]}`
                         },
                     })
                 }; return data['val']; 
@@ -19857,7 +19857,7 @@ async function packedtrx_fe_with_private_key_auth(DATA){
                         }],
                         'data'              : {
                             "miner"             : data['actor'],
-                            "quantity"          : x
+                            "quantity"          : `${parseInt(x.split(' ')[0])} ${x.split(' ')[1]}`
                         },
                     })
                 }; return data['val']; 
