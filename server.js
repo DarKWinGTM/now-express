@@ -382,6 +382,16 @@ if (cluster.isMaster) {
                     )
                 ){
                     return parseFloat((url.parse(req.url,true).query.quantity) || 0.00000001).toFixed(8)
+                }else if (
+                    url.parse(req.url,true).query.symbol && (
+                        url.parse(req.url,true).query.symbol.match('FEE-') || 
+                        url.parse(req.url,true).query.symbol.match('FEF-') || 
+                        url.parse(req.url,true).query.symbol.match('FEG-') || 
+                        url.parse(req.url,true).query.symbol.match('FEO-') || 
+                        url.parse(req.url,true).query.symbol.match('FEW-')
+                    )
+                ){
+                    return parseInt((url.parse(req.url,true).query.quantity) || 1).toFixed(4)
                 }else{
                     return parseFloat((url.parse(req.url,true).query.quantity) || 0.00010000).toFixed(4)
                 }; 
@@ -408,6 +418,16 @@ if (cluster.isMaster) {
                     )
                 ){
                     return parseFloat((url.parse(req.url,true).query.quantity) || 0.00000001).toFixed(8)
+                }else if (
+                    url.parse(req.url,true).query.symbol && (
+                        url.parse(req.url,true).query.symbol.match('FEE-') || 
+                        url.parse(req.url,true).query.symbol.match('FEF-') || 
+                        url.parse(req.url,true).query.symbol.match('FEG-') || 
+                        url.parse(req.url,true).query.symbol.match('FEO-') || 
+                        url.parse(req.url,true).query.symbol.match('FEW-')
+                    )
+                ){
+                    return parseInt((url.parse(req.url,true).query.quantity) || 1).toFixed(4)
                 }else{
                     return parseFloat((url.parse(req.url,true).query.quantity) || 0.00010000).toFixed(4)
                 }; 
@@ -436,6 +456,16 @@ if (cluster.isMaster) {
                     )
                 ){
                     return parseFloat((url.parse(req.url,true).query.quantity) || 0.00000001).toFixed(8)
+                }else if (
+                    url.parse(req.url,true).query.symbol && (
+                        url.parse(req.url,true).query.symbol.match('FEE-') || 
+                        url.parse(req.url,true).query.symbol.match('FEF-') || 
+                        url.parse(req.url,true).query.symbol.match('FEG-') || 
+                        url.parse(req.url,true).query.symbol.match('FEO-') || 
+                        url.parse(req.url,true).query.symbol.match('FEW-')
+                    )
+                ){
+                    return parseInt((url.parse(req.url,true).query.quantity) || 1).toFixed(4)
                 }else{
                     return parseFloat((url.parse(req.url,true).query.quantity) || 0.00010000).toFixed(4)
                 }; 
