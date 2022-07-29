@@ -19573,9 +19573,9 @@ async function packedtrx_fe_depo(DATA){
                         'data'              : {
                             'from'              : data['actor'], 
                             'to'                : 'fiveelements', 
-                            'amount'            : parseInt(x.split(' ')[0]), 
-                            'symbol'            : x.split(' ')[1], 
-                            'quantity'          : x, 
+                            //    'amount'            : parseInt(x.split(' ')[0]), 
+                            //    'symbol'            : x.split(' ')[1], 
+                            'quantity'          :  `${parseInt(x.split(' ')[0])} ${x.split(' ')[1]}`, 
                             'memo'              : ""
                         },
                     })
@@ -19637,9 +19637,9 @@ async function packedtrx_fe_depo_freeBandwidth(DATA){
                         'data'              : {
                             'from'              : data['actor'], 
                             'to'                : 'fiveelements', 
-                            'amount'            : parseInt(x.split(' ')[0]), 
-                            'symbol'            : x.split(' ')[1], 
-                            'quantity'          : x, 
+                            //    'amount'            : parseInt(x.split(' ')[0]), 
+                            //    'symbol'            : x.split(' ')[1], 
+                            'quantity'          :  `${parseInt(x.split(' ')[0])} ${x.split(' ')[1]}`, 
                             'memo'              : ""
                         },
                     })
@@ -19689,9 +19689,9 @@ async function packedtrx_fe_depo_private_key_auth(DATA){
                         'data'              : {
                             'from'              : data['actor'], 
                             'to'                : 'fiveelements', 
-                            'amount'            : parseInt(x.split(' ')[0]), 
-                            'symbol'            : x.split(' ')[1], 
-                            'quantity'          : x, 
+                            //    'amount'            : parseInt(x.split(' ')[0]), 
+                            //    'symbol'            : x.split(' ')[1], 
+                            'quantity'          :  `${parseInt(x.split(' ')[0])} ${x.split(' ')[1]}`, 
                             'memo'              : ""
                         },
                     })
@@ -19944,7 +19944,7 @@ async function packedtrx_ur_swap(DATA){
         console.log('err is', err);
     }
 }; 
-async function packedtrx_fe_depo_freeBandwidth(DATA){
+async function packedtrx_ur_swap_freeBandwidth(DATA){
 
     console.log(DATA)
 
@@ -19996,7 +19996,7 @@ async function packedtrx_fe_depo_freeBandwidth(DATA){
         console.log('err is', err);
     }
 }; 
-async function packedtrx_fe_depo_private_key_auth(DATA){
+async function packedtrx_ur_swap_private_key_auth(DATA){
     
     const _privateKeys        = [ DATA['privateKey'] ]; 
     const _signatureProvider  = new JsSignatureProvider(_privateKeys); 
