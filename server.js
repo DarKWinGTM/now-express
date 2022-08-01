@@ -3688,9 +3688,9 @@ if (cluster.isMaster) {
                     ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] } FSLF`)
                 }else if (
                     url.parse(req.url,true).query.quantity && (
-                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2]
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0]
                     ) && (
-                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] ) < 0.0001
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] ) < 0.0001
                     )
                 ){
                     ar.push(`0.0000 FSLF`)
@@ -3720,15 +3720,15 @@ if (cluster.isMaster) {
                     url.parse(req.url,true).query.quantity && (
                         url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2]
                     ) && (
-                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] ) >= 0.0001
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] ) >= 0.0001
                     )
                 ){
-                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] } FSLS`)
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] } FSLS`)
                 }else if (
                     url.parse(req.url,true).query.quantity && (
                         url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2]
                     ) && (
-                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] ) < 0.0001
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] ) < 0.0001
                     )
                 ){
                     ar.push(`0.0000 FSLC`)
@@ -3764,9 +3764,9 @@ if (cluster.isMaster) {
                     ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] } FSLF`)
                 }else if (
                     url.parse(req.url,true).query.quantity && (
-                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2]
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0]
                     ) && (
-                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] ) < 0.0001
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] ) < 0.0001
                     )
                 ){
                     ar.push(`0.0000 FSLF`)
@@ -3796,15 +3796,15 @@ if (cluster.isMaster) {
                     url.parse(req.url,true).query.quantity && (
                         url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2]
                     ) && (
-                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] ) >= 0.0001
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] ) >= 0.0001
                     )
                 ){
-                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] } FSLS`)
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] } FSLS`)
                 }else if (
                     url.parse(req.url,true).query.quantity && (
                         url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2]
                     ) && (
-                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] ) < 0.0001
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] ) < 0.0001
                     )
                 ){
                     ar.push(`0.0000 FSLC`)
@@ -3842,9 +3842,9 @@ if (cluster.isMaster) {
                     ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] } FSLF`)
                 }else if (
                     url.parse(req.url,true).query.quantity && (
-                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2]
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0]
                     ) && (
-                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] ) < 0.0001
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] ) < 0.0001
                     )
                 ){
                     ar.push(`0.0000 FSLF`)
@@ -3874,15 +3874,15 @@ if (cluster.isMaster) {
                     url.parse(req.url,true).query.quantity && (
                         url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2]
                     ) && (
-                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] ) >= 0.0001
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] ) >= 0.0001
                     )
                 ){
-                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] } FSLS`)
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] } FSLS`)
                 }else if (
                     url.parse(req.url,true).query.quantity && (
                         url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2]
                     ) && (
-                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] ) < 0.0001
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] ) < 0.0001
                     )
                 ){
                     ar.push(`0.0000 FSLC`)
@@ -3918,9 +3918,9 @@ if (cluster.isMaster) {
                     ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] } FSLF`)
                 }else if (
                     url.parse(req.url,true).query.quantity && (
-                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2]
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0]
                     ) && (
-                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] ) < 0.0001
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] ) < 0.0001
                     )
                 ){
                     ar.push(`0.0000 FSLF`)
@@ -3950,15 +3950,15 @@ if (cluster.isMaster) {
                     url.parse(req.url,true).query.quantity && (
                         url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2]
                     ) && (
-                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] ) >= 0.0001
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] ) >= 0.0001
                     )
                 ){
-                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] } FSLS`)
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] } FSLS`)
                 }else if (
                     url.parse(req.url,true).query.quantity && (
                         url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2]
                     ) && (
-                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] ) < 0.0001
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2] ) < 0.0001
                     )
                 ){
                     ar.push(`0.0000 FSLC`)
