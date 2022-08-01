@@ -3686,6 +3686,14 @@ if (cluster.isMaster) {
                     )
                 ){
                     ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] } FSLF`)
+                }else if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] ) < 0.0001
+                    )
+                ){
+                    ar.push(`0.0000 FSLF`)
                 }else if ( !url.parse(req.url,true).query.quantity ){
                     ar.push(`1.0000 FSLF`)
                 };
@@ -3697,8 +3705,35 @@ if (cluster.isMaster) {
                     )
                 ){
                     ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] } FSLS`)
+                }else if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] ) < 0.0001
+                    )
+                ){
+                    ar.push(`0.0000 FSLS`)
                 }else if ( !url.parse(req.url,true).query.quantity ){
                     ar.push(`1.0000 FSLS`)
+                }; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] } FSLS`)
+                }else if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] ) < 0.0001
+                    )
+                ){
+                    ar.push(`0.0000 FSLC`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 FSLC`)
                 }; 
                 return ar
             })(), 
@@ -3727,6 +3762,14 @@ if (cluster.isMaster) {
                     )
                 ){
                     ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] } FSLF`)
+                }else if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] ) < 0.0001
+                    )
+                ){
+                    ar.push(`0.0000 FSLF`)
                 }else if ( !url.parse(req.url,true).query.quantity ){
                     ar.push(`1.0000 FSLF`)
                 };
@@ -3738,8 +3781,35 @@ if (cluster.isMaster) {
                     )
                 ){
                     ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] } FSLS`)
+                }else if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] ) < 0.0001
+                    )
+                ){
+                    ar.push(`0.0000 FSLS`)
                 }else if ( !url.parse(req.url,true).query.quantity ){
                     ar.push(`1.0000 FSLS`)
+                }; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] } FSLS`)
+                }else if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] ) < 0.0001
+                    )
+                ){
+                    ar.push(`0.0000 FSLC`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 FSLC`)
                 }; 
                 return ar
             })(), 
@@ -3770,6 +3840,14 @@ if (cluster.isMaster) {
                     )
                 ){
                     ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] } FSLF`)
+                }else if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] ) < 0.0001
+                    )
+                ){
+                    ar.push(`0.0000 FSLF`)
                 }else if ( !url.parse(req.url,true).query.quantity ){
                     ar.push(`1.0000 FSLF`)
                 };
@@ -3781,8 +3859,35 @@ if (cluster.isMaster) {
                     )
                 ){
                     ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] } FSLS`)
+                }else if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] ) < 0.0001
+                    )
+                ){
+                    ar.push(`0.0000 FSLS`)
                 }else if ( !url.parse(req.url,true).query.quantity ){
                     ar.push(`1.0000 FSLS`)
+                }; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] } FSLS`)
+                }else if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] ) < 0.0001
+                    )
+                ){
+                    ar.push(`0.0000 FSLC`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 FSLC`)
                 }; 
                 return ar
             })(), 
@@ -3811,6 +3916,14 @@ if (cluster.isMaster) {
                     )
                 ){
                     ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[0] } FSLF`)
+                }else if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] ) < 0.0001
+                    )
+                ){
+                    ar.push(`0.0000 FSLF`)
                 }else if ( !url.parse(req.url,true).query.quantity ){
                     ar.push(`1.0000 FSLF`)
                 };
@@ -3821,9 +3934,36 @@ if (cluster.isMaster) {
                         parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] ) >= 0.0001
                     )
                 ){
-                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] } FSLF`)
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] } FSLS`)
+                }else if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] ) < 0.0001
+                    )
+                ){
+                    ar.push(`0.0000 FSLS`)
                 }else if ( !url.parse(req.url,true).query.quantity ){
-                    ar.push(`1.0000 FSLF`)
+                    ar.push(`1.0000 FSLS`)
+                }; 
+                if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] ) >= 0.0001
+                    )
+                ){
+                    ar.push(`${ url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] } FSLS`)
+                }else if (
+                    url.parse(req.url,true).query.quantity && (
+                        url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[2]
+                    ) && (
+                        parseFloat( url.parse(req.url,true).query.quantity.match(/\d{1,8}.\d{4,4}/gi)[1] ) < 0.0001
+                    )
+                ){
+                    ar.push(`0.0000 FSLC`)
+                }else if ( !url.parse(req.url,true).query.quantity ){
+                    ar.push(`1.0000 FSLC`)
                 }; 
                 return ar
             })(), 
@@ -18953,7 +19093,7 @@ async function packedtrx_fl_with_private_key_auth(DATA){
         });
         
         return new Promise(function(resolve, reject) {
-            resolve({packed_trx, serializedTransaction : serial, transactions, signatures : result.signatures}); 
+            resolve({packed_trx, serializedTransaction : serial, transactions, transaction, signatures : result.signatures}); 
         });
     } catch (err) {
         console.log('err is', err);
