@@ -7521,6 +7521,38 @@ if (cluster.isMaster) {
         }); 
     });
 
+    // fl_packedtrx_mine API
+    app.get("/fl_packedtrx_badg", (req, res) => {
+        fl_packedtrx_badg({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), 
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || '435yo.wam'), 
+            'asset_id'          : (url.parse(req.url,true).query.asset_id                       || '1099784856472').match(/\d{13,13}/gi), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+    app.post("/fl_packedtrx_badg", (req, res) => {
+        fl_packedtrx_badg({
+            'chainId'           : (url.parse(req.url,true).query.chainId                        || '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4'), 
+            'expiration'        : (url.parse(req.url,true).query.expiration                     || '2021-06-29T03:14:42.000'), 
+            'block_num_or_id'   : (url.parse(req.url,true).query.block_num_or_id                || '126988588-1677423057'), 
+            'actor'             : (url.parse(req.url,true).query.actor                          || '435yo.wam'), 
+            'asset_id'          : (url.parse(req.url,true).query.asset_id                       || '1099784856472').match(/\d{13,13}/gi), 
+            'privateKey'        : (url.parse(req.url,true).query.privateKey                     || ''), 
+            'payer'             : (url.parse(req.url,true).query.payer                          || '')
+        }).then(result => {
+            res.setHeader('Content-Type', 'application/json');
+            res.write(JSON.stringify(result))
+            res.end();
+        }); 
+    });
+
     // fwar_packedtrx_mine API
     app.get("/fwar_packedtrx_mine", (req, res) => {
         fwar_packedtrx_mine({
@@ -12871,6 +12903,178 @@ async function fl_packedtrx_pick_private_key_auth(DATA){
                     data['val'].push({
                         "account"           : "fishinglgame", 
                         "name"              : "claimmine", 
+                        "authorization"     : [{
+                            "actor"             : data['payer'],
+                            "permission"        : "active"
+                        }, {
+                            "actor"             : data['actor'],
+                            "permission"        : "active"
+                        }],
+                        'data'              : {
+                            "owner"              : data['actor'], 
+                            "asset_id"           : x
+                        },
+                    }); 
+                }; return data['val']; 
+            })(DATA)
+        }; 
+    
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions);
+        const packed_trx    = arrayToHex(serial); 
+        
+        const result        = await api.transact(transactions, { broadcast: false, sign: false });
+        const abis          = await api.getTransactionAbis(transaction);
+        
+        const requiredKeys  = _privateKeys.map((privateKey) => PrivateKey.fromString(privateKey).getPublicKey().toString());
+        
+        result.signatures = await _signatureProvider.sign({
+            chainId,
+            requiredKeys,
+            serializedTransaction: result.serializedTransaction,
+            serializedContextFreeData: result.serializedContextFreeData,
+            abis
+        });
+        
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions, signatures : result.signatures}); 
+        });
+    } catch (err) {
+        console.log('err is', err);
+    }; 
+}; 
+
+async function fl_packedtrx_badg(DATA){
+
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        //    const abiObj        = await get_rawabi_and_abi('fishinglgame');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //    api.cachedAbis.set('fishinglgame', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions"           : (function (data){
+                data['val'] = []; 
+                for (const x of data['asset_id']) {
+                    data['val'].push({
+                        "account"           : "fishinglgame", 
+                        "name"              : "usebadge", 
+                        "authorization"     : [{
+                            "actor"             : data['actor'],
+                            "permission"        : "active"
+                        }],
+                        'data'              : {
+                            "owner"              : data['actor'], 
+                            "asset_id"           : x
+                        },
+                    }); 
+                }; return data['val']; 
+            })(DATA)
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions);
+        const packed_trx    = arrayToHex(serial); 
+        
+        if( DATA.hasOwnProperty('privateKey') && DATA['privateKey'] != '' ){
+            const privaKeysAuth = await fl_packedtrx_badg_private_key_auth(DATA); 
+            return new Promise(function(resolve, reject) {
+                resolve({packed_trx, serializedTransaction : serial, transactions, transaction, privaKeysAuth}); 
+            }); 
+        }else{
+            const freeBandwidth = await fl_packedtrx_badg_free_trx(DATA); 
+            return new Promise(function(resolve, reject) {
+                resolve({packed_trx, serializedTransaction : serial, transactions, transaction, freeBandwidth}); 
+            }); 
+        }; 
+        
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions, transaction}); 
+        }); 
+    } catch (err) {
+        console.log('err is', err);
+    }; 
+}; 
+async function fl_packedtrx_badg_free_trx(DATA){
+
+    console.log(DATA)
+
+    try {
+        const chainId       = DATA['chainId'];
+        //    const abiObj        = await get_rawabi_and_abi('fishinglgame');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //    api.cachedAbis.set('fishinglgame', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions"           : [{
+                "account"         : "boost.wax", 
+                "name"            : "noop", 
+                "authorization"   : [{
+                    "actor"             : "boost.wax",
+                    "permission"        : "paybw"
+                }],
+                "data"            : null
+            }].concat(
+                (function (data){
+                    data['val'] = []; 
+                    for (const x of data['asset_id']) {
+                        data['val'].push({
+                            "account"           : "fishinglgame", 
+                            "name"              : "usebadge", 
+                            "authorization"     : [{
+                                "actor"             : data['actor'],
+                                "permission"        : "active"
+                            }],
+                            'data'              : {
+                                "owner"              : data['actor'], 
+                                "asset_id"           : x
+                            },
+                        }); 
+                    }; return data['val']; 
+                })(DATA)
+            )
+        }; 
+        
+        const transactions  = { ...transaction, actions: await api.serializeActions(transaction.actions) };
+        const serial        = api.serializeTransaction(transactions);
+        const packed_trx    = arrayToHex(serial); 
+        
+        return new Promise(function(resolve, reject) {
+            resolve({packed_trx, serializedTransaction : serial, transactions, transaction}); 
+        }); 
+        
+    } catch (err) {
+        console.log('err is', err);
+    }; 
+}; 
+async function fl_packedtrx_badg_private_key_auth(DATA){
+    
+    const _privateKeys        = [ DATA['privateKey'] ]; 
+    const _signatureProvider  = new JsSignatureProvider(_privateKeys); 
+    
+    console.log(DATA)
+    
+    try {
+        const chainId       = DATA['chainId'];
+        //    const abiObj        = await get_rawabi_and_abi('fishinglgame');
+        const api           = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder(), chainId }); 
+        //    api.cachedAbis.set('fishinglgame', {abi: abiObj.abi, rawAbi: abiObj.rawAbi});
+        const transaction   = {
+            "expiration"        : DATA['expiration'],
+            "ref_block_num"     : 65535 & Number(DATA['block_num_or_id'].split('-')[0]), //   block_num_or_id: 126815123 65535 & 126815126
+            "ref_block_prefix"  : Number(DATA['block_num_or_id'].split('-')[1]),
+            "actions"           : (function (data){
+                data['val'] = []; 
+                for (const x of data['asset_id']) {
+                    data['val'].push({
+                        "account"           : "fishinglgame", 
+                        "name"              : "usebadge", 
                         "authorization"     : [{
                             "actor"             : data['payer'],
                             "permission"        : "active"
