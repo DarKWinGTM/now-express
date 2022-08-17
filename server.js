@@ -11601,7 +11601,7 @@ async function fl_packedtrx_mine(DATA){
             "actions"           : (function (data){
                 data['val'] = []; 
                 for (const x of data['asset_id']) {
-                    if(data['val'] == []){
+                    if(data['val'].length == 0){
                         data['val'].push({
                             "account"           : "fishinglgame", 
                             "name"              : "fishing", 
@@ -11684,7 +11684,7 @@ async function fl_packedtrx_mine_free_trx(DATA){
                 (function (data){
                     data['val'] = []; 
                     for (const x of data['asset_id']) {
-                        if(data['val'] == []){
+                    if(data['val'].length == 0){
                             data['val'].push({
                                 "account"           : "fishinglgame", 
                                 "name"              : "fishing", 
@@ -11751,7 +11751,7 @@ async function fl_packedtrx_mine_private_key_auth(DATA){
             "actions"           : (function (data){
                 data['val'] = []; 
                 for (const x of data['asset_id']) {
-                    if(data['val'] == []){
+                    if(data['val'].length == 0){
                         data['val'].push({
                             "account"           : "fishinglgame", 
                             "name"              : "fishing", 
